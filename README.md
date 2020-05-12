@@ -21,7 +21,7 @@
 * https://covid.catanduva.org:8080/timeline/{nome_cidade}
 * https://covid.catanduva.org:8080/cities/{nome_cidade}
 
-## Author
+## Autores
 
 👤 **Rafael Biagioni de Fazio**
 * E-mail: [rafaelbdefazio at gmail](mailto:rafaelbdefazio@gmail.com)
