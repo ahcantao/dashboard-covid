@@ -1,26 +1,26 @@
-dashboard/.DS_STORE
+.DS_STORE
 
-dashboard/dist/
-dashboard/bazel-out
-dashboard/integration/bazel/bazel-*
-dashboard/*.log
-dashboard/node_modules
+dist/
+bazel-out
+integration/bazel/bazel-*
+*.log
+node_modules
 
 # Don't check in secret files
-dashboard/*secret.js
+*secret.js
 
 # Ignore npm/yarn debug log
-dashboard/-debug.log
-dashboard/yarn-error.log
+-debug.log
+yarn-error.log
 
 # build-analytics
-dashboard/.build-analytics
+.build-analytics
 
 # rollup-test output
-dashboard/modules/rollup-test/dist/
+modules/rollup-test/dist/
 
 # User specific bazel settings
-dashboard/.bazelrc.user
+.bazelrc.user
 
-dashboard/.notes.md
-dashboard/baseline.json
+.notes.md
+baseline.json
