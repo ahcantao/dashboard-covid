@@ -31,4 +31,3 @@
 
 👤 **Adriano Henrique Cantão**
 * LinkedIn: [adriano-henrique-cantão-b64347113](https://www.linkedin.com/in/adriano-henrique-cant%C3%A3o-b64347113/)
-
