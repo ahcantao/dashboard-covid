@@ -1,5 +1,5 @@
 
-<h1 align="center">Welcome to 🦠 COVID-19/Corona Statistics Dashboard Angular 9 👋</h1>
+<h1 align="center">Bem vindo ao Dashboard do Boletim de Coronavírus de Catanduva 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.5.0-blue.svg?cacheSeconds=2592000" />
     <img alt="Version" src="https://img.shields.io/badge/build-passing-brightgreen" />
@@ -12,11 +12,9 @@
   <a href="https://ko-fi.com/ossamarafique" target="_blank">
     <img alt="Buy Me A Coffee" src="https://www.ko-fi.com/img/githubbutton_sm.svg" />
   </a>
-  <a href="https://twitter.com/OssamaRafique" target="_blank">
-    <img alt="Twitter: OssamaRafique" src="https://img.shields.io/twitter/follow/OssamaRafique.svg?style=social" />
-  </a>
 </p>
-<img alt="Covid Stats Live Dashboard" src="https://coronastatistics.live/assets/images/preview.png" />
+
+<img alt="Página inicial" src="https://i.imgur.com/c4yhHu6.png" />
 
 ### 🏠 [Homepage](https://github.com/OssamaRafique/Corona-Statistics-And-Tracker-Dashboard-Angular-9)
 
