@@ -14,6 +14,7 @@ import {
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import am4lang_pt_BR from "@amcharts/amcharts4/lang/pt_BR";
 
 import {
   GetdataService
@@ -68,7 +69,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
 
 
-  
+
   ngOnDestroy() {
     this.zone.runOutsideAngular(() => {
       if (this.pieChart) {
@@ -89,7 +90,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       return 0;
     });
   }
-  
+
   ngOnInit() {
     // let nameTimeline = this.route.snapshot.paramMap.get("name");
     let nameTimeline = "Catanduva"
@@ -156,6 +157,12 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       { "number": 1e+9, "suffix": "B" }
     ];
 
+    chart.language.locale = am4lang_pt_BR;
+    chart.numberFormatter.language = new am4core.Language();
+    chart.numberFormatter.language.locale = am4lang_pt_BR;
+    chart.dateFormatter.language = new am4core.Language();
+    chart.dateFormatter.language.locale = am4lang_pt_BR;
+
     // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.minGridDistance = 50;
@@ -177,6 +184,41 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     chart.legend.labels.template.fill = am4core.color("#adb5bd");
 
     chart.cursor = new am4charts.XYCursor();
+
+
+    var update06_05 = dateAxis.axisRanges.create();
+    update06_05.date = new Date("2020-05-06 12:00");
+    update06_05.grid.stroke = am4core.color("#fd7e14");
+    update06_05.grid.strokeWidth = 3;
+    update06_05.grid.strokeOpacity = 0.5;
+    // update06_05.grid.strokeDasharray = "8,4";
+    update06_05.grid.tooltip = new am4core.Tooltip();
+    update06_05.grid.tooltipText = "clique para informações";
+    update06_05.grid.tooltipPosition = "pointer";
+
+    update06_05.grid.events.on("hit", function(ev) {
+      chart.modal.close();
+      chart.openModal("A partir de 06/05/2020, a Prefeitura passou a divulgar o número de casos suspeitos e descartados como a soma de leves + graves, antes desta data era divulgado somente os casos graves.", "Informação");
+    });
+
+
+    var update07_05 = dateAxis.axisRanges.create();
+    update07_05.date = new Date("2020-05-07 12:00");
+    update07_05.grid.stroke = am4core.color("#f9c851");
+    update07_05.grid.strokeWidth = 3;
+    update07_05.grid.strokeOpacity = 0.5;
+    // update07_05.grid.strokeDasharray = "8,4";
+    update07_05.grid.tooltip = new am4core.Tooltip();
+    update07_05.grid.tooltipText = "clique para informações";
+    update07_05.grid.tooltipPosition = "pointer";
+
+    update07_05.grid.events.on("hit", function(ev) {
+      chart.modal.close();
+      chart.openModal("A partir de 07/05/2020, as notificações de casos leves - sem coleta para exame - deixaram de ser contados como descartados e passaram a contar como suspeitos durante 14 dias.", "Informação");
+    });
+
+
+
 
     this.lineChart = chart;
   }
@@ -206,9 +248,17 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       { "number": 1e+9, "suffix": "B" }
     ];
 
+
+    chart.language.locale = am4lang_pt_BR;
+    chart.numberFormatter.language = new am4core.Language();
+    chart.numberFormatter.language.locale = am4lang_pt_BR;
+    chart.dateFormatter.language = new am4core.Language();
+    chart.dateFormatter.language.locale = am4lang_pt_BR;
+
     // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.minGridDistance = 50;
+
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     // valueAxis.logarithmic = chartType;
@@ -268,7 +318,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.pieChart = chart;
   }
 
-  
+
   loadRadar() {
     let chart = am4core.create("radarChart", am4charts.RadarChart);
 
