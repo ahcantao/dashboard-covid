@@ -24,6 +24,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CountupComponent } from './shared/countup/countup.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import {CityComponent} from "./pages/city/city.component";
+import { NewsComponent } from './shared/news/news.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   };
@@ -36,7 +37,7 @@ export function HttpLoaderFactory(http: HttpClient){
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent
+    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent, NewsComponent
   ],
   imports: [
     BrowserModule,

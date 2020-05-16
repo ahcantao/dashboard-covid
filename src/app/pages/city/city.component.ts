@@ -148,6 +148,23 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     });
 
+
+    let first_day = plotData[6];
+    let n_th_day = plotData[plotData.length-1];
+    let total_days = plotData.length-7;
+    let doubling_time = (total_days * Math.log(2)) / (Math.log(n_th_day['cases']/first_day['cases']));
+
+    let last_5_days = plotData[plotData.length-6];
+    let doubling_time_5_days = (5 * Math.log(2)) / (Math.log(n_th_day['cases']/last_5_days['cases']));
+
+    console.log('Tempo para dobrar casos confirmados desde primeiro caso: ', doubling_time.toFixed(2) + ' dias');
+    console.log('Tempo para dobrar casos confirmados nos últimos 5 dias: ', doubling_time_5_days.toFixed(2) + ' dias');
+
+
+
+
+
+
     let chart = am4core.create("lineChart", am4charts.XYChart);
 
     chart.numberFormatter.numberFormat = "#a";
@@ -315,6 +332,16 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     pieSeries.slices.template.stroke = am4core.color("#313a46");
     pieSeries.slices.template.strokeWidth = 1;
     pieSeries.slices.template.strokeOpacity = 1;
+    chart.legend = new am4charts.Legend();
+
+    chart.legend.valueLabels.template.align="left";
+    chart.legend.valueLabels.template.textAlign="start";
+
+    chart.legend.valueLabels.template.fill = am4core.color("#f7f7f7");
+    chart.legend.labels.template.fill = am4core.color("#f7f7f7");
+    // chart.legend.labels.template.fontWeight = "bold";
+
+    pieSeries.legendSettings.labelText = "[bold]{type} ({number})[/]:";
     this.pieChart = chart;
   }
 
