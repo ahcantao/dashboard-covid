@@ -42,7 +42,7 @@
             "11": "Mapa dos 20 primeiros casos confirmados"
         },
         "RateDistribution": {
-            "1": "Taxa de mortalidade entre os casos confirmados"
+            "1": "Taxa de letalidade entre os casos confirmados"
         },
         "InfectionsHistory":{
             "1": "Histórico de casos",
