@@ -5,10 +5,33 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./topbar.component.scss']
 })
 export class TopbarComponent {
+
+  menuActive: boolean = false;
+  appPages: any = [
+    {
+      title: 'Início',
+      url: '/'
+    },
+    {
+      title: 'Análises',
+      url: '/analises'
+    },
+    {
+      title: 'Sobre',
+      url: '/sobre'
+    }
+  ];
+
   constructor() { }
 
   deferredPrompt: any;
   showButton = false;
+
+  closeMenu(){
+
+    this.menuActive = false;
+
+  }
 
   @HostListener('window:beforeinstallprompt', ['$event'])
   onbeforeinstallprompt(e) {

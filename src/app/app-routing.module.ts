@@ -5,10 +5,14 @@ import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 // import { CountryComponent } from './pages/country/country.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import {CityComponent} from "./pages/city/city.component";
+import {AnalisesComponent} from './pages/analises/analises.component';
+import {SobreComponent} from './pages/sobre/sobre.component';
 
 
 const routes: Routes = [
   { path: '',  component: CityComponent},
+  { path: 'analises',  component: AnalisesComponent},
+  { path: 'sobre',  component: SobreComponent},
   // { path: 'analises',  component: AnalysisComponent},
   // { path: 'country/:name', component : CountryComponent},
   // { path: 'city/:name', component : CityComponent},
