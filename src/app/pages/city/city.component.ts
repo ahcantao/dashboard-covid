@@ -44,11 +44,11 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   public timeLine;
 
   public lastUpdate;
-  public totalCases=0;
+  public totalConfirmed=0;
   public totalDeaths=0;
   public totalRecoveries;
   public totalCritical=0;
-  public todayCases=0;
+  public todayConfirmed=0;
   public todayDeaths=0;
   public activeCases=0;
   public casesPer1M=0;
@@ -106,13 +106,13 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
           this.isLoading = false;
           this.country = getAllData["city"];
 
-          this.totalCases = getAllData["totalCases"];
+          this.totalConfirmed = getAllData["totalConfirmed"];
           this.totalDeaths = getAllData["totalDeath"];
           this.totalNotified = getAllData["totalNotified"];
           this.totalSuspect = getAllData["totalSuspect"];
           this.totalDiscarded = getAllData["totalDiscarded"];
 
-          this.todayCases = getAllData["todayTotalCases"];
+          this.todayConfirmed = getAllData["todayTotalConfirmed"];
           this.todayDeaths = getAllData["todayTotalDeath"];
           this.todayNotified = getAllData["todayTotalNotified"];
           this.todaySuspect = getAllData["todayTotalSuspect"];
@@ -140,7 +140,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
       plotData.push({
         date: element['isoDate'],
-        cases: element['totalCases'],
+        cases: element['totalConfirmed'],
         deaths: element['totalDeath'],
         suspect: element['totalSuspect'],
         discarded: element['totalDiscarded']
@@ -249,7 +249,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
       plotData.push({
         date: element['isoDate'],
-        cases: element['todayTotalCases'],
+        cases: element['todayTotalConfirmed'],
         deaths: element['todayTotalDeath'],
         suspect: element['todayTotalSuspect'],
         discarded: element['todayTotalDiscarded']
@@ -304,7 +304,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     let chart = am4core.create("pieChart", am4charts.PieChart);
     chart.data.push({
       type: 'Confirmados',
-      number: this.totalCases,
+      number: this.totalConfirmed,
       "color": am4core.color("#10c469")
     });
     chart.data.push({
@@ -352,7 +352,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     // Add data
     chart.data = [{
       "category": this.translations.deaths,
-      "value": this.totalDeaths / this.totalCases * 100,
+      "value": this.totalDeaths / this.totalConfirmed * 100,
       "full": 100
     },
     //   {

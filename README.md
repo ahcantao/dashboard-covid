@@ -16,10 +16,10 @@
 
 # API Endpoints
 
-* https://covid.catanduva.org:8080/timeline
-* https://covid.catanduva.org:8080/cities
-* https://covid.catanduva.org:8080/timeline/{nome_cidade}
-* https://covid.catanduva.org:8080/cities/{nome_cidade}
+* https://api.catanduva.org/timeline
+* https://api.catanduva.org/cities
+* https://api.catanduva.org/timeline/{nome_cidade}
+* https://api.catanduva.org/cities/{nome_cidade}
 
 ## Autores
 
