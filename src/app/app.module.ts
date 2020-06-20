@@ -28,6 +28,7 @@ import { NewsComponent } from './shared/news/news.component';
 import {FormsModule} from '@angular/forms';
 import { AnalisesComponent } from './pages/analises/analises.component';
 import { SobreComponent } from './pages/sobre/sobre.component';
+import { MidiaComponent } from './pages/midia/midia.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   };
@@ -40,7 +41,7 @@ export function HttpLoaderFactory(http: HttpClient){
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent, NewsComponent, AnalisesComponent, SobreComponent
+    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent, NewsComponent, AnalisesComponent, SobreComponent, MidiaComponent
   ],
   imports: [
     BrowserModule,

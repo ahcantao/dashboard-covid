@@ -48,6 +48,12 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   public totalDeaths=0;
   public totalRecoveries;
   public totalCritical=0;
+  totalCured = 0;
+  totalActive = 0;
+  totalHospitalized = 0;
+  todayCured = 0;
+  todayActive = 0;
+  todayHospitalized = 0;
   public todayConfirmed=0;
   public todayDeaths=0;
   public activeCases=0;
@@ -84,7 +90,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     });
   }
   async ngDoCheck() {
-    this.translate.get(['Shared.Other.14', 'Shared.Other.15', 'Shared.Other.16', 'Shared.Other.17', 'Shared.Other.21', 'Shared.Other.22', 'Shared.Other.23', 'Shared.TopCards.1', 'Shared.TopCards.3', 'Shared.TopCards.4'])
+    this.translate.get(['Shared.Other.14', 'Shared.Other.15', 'Shared.Other.16', 'Shared.Other.17', 'Shared.Other.21', 'Shared.Other.22', 'Shared.Other.23', 'Shared.Other.24', 'Shared.Other.25', 'Shared.Other.26', 'Shared.TopCards.1', 'Shared.TopCards.3', 'Shared.TopCards.4'])
     .subscribe(translations => {
       this.setTranslations(translations);
       return 0;
@@ -111,12 +117,20 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
           this.totalNotified = getAllData["totalNotified"];
           this.totalSuspect = getAllData["totalSuspect"];
           this.totalDiscarded = getAllData["totalDiscarded"];
+          this.totalCured = getAllData["totalCured"];
+          this.totalActive = getAllData["totalActive"];
+          this.totalHospitalized = getAllData["totalHospitalized"];
+
 
           this.todayConfirmed = getAllData["todayTotalConfirmed"];
           this.todayDeaths = getAllData["todayTotalDeath"];
           this.todayNotified = getAllData["todayTotalNotified"];
           this.todaySuspect = getAllData["todayTotalSuspect"];
-          this.todayDiscarded = getAllData["totalDiscarded"];
+          this.todayDiscarded = getAllData["todayTotalDiscarded"];
+          this.todayCured = getAllData["todayTotalCured"];
+          this.todayActive = getAllData["todayTotalActive"];
+          this.todayHospitalized = getAllData["todayTotalHospitalized"];
+
 
           // this.activeCases = getAllData["active"];
           this.casesPer1M = getAllData["casesPerOneMillion"];
@@ -143,7 +157,10 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
         cases: element['totalConfirmed'],
         deaths: element['totalDeath'],
         suspect: element['totalSuspect'],
-        discarded: element['totalDiscarded']
+        discarded: element['totalDiscarded'],
+        active: element['totalActive'],
+        cured: element['totalCured'],
+        hospitalized: element['totalHospitalized']
       });
 
     });
@@ -194,6 +211,9 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     chart = this.createSeriesLine(chart, "#ff5b5b", "deaths");
     chart = this.createSeriesLine(chart, "#f9c851", "suspect");
     chart = this.createSeriesLine(chart, "#fd7e14", "discarded");
+    chart = this.createSeriesLine(chart, "#9c27b0", "active");
+    chart = this.createSeriesLine(chart, "#fcfcfc", "cured");
+    chart = this.createSeriesLine(chart, "#a36f40", "hospitalized");
 
     chart.data = plotData;
 
@@ -252,7 +272,10 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
         cases: element['todayTotalConfirmed'],
         deaths: element['todayTotalDeath'],
         suspect: element['todayTotalSuspect'],
-        discarded: element['todayTotalDiscarded']
+        discarded: element['todayTotalDiscarded'],
+        active: element['todayTotalActive'],
+        cured: element['todayTotalCured'],
+        hospitalized: element['todayTotalHospitalized']
       });
 
     });
@@ -287,6 +310,9 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     chart = this.createSeriesLine(chart, "#ff5b5b", "deaths");
     chart = this.createSeriesLine(chart, "#f9c851", "suspect");
     chart = this.createSeriesLine(chart, "#fd7e14", "discarded");
+    chart = this.createSeriesLine(chart, "#9c27b0", "active");
+    chart = this.createSeriesLine(chart, "#fcfcfc", "cured");
+    chart = this.createSeriesLine(chart, "#a36f40", "hospitalized");
 
     chart.data = plotData;
 
@@ -305,7 +331,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     chart.data.push({
       type: 'Confirmados',
       number: this.totalConfirmed,
-      "color": am4core.color("#10c469")
+      "color": am4core.color("#21AFDD")
     });
     chart.data.push({
       type: 'Óbitos',
@@ -472,6 +498,18 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       name = this.translations.discarded;
     }
 
+    else if(type=="active"){
+      name = this.translations.active;
+    }
+
+    else if(type=="cured"){
+      name = this.translations.cured;
+    }
+
+    else if(type=="hospitalized"){
+      name = this.translations.hospitalized;
+    }
+
     if(!name){
       name = type.charAt(0).toUpperCase() + type.slice(1);
     }
@@ -502,6 +540,9 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.translations.notified = translations['Shared.Other.21'];
     this.translations.suspect = translations['Shared.Other.22'];
     this.translations.discarded = translations['Shared.Other.23'];
+    this.translations.cured = translations['Shared.Other.24'];
+    this.translations.hospitalized = translations['Shared.Other.25'];
+    this.translations.active = translations['Shared.Other.26'];
   }
 
 

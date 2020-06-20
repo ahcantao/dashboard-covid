@@ -39,7 +39,11 @@
             "8": "restantes",
             "9": "Notificados",
             "10": "Suspeitos",
-            "11": "Mapa dos 20 primeiros casos confirmados"
+            "11": "Mapa dos 20 primeiros casos confirmados",
+            "12": "Curados",
+            "13": "Internados",
+            "14": "Ativos",
+            "15": "Descartados"
         },
         "RateDistribution": {
             "1": "Taxa de letalidade entre os casos confirmados"
@@ -111,7 +115,12 @@
             "20": "Select Language",
             "21": "Notificados",
             "22": "Suspeitos",
-            "23": "Descartados"
+            "23": "Descartados",
+            "24": "Curados",
+            "25": "Internados",
+            "26": "Ativos",
+            "27": "Em dúvida se recebeu fake news?",
+            "28": "Converse com uma assistente virutal para tirar dúvidas e receber informações"
         }
     }
 }

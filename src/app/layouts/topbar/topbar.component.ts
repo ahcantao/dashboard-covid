@@ -17,6 +17,10 @@ export class TopbarComponent {
       url: '/analises'
     },
     {
+      title: 'Na mídia',
+      url: '/na-midia'
+    },
+    {
       title: 'Sobre',
       url: '/sobre'
     }
