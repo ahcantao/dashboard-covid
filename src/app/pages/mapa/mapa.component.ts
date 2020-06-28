@@ -13,6 +13,11 @@ import { latLng, tileLayer } from 'leaflet';
 })
 export class MapaComponent {
 
+  constructor() {
+
+
+  }
+
 
   HMData = {
     max: 32,
@@ -119,7 +124,8 @@ export class MapaComponent {
 
   heatmapLayer = new HeatmapOverlay({
     radius: 0.01,
-    maxOpacity: 0.6,
+    // radius: 80,
+    maxOpacity: 0.5,
     scaleRadius: true,
     useLocalExtrema: true,
     latField: 'lat',
@@ -133,10 +139,10 @@ export class MapaComponent {
   options = {
     layers: [
       L.tileLayer(
-          "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
           {
-        maxZoom: 18,
-        attribution: ""
+        maxZoom: 15,
+        attribution: "Casos confirmados em Catanduva/SP | Atualizado em 23/06/2020 | Fonte: Ministério da Saúde"
       }),
     ],
 
@@ -146,6 +152,24 @@ export class MapaComponent {
 
 
   onMapReady(map) {
+
+    for (let i=0; i<this.HMData['data'].length;i++){
+      let lat = this.HMData['data'][i]['lat'];
+      let lng = this.HMData['data'][i]["lng"];
+      let count = this.HMData['data'][i]["count"];
+
+      let circle = new L.Circle(L.latLng(lat, lng), {
+        color: "#21afdd",
+        fillColor: "#21afdd",
+        fillOpacity: 0.5,
+        radius: 100
+      });
+      map.addLayer(circle);
+
+      circle.bindPopup(count + " confirmados");
+
+      // console.log(lat + " " + lng + " " + count);
+    }
 
     this.heatmapLayer.setData(this.HMData);
     this.heatmapLayer.onAdd(map);

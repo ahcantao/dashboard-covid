@@ -17,11 +17,13 @@ const routes: Routes = [
   { path: 'sobre',  component: SobreComponent},
   { path: 'na-midia',  component: MidiaComponent},
   { path: 'mapa-calor',  component: MapaComponent},
+  { path: 'mapa',  component: MapaComponent},
   // { path: 'analises',  component: AnalysisComponent},
   // { path: 'country/:name', component : CountryComponent},
   // { path: 'city/:name', component : CityComponent},
   { path: '**', component : NotFoundComponent}
 ];
+
 
 
 @NgModule({
