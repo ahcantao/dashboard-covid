@@ -17,6 +17,10 @@ export class TopbarComponent {
       url: '/analises'
     },
     {
+      title: 'Mapa de calor',
+      url: '/mapa-calor'
+    },
+    {
       title: 'Na mídia',
       url: '/na-midia'
     },

@@ -29,6 +29,8 @@ import {FormsModule} from '@angular/forms';
 import { AnalisesComponent } from './pages/analises/analises.component';
 import { SobreComponent } from './pages/sobre/sobre.component';
 import { MidiaComponent } from './pages/midia/midia.component';
+import { MapaComponent } from './pages/mapa/mapa.component';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   };
@@ -41,11 +43,12 @@ export function HttpLoaderFactory(http: HttpClient){
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent, NewsComponent, AnalisesComponent, SobreComponent, MidiaComponent
+    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent, NewsComponent, AnalisesComponent, SobreComponent, MidiaComponent, MapaComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+      LeafletModule,
     HttpClientModule,
     AppRoutingModule,CommonModule,
     RouterModule,

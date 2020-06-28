@@ -31,9 +31,14 @@
             "styles": [
               "src/assets/scss/bootstrap.scss",
               "src/assets/scss/app.scss",
-              "src/assets/scss/icons.scss"
+              "src/assets/scss/icons.scss",
+              "node_modules/leaflet/dist/leaflet.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/leaflet/dist/leaflet.js",
+              "node_modules/heatmap.js/build/heatmap.min.js",
+              "node_modules/leaflet-heatmap/leaflet-heatmap.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
