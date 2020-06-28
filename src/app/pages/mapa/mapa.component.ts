@@ -3,6 +3,8 @@ import * as L from 'leaflet';
 import 'heatmap.js';
 import 'leaflet-heatmap';
 declare var HeatmapOverlay: any;
+import { HttpClient } from '@angular/common/http';
+
 // import HeatmapOverlay from 'leaflet-heatmap';
 import { latLng, tileLayer } from 'leaflet';
 
@@ -13,7 +15,10 @@ import { latLng, tileLayer } from 'leaflet';
 })
 export class MapaComponent {
 
-  constructor() {
+
+  json;
+
+  constructor(private http: HttpClient) {
 
 
   }
@@ -151,7 +156,49 @@ export class MapaComponent {
   };
 
 
+  onEachFeature(feature, layer) {
+    //bind click
+    layer.on('click', function (e) {
+      // e = event
+      console.log(feature.properties['NM_BAIRRO']);
+      // You can make your ajax call declaration here
+      //$.ajax(...
+    });
+
+  }
+
+
+
+
   onMapReady(map) {
+
+
+    this.http.get('assets/heatmap/Catanduva.geojson').subscribe((json: any) => {
+      console.log(json);
+      this.json = json;
+
+      let bairros =  L.geoJSON(this.json, {
+        style: {
+          color: "#333",
+          opacity: 0.1,
+          weight: 2,
+          fillColor: "#ccc",
+          fillOpacity: 0,
+        },
+
+        onEachFeature: this.onEachFeature
+      });
+
+    bairros.addTo(map).bringToBack();
+
+
+    });
+
+
+
+    this.heatmapLayer.setData(this.HMData);
+    this.heatmapLayer.onAdd(map);
+
 
     for (let i=0; i<this.HMData['data'].length;i++){
       let lat = this.HMData['data'][i]['lat'];
@@ -164,6 +211,7 @@ export class MapaComponent {
         fillOpacity: 0.5,
         radius: 100
       });
+
       map.addLayer(circle);
 
       circle.bindPopup(count + " confirmados");
@@ -171,8 +219,8 @@ export class MapaComponent {
       // console.log(lat + " " + lng + " " + count);
     }
 
-    this.heatmapLayer.setData(this.HMData);
-    this.heatmapLayer.onAdd(map);
+
+
   }
 
 }
