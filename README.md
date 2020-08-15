@@ -21,6 +21,17 @@
 * https://api.catanduva.org/timeline/{nome_cidade}
 * https://api.catanduva.org/cities/{nome_cidade}
 
+## Changelog
+###V2.2.1 (2020-08-15)
+
+#### Correções e atualizações:
+- URL para Twitter
+- Mapa de calor de casos confirmados atualizado
+
+#### Novas funcionalidades:
+- Incorporação de dashboard do Google Data Studio em /analises
+- Criação de página para informações técnicas em /informacoes-tecnicas
+
 ## Autores
 
 👤 **Rafael Biagioni de Fazio**

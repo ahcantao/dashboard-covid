@@ -1,11 +1,20 @@
 <div class="container-fluid">
 
-    <div class="row mt-4">
-        <div class="col-12">
 
 
-            <p class="font-20">Análises serão disponibilizadas em breve.</p>
+    <div class="row mt-4 justify-content-center">
+        <div class="col-10 align-middle">
 
+            <div class="alert alert-danger" role="alert" *ngIf="isFirefox">
+                Há um problema ao mostrar nosso painel integrado no website ao utilizar o navegador Mozilla Firefox. Por favor, clique <a href="https://datastudio.google.com/reporting/194278c0-68be-4d83-a2e8-03f40c3ee416" target="_blank">aqui</a> para acessar o painel de análises em outra aba. Obrigado pela compreensão.
+            </div>
+
+
+            <div class="alert alert-info" role="info" *ngIf="isSmallScreen">
+                As análises são melhor visualizadas em dispositivos com telas maiores, como tablets, notebooks e desktops.
+            </div>
+
+            <iframe class="responsive-iframe" [src]="urlSafe" style="border:0" allowfullscreen frameborder="0" scrolling="no"></iframe>
 
 
         </div><!-- end col -->
