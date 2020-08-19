@@ -22,7 +22,7 @@
 * https://api.catanduva.org/cities/{nome_cidade}
 
 ## Changelog
-### V2.3.0 (2020-08-15)
+### V2.3.0 (2020-08-18)
 🎉 Agora PI-COVID está em Cravinhos/SP
  
 #### Correções e atualizações:
