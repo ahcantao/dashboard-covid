@@ -23,10 +23,10 @@
 
 ## Changelog
 ### V2.3.0 (2020-08-18)
-🎉 Agora PI-COVID está em Cravinhos/SP
+🎉 Agora PI-COVID está presente em Cravinhos/SP
  
 #### Correções e atualizações:
-- 404 agora redireciona para página inicial
+- 404 passa a redirecionar para a página inicial
 
 #### Novas funcionalidades:
 - componente para exibição de dashboards incorporados do Google Data Studio
@@ -51,4 +51,6 @@
 
 
 👤 **Adriano Henrique Cantão**
+* E-mail: [adriano.cantao at gmail](mailto:adriano.cantao@gmail.com)
+* Github: [@ahcantao](https://github.com/ahcantao)
 * LinkedIn: [adriano-henrique-cantão-b64347113](https://www.linkedin.com/in/adriano-henrique-cant%C3%A3o-b64347113/)
