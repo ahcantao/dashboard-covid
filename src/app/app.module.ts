@@ -32,6 +32,8 @@ import { MidiaComponent } from './pages/midia/midia.component';
 import { MapaComponent } from './pages/mapa/mapa.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import { InformacoesTecnicasComponent } from './pages/informacoes-tecnicas/informacoes-tecnicas.component';
+import { CravinhosComponent } from './pages/cravinhos/cravinhos.component';
+import { DataStudioComponent } from './pages/data-studio/data-studio.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   };
@@ -44,7 +46,7 @@ export function HttpLoaderFactory(http: HttpClient){
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent, NewsComponent, AnalisesComponent, SobreComponent, MidiaComponent, MapaComponent, InformacoesTecnicasComponent
+    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent, NewsComponent, AnalisesComponent, SobreComponent, MidiaComponent, MapaComponent, InformacoesTecnicasComponent, CravinhosComponent, DataStudioComponent
   ],
   imports: [
     BrowserModule,

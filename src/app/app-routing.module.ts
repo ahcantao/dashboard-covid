@@ -10,10 +10,13 @@ import {SobreComponent} from './pages/sobre/sobre.component';
 import {MidiaComponent} from './pages/midia/midia.component';
 import {MapaComponent} from './pages/mapa/mapa.component';
 import {InformacoesTecnicasComponent} from './pages/informacoes-tecnicas/informacoes-tecnicas.component';
+import {CravinhosComponent} from './pages/cravinhos/cravinhos.component';
 
 
 const routes: Routes = [
   { path: '',  component: CityComponent},
+  { path: 'catanduva',  component: CityComponent},
+  { path: 'cravinhos',  component: CravinhosComponent},
   { path: 'analises',  component: AnalisesComponent},
   { path: 'sobre',  component: SobreComponent},
   { path: 'na-midia',  component: MidiaComponent},
@@ -23,7 +26,7 @@ const routes: Routes = [
   // { path: 'analises',  component: AnalysisComponent},
   // { path: 'country/:name', component : CountryComponent},
   // { path: 'city/:name', component : CityComponent},
-  { path: '**', component : NotFoundComponent}
+  { path: '**', redirectTo: '/'}
 ];
 
 
