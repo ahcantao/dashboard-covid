@@ -1,4 +1,4 @@
-<h1 align="center">Boletim de Coronavírus de Catanduva</h1>
+<h1 align="center">PI-COVID</h1>
 <p>
 
   <a href="#" target="_blank">
@@ -16,10 +16,18 @@
 
 # API Endpoints
 
-* https://api.catanduva.org/timeline
-* https://api.catanduva.org/cities
-* https://api.catanduva.org/timeline/{nome_cidade}
-* https://api.catanduva.org/cities/{nome_cidade}
+* https://api.picovid.com.br/timeline
+* https://api.picovid.com.br/cities
+* https://api.picovid.com.br/timeline/{nome_cidade}
+* https://api.picovid.com.br/cities/{nome_cidade}
+
+
+## Changelog
+### V2.3.1 (2020-08-19)
+
+#### Correções e atualizações:
+- Mudança de URL de api de api.catanduva.org para api.picovid.com.br
+
 
 ## Changelog
 ### V2.3.0 (2020-08-18)

@@ -11,7 +11,7 @@ HttpClient
 export class GetdataService {
 
   constructor(private _http: HttpClient) { }
-  private url_host = "https://api.catanduva.org";
+  private url_host = "https://api.picovid.com.br";
 
 
   getCity(name): Observable<Country>{
