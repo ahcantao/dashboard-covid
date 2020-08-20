@@ -27,7 +27,9 @@
 
 #### Correções e atualizações:
 - Mudança de URL de api de api.catanduva.org para api.picovid.com.br
-
+- Mudança de nome: PI-COVID Catanduva/SP para PI-COVID
+- mudança de .webmanifest
+- mudança de URL canônico
 
 ## Changelog
 ### V2.3.0 (2020-08-18)

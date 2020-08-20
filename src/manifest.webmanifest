@@ -1,6 +1,6 @@
 {
-  "name": "PI-COVID - Boletim do Coronavírus de Catanduva/SP",
-  "short_name": "PI-COVID Catanduva/SP",
+  "name": "PI-COVID - Boletim do Coronavírus",
+  "short_name": "PI-COVID",
   "theme_color": "#282e38",
   "background_color": "#282e38",
   "display": "standalone",
