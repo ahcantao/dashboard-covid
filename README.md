@@ -23,6 +23,11 @@
 
 
 ## Changelog
+### V2.4.0 (2020-09-04)
+
+#### Novas funcionalidades:
+- Criação da página /live
+
 ### V2.3.1 (2020-08-19)
 
 #### Correções e atualizações:
