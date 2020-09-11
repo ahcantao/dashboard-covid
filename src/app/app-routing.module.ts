@@ -12,18 +12,20 @@ import {MapaComponent} from './pages/mapa/mapa.component';
 import {InformacoesTecnicasComponent} from './pages/informacoes-tecnicas/informacoes-tecnicas.component';
 import {CravinhosComponent} from './pages/cravinhos/cravinhos.component';
 import {LiveComponent} from './pages/cravinhos/live/live.component';
+import {InicioComponent} from './pages/inicio/inicio.component';
 
 
 const routes: Routes = [
-  { path: '',  component: CityComponent},
-  { path: 'catanduva',  component: CityComponent},
+  { path: '',  component: InicioComponent},
+  { path: ':state/:cityName', component: CityComponent},
+  // { path: 'catanduva',  component: CityComponent},
   { path: 'cravinhos',  component: CravinhosComponent},
   { path: 'live',  component: LiveComponent},
-  { path: 'analises',  component: AnalisesComponent},
+  // { path: 'analises',  component: AnalisesComponent},
   { path: 'sobre',  component: SobreComponent},
   { path: 'na-midia',  component: MidiaComponent},
-  { path: 'mapa-calor',  component: MapaComponent},
-  { path: 'mapa',  component: MapaComponent},
+  // { path: 'mapa-calor',  component: MapaComponent},
+  // { path: 'mapa',  component: MapaComponent},
   { path: 'informacoes-tecnicas',  component: InformacoesTecnicasComponent},
   // { path: 'analises',  component: AnalysisComponent},
   // { path: 'country/:name', component : CountryComponent},

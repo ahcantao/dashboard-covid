@@ -8,8 +8,8 @@ import {
 import COUNTRY_CODES from "../../shared/utils/countries"
 
 import {
-  ActivatedRoute
-} from "@angular/router";
+  ActivatedRoute, Router
+} from '@angular/router';
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -68,12 +68,18 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   public totalDiscarded = 0;
   public todayDiscarded = 0;
   public countryCodes = COUNTRY_CODES;
-  public country: any;
+  public cityName: any;
+  public state: any;
   public translations : any = {};
 
-  constructor(private route: ActivatedRoute, private _getDataService: GetdataService, private zone: NgZone, public translate : TranslateService) {}
-
-
+  constructor(
+      private route: ActivatedRoute,
+      private _getDataService: GetdataService,
+      private zone: NgZone,
+      public translate : TranslateService,
+      public router: Router,
+  )
+  {}
 
 
   ngOnDestroy() {
@@ -98,51 +104,65 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   ngOnInit() {
-    // let nameTimeline = this.route.snapshot.paramMap.get("name");
-    let nameTimeline = "Catanduva"
+
+    this.state = this.route.snapshot.params['state'].toLowerCase();
+    this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
+
+
     this.zone.runOutsideAngular(() => {
       combineLatest(
-        this._getDataService.getCity("Catanduva"),
-        this._getDataService.getTimelineCity("Catanduva")
+        this._getDataService.getCity(this.state, this.cityName),
+        this._getDataService.getTimelineCity(this.state, this.cityName)
         )
         .subscribe(([getAllData, getTimelineData]) => {
 
           getAllData = getAllData[0];
-          this.lastUpdate = getAllData['isoDate'];
-          this.isLoading = false;
-          this.country = getAllData["city"];
-
-          this.totalConfirmed = getAllData["totalConfirmed"];
-          this.totalDeaths = getAllData["totalDeath"];
-          this.totalNotified = getAllData["totalNotified"];
-          this.totalSuspect = getAllData["totalSuspect"];
-          this.totalDiscarded = getAllData["totalDiscarded"];
-          this.totalCured = getAllData["totalCured"];
-          this.totalActive = getAllData["totalActive"];
-          this.totalHospitalized = getAllData["totalHospitalized"];
 
 
-          this.todayConfirmed = getAllData["todayTotalConfirmed"];
-          this.todayDeaths = getAllData["todayTotalDeath"];
-          this.todayNotified = getAllData["todayTotalNotified"];
-          this.todaySuspect = getAllData["todayTotalSuspect"];
-          this.todayDiscarded = getAllData["todayTotalDiscarded"];
-          this.todayCured = getAllData["todayTotalCured"];
-          this.todayActive = getAllData["todayTotalActive"];
-          this.todayHospitalized = getAllData["todayTotalHospitalized"];
+
+            this.lastUpdate = getAllData['isoDate'];
+            this.isLoading = false;
+            this.cityName = getAllData["cityName"];
+            this.state = getAllData["state"];
+
+            this.totalConfirmed = getAllData["totalConfirmed"];
+            this.totalDeaths = getAllData["totalDeath"];
+            this.totalNotified = getAllData["totalNotified"];
+            this.totalSuspect = getAllData["totalSuspect"];
+            this.totalDiscarded = getAllData["totalDiscarded"];
+            this.totalCured = getAllData["totalCured"];
+            this.totalActive = getAllData["totalActive"];
+            this.totalHospitalized = getAllData["totalHospitalized"];
 
 
-          // this.activeCases = getAllData["active"];
-          this.casesPer1M = getAllData["casesPerOneMillion"];
-          this.finishedCases = this.totalDeaths + this.totalRecoveries;
-          this.timeLine = getTimelineData;
+            this.todayConfirmed = getAllData["todayTotalConfirmed"];
+            this.todayDeaths = getAllData["todayTotalDeath"];
+            this.todayNotified = getAllData["todayTotalNotified"];
+            this.todaySuspect = getAllData["todayTotalSuspect"];
+            this.todayDiscarded = getAllData["todayTotalDiscarded"];
+            this.todayCured = getAllData["todayTotalCured"];
+            this.todayActive = getAllData["todayTotalActive"];
+            this.todayHospitalized = getAllData["todayTotalHospitalized"];
 
-          this.loadPieChart();
-          this.loadLineChart(false);
-          this.loadLineChartToday(false);
-          this.loadRadar();
+
+            // this.activeCases = getAllData["active"];
+            this.casesPer1M = getAllData["casesPerOneMillion"];
+            this.finishedCases = this.totalDeaths + this.totalRecoveries;
+            this.timeLine = getTimelineData;
+
+            this.loadPieChart();
+            this.loadLineChart(false);
+            this.loadLineChartToday(false);
+            this.loadRadar();
+
+
         });
     });
+
+
+
+
+    
   }
 
   loadLineChart(chartType) {
@@ -166,20 +186,16 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     });
 
 
-    let first_day = plotData[6];
-    let n_th_day = plotData[plotData.length-1];
-    let total_days = plotData.length-7;
-    let doubling_time = (total_days * Math.log(2)) / (Math.log(n_th_day['cases']/first_day['cases']));
-
-    let last_5_days = plotData[plotData.length-6];
-    let doubling_time_5_days = (5 * Math.log(2)) / (Math.log(n_th_day['cases']/last_5_days['cases']));
-
-    console.log('Tempo para dobrar casos confirmados desde primeiro caso: ', doubling_time.toFixed(2) + ' dias');
-    console.log('Tempo para dobrar casos confirmados nos últimos 5 dias: ', doubling_time_5_days.toFixed(2) + ' dias');
-
-
-
-
+    // let first_day = plotData[6];
+    // let n_th_day = plotData[plotData.length-1];
+    // let total_days = plotData.length-7;
+    // let doubling_time = (total_days * Math.log(2)) / (Math.log(n_th_day['cases']/first_day['cases']));
+    //
+    // let last_5_days = plotData[plotData.length-6];
+    // let doubling_time_5_days = (5 * Math.log(2)) / (Math.log(n_th_day['cases']/last_5_days['cases']));
+    //
+    // console.log('Tempo para dobrar casos confirmados desde primeiro caso: ', doubling_time.toFixed(2) + ' dias');
+    // console.log('Tempo para dobrar casos confirmados nos últimos 5 dias: ', doubling_time_5_days.toFixed(2) + ' dias');
 
 
     let chart = am4core.create("lineChart", am4charts.XYChart);

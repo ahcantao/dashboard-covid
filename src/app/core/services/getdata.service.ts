@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { retry, catchError } from 'rxjs/operators';
+import {retry, catchError, first} from 'rxjs/operators';
 import { Country } from '../models/country';
 import { Observable, throwError } from 'rxjs';
 
@@ -14,15 +14,16 @@ export class GetdataService {
   private url_host = "https://api.picovid.com.br";
 
 
-  getCity(name): Observable<Country>{
-    return this._http.get<Country>(`${this.url_host}/cities/${name}`).pipe(
+  getCity(stateName, cityName): Observable<any>{
+    return this._http.get<Country>(`${this.url_host}/cities/${stateName}/${cityName}`).pipe(
+        first(),
         retry(1),
         catchError(this.handleError)
     );
   }
 
-  getTimelineCity(city){
-    return this._http.get(`${this.url_host}/timeline/${city}`).pipe(
+  getTimelineCity(stateName, cityName): Observable<any>{
+    return this._http.get(`${this.url_host}/timeline/${stateName}/${cityName}`).pipe(
         retry(1),
         catchError(this.handleError)
     );

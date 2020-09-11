@@ -1,11 +1,11 @@
 <div class="container-fluid">
 
-  <h2 class="text-center mt-3 mb-3" *ngIf="country">
+  <h2 class="text-center mt-3 mb-3" *ngIf="cityName">
     <img
-    width="100px" src="assets/flags/catanduva.jpg" alt="{{country}}">
+    width="100px" src="assets/flags/{{state.toLowerCase()}}-{{cityName.toLowerCase()}}.jpg" alt="{{country}}">
     <br/><br/>
 <!--    {{ 'Shared.Other.18' | translate }}-->
-    {{country}}/SP<br/>{{lastUpdate | date : 'dd/MM/yyyy'}}
+    <span style="text-transform: uppercase">{{cityName}} / {{state}}<br/>{{lastUpdate | date : 'dd/MM/yyyy'}}</span>
   </h2>
 
   <div class="row">
@@ -221,7 +221,7 @@
     <div class="col-xl-4">
 
       <div class="card-box">
-        <h4 class="header-title mb-3" *ngIf="country">{{ 'Country.InfectionCountries.1' | translate }}</h4>
+        <h4 class="header-title mb-3" *ngIf="cityName">{{ 'Country.InfectionCountries.1' | translate }}</h4>
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
         </div>
@@ -238,8 +238,7 @@
       <div class="card-box">
 <!--        <div class="float-md-right float-right d-md-inline d-none">-->
 <!--          <div class="custom-control custom-checkbox">-->
-<!--            <input type="checkbox" class="custom-control-input" id="enableLogarithmicScale" #enableLogarithmicScale (change)="loadLineChart(enableLogarithmicScale.checked)"-->
-<!--            >-->
+<!--            <input type="checkbox" class="custom-control-input" id="enableLogarithmicScale" #enableLogarithmicScale (change)="loadLineChart(enableLogarithmicScale.checked)">-->
 <!--            <label class="custom-control-label" for="enableLogarithmicScale">{{ 'Shared.InfectionsHistory.2' | translate }}</label>-->
 <!--          </div>-->
 <!--        </div>-->
@@ -340,47 +339,47 @@
   </div>
 
 
-  <div class="row">
+<!--  <div class="row">-->
 
-    <div class="col-xl-6">
-      <div class="card-box">
+<!--    <div class="col-xl-6">-->
+<!--      <div class="card-box">-->
 
-        <h4 class="header-title mt-0 mb-3">{{ 'Shared.TopCards.11' | translate }}</h4>
+<!--        <h4 class="header-title mt-0 mb-3">{{ 'Shared.TopCards.11' | translate }}</h4>-->
 
-        <div class="row">
-          <div class="col-12">
+<!--        <div class="row">-->
+<!--          <div class="col-12">-->
 
-            <a href="https://www.google.com/maps/d/u/0/viewer?mid=1SZi85Swa4vhDU3U5C3I5l3vyK6oesgXX&ll=-21.141021579915027%2C-48.97572939999998&z=14" target="_blank">
-            <img rel="preload" src="assets/images/mapa.webp" class="img-fluid">
-            </a>
-          </div>
-        </div>
-      </div>
-    </div><!-- end col -->
+<!--            <a href="https://www.google.com/maps/d/u/0/viewer?mid=1SZi85Swa4vhDU3U5C3I5l3vyK6oesgXX&ll=-21.141021579915027%2C-48.97572939999998&z=14" target="_blank">-->
+<!--            <img rel="preload" src="assets/images/mapa.webp" class="img-fluid">-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>&lt;!&ndash; end col &ndash;&gt;-->
 
-    <div class="col-xl-6">
-      <div class="card-box text-center">
-        <h5>{{ 'Shared.Other.2' | translate }}</h5>
-        <app-countup></app-countup>
-      </div>
+<!--    <div class="col-xl-6">-->
+<!--      <div class="card-box text-center">-->
+<!--        <h5>{{ 'Shared.Other.2' | translate }}</h5>-->
+<!--        <app-countup></app-countup>-->
+<!--      </div>-->
 
-      <div class="card-box text-center">
-        <h5>Fonte</h5>
-        <b>Boletins do Coronavírus</b>: Prefeitura Municipal de Catanduva<br/>
-        O PI-COVID é desenvolvido e mantido de forma independente, ou seja, NÃO é um site oficial da Prefeitura de Catanduva.
-      </div>
+<!--      <div class="card-box text-center">-->
+<!--        <h5>Fonte</h5>-->
+<!--        <b>Boletins do Coronavírus</b>: Prefeitura Municipal de Catanduva<br/>-->
+<!--        O PI-COVID é desenvolvido e mantido de forma independente, ou seja, NÃO é um site oficial da Prefeitura de Catanduva.-->
+<!--      </div>-->
 
-      <div class="card-box text-center">
-        <h5>Contatos Úteis</h5>
-        <span>Disk Saúde: <a href="tel:35319300">3531-9300</a></span><br/>
-        <span>Fiscalização: <a href="tel:35319184">3531-9184</a></span><br/>
-        <span>Vigilância Sanitária: <a href="tel:35319315">3531-9315</a></span><br/>
-        <span>Guarda Civil Municipal: <a href="tel:153">153</a></span><br/>
-        <span>Ouvidoria da Prefeitura: <a href="tel:08007729152">0800 772 9152</a></span>
-      </div>
-    </div><!-- end col -->
+<!--      <div class="card-box text-center">-->
+<!--        <h5>Contatos Úteis</h5>-->
+<!--        <span>Disk Saúde: <a href="tel:35319300">3531-9300</a></span><br/>-->
+<!--        <span>Fiscalização: <a href="tel:35319184">3531-9184</a></span><br/>-->
+<!--        <span>Vigilância Sanitária: <a href="tel:35319315">3531-9315</a></span><br/>-->
+<!--        <span>Guarda Civil Municipal: <a href="tel:153">153</a></span><br/>-->
+<!--        <span>Ouvidoria da Prefeitura: <a href="tel:08007729152">0800 772 9152</a></span>-->
+<!--      </div>-->
+<!--    </div>&lt;!&ndash; end col &ndash;&gt;-->
 
-  </div>
+<!--  </div>-->
 
 
 </div> <!-- end container -->

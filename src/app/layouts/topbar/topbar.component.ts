@@ -12,13 +12,22 @@ export class TopbarComponent {
       title: 'Início',
       url: '/'
     },
+    // {
+    //   title: 'Análises',
+    //   url: '/analises'
+    // },
+    // {
+    //   title: 'Mapa de calor',
+    //   url: '/mapa-calor'
+    // },
+
     {
-      title: 'Análises',
-      url: '/analises'
+      title: 'Catanduva/SP',
+      url: '/SP/Catanduva'
     },
     {
-      title: 'Mapa de calor',
-      url: '/mapa-calor'
+      title: 'Cravinhos/SP',
+      url: '/SP/Cravinhos'
     },
     {
       title: 'Informações técnicas',

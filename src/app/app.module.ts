@@ -23,6 +23,7 @@ import { environment } from '../environments/environment';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CountupComponent } from './shared/countup/countup.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import {CityComponent} from "./pages/city/city.component";
 import { NewsComponent } from './shared/news/news.component';
 import {FormsModule} from '@angular/forms';
@@ -35,6 +36,7 @@ import { InformacoesTecnicasComponent } from './pages/informacoes-tecnicas/infor
 import { CravinhosComponent } from './pages/cravinhos/cravinhos.component';
 import { DataStudioComponent } from './pages/data-studio/data-studio.component';
 import { LiveComponent } from './pages/cravinhos/live/live.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   };
@@ -47,7 +49,7 @@ export function HttpLoaderFactory(http: HttpClient){
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent, NewsComponent, AnalisesComponent, SobreComponent, MidiaComponent, MapaComponent, InformacoesTecnicasComponent, CravinhosComponent, DataStudioComponent, LiveComponent
+    LayoutComponent,TopbarComponent, NavbarComponent, FooterComponent, CityComponent, NotFoundComponent, CountupComponent, NewsComponent, AnalisesComponent, SobreComponent, MidiaComponent, MapaComponent, InformacoesTecnicasComponent, CravinhosComponent, DataStudioComponent, LiveComponent, InicioComponent
   ],
   imports: [
     BrowserModule,
