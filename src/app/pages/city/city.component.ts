@@ -3,7 +3,7 @@ import {
   OnInit,
   NgZone,
   OnDestroy,
-  DoCheck, HostListener
+  DoCheck, HostListener, SimpleChanges, OnChanges
 } from '@angular/core';
 import COUNTRY_CODES from "../../shared/utils/countries"
 
@@ -20,10 +20,9 @@ import {
   GetdataService
 } from "./../../core/services/getdata.service";
 import {
-  combineLatest
+  combineLatest, Subscription
 } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-
 
 am4core.useTheme(am4themes_animated);
 
@@ -33,10 +32,14 @@ am4core.useTheme(am4themes_animated);
   styleUrls: ['./city.component.scss']
 })
 
-
 export class CityComponent implements OnInit, OnDestroy, DoCheck {
+
+  combined$: Subscription;
+  route$: Subscription;
+
   private pieChart: am4charts.PieChart;
   private lineChart: am4charts.XYChart;
+  private lineChartToday: am4charts.XYChart;
   private radarChart: am4charts.RadarChart
 
   public isLoading: boolean = true;
@@ -67,7 +70,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   public todayTotalSuspect=0;
   public totalDiscarded = 0;
   public todayDiscarded = 0;
-  public countryCodes = COUNTRY_CODES;
   public cityName: any;
   public state: any;
   public translations : any = {};
@@ -79,7 +81,9 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       public translate : TranslateService,
       public router: Router,
   )
-  {}
+  {
+    this.reload();
+  }
 
 
   ngOnDestroy() {
@@ -92,9 +96,21 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       }
       if (this.radarChart) {
         this.radarChart.dispose();
+      } if(this.lineChartToday){
+        this.lineChartToday.dispose();
       }
     });
+
+    if (this.combined$){
+      this.combined$.unsubscribe();
+    }
+
+    if (this.route$){
+      this.route$.unsubscribe();
+    }
+
   }
+
   async ngDoCheck() {
     this.translate.get(['Shared.Other.14', 'Shared.Other.15', 'Shared.Other.16', 'Shared.Other.17', 'Shared.Other.21', 'Shared.Other.22', 'Shared.Other.23', 'Shared.Other.24', 'Shared.Other.25', 'Shared.Other.26', 'Shared.TopCards.1', 'Shared.TopCards.3', 'Shared.TopCards.4'])
     .subscribe(translations => {
@@ -105,64 +121,75 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
   ngOnInit() {
 
-    this.state = this.route.snapshot.params['state'].toLowerCase();
-    this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
+    this.route$ = this.route.params.subscribe(routeParams => {
+
+      this.ngOnDestroy();
+
+      this.isLoading = true;
+      this.state = this.route.snapshot.params['state'].toLowerCase();
+      this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
+
+      this.reload();
 
 
-    this.zone.runOutsideAngular(() => {
-      combineLatest(
-        this._getDataService.getCity(this.state, this.cityName),
-        this._getDataService.getTimelineCity(this.state, this.cityName)
-        )
-        .subscribe(([getAllData, getTimelineData]) => {
+    })
 
-          getAllData = getAllData[0];
+    // this.zone.runOutsideAngular(() => {
 
+      // this.reload();
 
-
-            this.lastUpdate = getAllData['isoDate'];
-            this.isLoading = false;
-            this.cityName = getAllData["cityName"];
-            this.state = getAllData["state"];
-
-            this.totalConfirmed = getAllData["totalConfirmed"];
-            this.totalDeaths = getAllData["totalDeath"];
-            this.totalNotified = getAllData["totalNotified"];
-            this.totalSuspect = getAllData["totalSuspect"];
-            this.totalDiscarded = getAllData["totalDiscarded"];
-            this.totalCured = getAllData["totalCured"];
-            this.totalActive = getAllData["totalActive"];
-            this.totalHospitalized = getAllData["totalHospitalized"];
-
-
-            this.todayConfirmed = getAllData["todayTotalConfirmed"];
-            this.todayDeaths = getAllData["todayTotalDeath"];
-            this.todayNotified = getAllData["todayTotalNotified"];
-            this.todaySuspect = getAllData["todayTotalSuspect"];
-            this.todayDiscarded = getAllData["todayTotalDiscarded"];
-            this.todayCured = getAllData["todayTotalCured"];
-            this.todayActive = getAllData["todayTotalActive"];
-            this.todayHospitalized = getAllData["todayTotalHospitalized"];
-
-
-            // this.activeCases = getAllData["active"];
-            this.casesPer1M = getAllData["casesPerOneMillion"];
-            this.finishedCases = this.totalDeaths + this.totalRecoveries;
-            this.timeLine = getTimelineData;
-
-            this.loadPieChart();
-            this.loadLineChart(false);
-            this.loadLineChartToday(false);
-            this.loadRadar();
-
-
-        });
-    });
-
-
-
+    // }
 
     
+  }
+
+  reload(){
+    this.combined$ =  combineLatest(
+        this._getDataService.getCity(this.state, this.cityName),
+        this._getDataService.getTimelineCity(this.state, this.cityName)
+    ).subscribe(([getAllData, getTimelineData]) => {
+
+      getAllData = getAllData[0];
+
+      this.lastUpdate = getAllData['isoDate'];
+      this.cityName = getAllData["cityName"];
+      this.state = getAllData["state"];
+
+      this.totalConfirmed = getAllData["totalConfirmed"];
+      this.totalDeaths = getAllData["totalDeath"];
+      this.totalNotified = getAllData["totalNotified"];
+      this.totalSuspect = getAllData["totalSuspect"];
+      this.totalDiscarded = getAllData["totalDiscarded"];
+      this.totalCured = getAllData["totalCured"];
+      this.totalActive = getAllData["totalActive"];
+      this.totalHospitalized = getAllData["totalHospitalized"];
+
+
+      this.todayConfirmed = getAllData["todayTotalConfirmed"];
+      this.todayDeaths = getAllData["todayTotalDeath"];
+      this.todayNotified = getAllData["todayTotalNotified"];
+      this.todaySuspect = getAllData["todayTotalSuspect"];
+      this.todayDiscarded = getAllData["todayTotalDiscarded"];
+      this.todayCured = getAllData["todayTotalCured"];
+      this.todayActive = getAllData["todayTotalActive"];
+      this.todayHospitalized = getAllData["todayTotalHospitalized"];
+
+
+      // this.activeCases = getAllData["active"];
+      // this.casesPer1M = getAllData["casesPerOneMillion"];
+      this.finishedCases = this.totalDeaths + this.totalRecoveries;
+      this.timeLine = getTimelineData;
+
+      this.isLoading = false;
+
+
+      this.loadPieChart();
+      this.loadLineChart(false);
+      this.loadLineChartToday(false);
+      this.loadRadar();
+    }, (e) => {console.warn(e)});
+
+    // this.combined$.unsubscribe();
   }
 
   loadLineChart(chartType) {
@@ -337,10 +364,8 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     chart.cursor = new am4charts.XYCursor();
 
-    this.lineChart = chart;
+    this.lineChartToday = chart;
   }
-
-
 
   loadPieChart() {
     let chart = am4core.create("pieChart", am4charts.PieChart);
@@ -386,7 +411,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     pieSeries.legendSettings.labelText = "[bold]{type} ({number})[/]:";
     this.pieChart = chart;
   }
-
 
   loadRadar() {
     let chart = am4core.create("radarChart", am4charts.RadarChart);
@@ -488,6 +512,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     this.radarChart = chart;
   }
+
   createSeriesLine(chart, color, type) {
     let name = null;
 
@@ -547,6 +572,8 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     series.tooltip.label.fill = am4core.color("#282e38");
     return chart
   }
+
+
   async setTranslations(translations){
     this.translations.active = translations['Shared.Other.14'];
     this.translations.recovered = translations['Shared.Other.15'];

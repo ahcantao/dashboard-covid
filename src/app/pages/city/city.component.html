@@ -5,7 +5,12 @@
     width="100px" src="assets/flags/{{state.toLowerCase()}}-{{cityName.toLowerCase()}}.jpg" alt="{{country}}">
     <br/><br/>
 <!--    {{ 'Shared.Other.18' | translate }}-->
-    <span style="text-transform: uppercase">{{cityName}} / {{state}}<br/>{{lastUpdate | date : 'dd/MM/yyyy'}}</span>
+
+    <div class="fa-3x text-center" [class.d-none]="!isLoading">
+      <i class="fas fa-circle-notch fa-spin m-2"></i>
+    </div>
+
+    <span *ngIf="!  isLoading" style="text-transform: uppercase">{{cityName}} / {{state}}<br/>{{lastUpdate | date : 'dd/MM/yyyy'}}</span>
   </h2>
 
   <div class="row">

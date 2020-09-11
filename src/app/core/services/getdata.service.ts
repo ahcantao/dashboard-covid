@@ -16,7 +16,6 @@ export class GetdataService {
 
   getCity(stateName, cityName): Observable<any>{
     return this._http.get<Country>(`${this.url_host}/cities/${stateName}/${cityName}`).pipe(
-        first(),
         retry(1),
         catchError(this.handleError)
     );
