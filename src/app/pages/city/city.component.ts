@@ -87,7 +87,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
 
   ngOnDestroy() {
-    this.zone.runOutsideAngular(() => {
+    // this.zone.runOutsideAngular(() => {
       if (this.pieChart) {
         this.pieChart.dispose();
       }
@@ -99,14 +99,10 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       } if(this.lineChartToday){
         this.lineChartToday.dispose();
       }
-    });
+    // });
 
     if (this.combined$){
       this.combined$.unsubscribe();
-    }
-
-    if (this.route$){
-      this.route$.unsubscribe();
     }
 
   }
