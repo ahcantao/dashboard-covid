@@ -23,6 +23,10 @@
 
 
 ## Changelog
+### V3.0.0 (2020-09-11)
+- Atualização diária passou a ser feita diretamente pelo Google Sheets
+- As cidades do PI-COVID passaram a ter painel próprio em picovid.com.br/ESTADO/CIDADE. Ex: picovid.com.br/sp/catanduva
+
 ### V2.4.0 (2020-09-04)
 
 #### Novas funcionalidades:
