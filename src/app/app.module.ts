@@ -23,7 +23,7 @@ import { environment } from '../environments/environment';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CountupComponent } from './shared/countup/countup.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
+
 import {CityComponent} from "./pages/city/city.component";
 import { NewsComponent } from './shared/news/news.component';
 import {FormsModule} from '@angular/forms';
@@ -37,6 +37,7 @@ import { CravinhosComponent } from './pages/cravinhos/cravinhos.component';
 import { DataStudioComponent } from './pages/data-studio/data-studio.component';
 import { LiveComponent } from './pages/cravinhos/live/live.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import {AccordionModule} from 'ngx-bootstrap';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   };
@@ -56,7 +57,9 @@ export function HttpLoaderFactory(http: HttpClient){
     BrowserAnimationsModule,
       LeafletModule,
     HttpClientModule,
-    AppRoutingModule,CommonModule,
+    AppRoutingModule,
+    CommonModule,
+      AccordionModule.forRoot(),
     RouterModule,
     PerfectScrollbarModule,
       FormsModule,

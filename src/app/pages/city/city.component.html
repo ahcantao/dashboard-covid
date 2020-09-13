@@ -280,6 +280,32 @@
 
     <div class="col-xl-4">
 
+
+
+      <div class="card-box">
+        <h4 class="header-title mb-3">Confirmados/100 mil habitantes </h4>
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+        <div class="inbox-widget" [class.d-none]="isLoading">
+
+          <h1>{{((this.totalConfirmed * 100000)/this.totalInhabitants2020).toFixed(0) }}</h1>
+
+        </div>
+      </div>
+
+      <div class="card-box">
+        <h4 class="header-title mb-3">Óbitos/100 mil habitantes </h4>
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+        <div class="inbox-widget" [class.d-none]="isLoading">
+
+          <h1>{{((this.totalDeaths * 100000)/this.totalInhabitants2020).toFixed(0)}}</h1>
+
+        </div>
+      </div>
+
       <div class="card-box">
         <h4 class="header-title mb-3">{{ 'Shared.RateDistribution.1' | translate }} </h4>
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
@@ -287,7 +313,7 @@
         </div>
         <div class="inbox-widget" [class.d-none]="isLoading">
 
-          <div id="radarChart" style="width: 100%; height: 400px"></div>
+          <h1>{{(this.totalDeaths / this.totalConfirmed * 100).toFixed(2) | number : '1.2-2'}}%</h1>
 
         </div>
       </div>

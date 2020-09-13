@@ -16,14 +16,20 @@
 
 # API Endpoints
 
-* https://api.picovid.com.br/timeline
-* https://api.picovid.com.br/cities
-* https://api.picovid.com.br/timeline/{nome_cidade}
-* https://api.picovid.com.br/cities/{nome_cidade}
+* https://api.picovid.com.br/timeline/{nome_do_estado}/{nome_cidade}
+* https://api.picovid.com.br/cities/{nome_do_estado}/{nome_cidade}
 
 
 ## Changelog
+
+### V3.1.0 (2020-09-12)
+#### Novas funcionalidades e alterações:
+- Gráfico de variações diárias passou a ser de colunas
+- Adicionados cards de casos confirmados e óbitos por 100 mil habitantes
+- Removido gráfico tipo radar, que representava a taxa de letalidade
+
 ### V3.0.0 (2020-09-11)
+#### Novas funcionalidades:
 - Atualização diária passou a ser feita diretamente pelo Google Sheets
 - As cidades do PI-COVID passaram a ter painel próprio em picovid.com.br/ESTADO/CIDADE. Ex: picovid.com.br/sp/catanduva
 

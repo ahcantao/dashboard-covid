@@ -14,6 +14,7 @@ import {
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+
 import am4lang_pt_BR from "@amcharts/amcharts4/lang/pt_BR";
 
 import {
@@ -24,7 +25,9 @@ import {
 } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
-am4core.useTheme(am4themes_animated);
+
+// TEMA ANIMADO (ON/OFF)
+// am4core.useTheme(am4themes_animated);
 
 @Component({
   selector: 'app-city',
@@ -40,7 +43,8 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   private pieChart: am4charts.PieChart;
   private lineChart: am4charts.XYChart;
   private lineChartToday: am4charts.XYChart;
-  private radarChart: am4charts.RadarChart
+  private radarChart: am4charts.RadarChart;
+
 
   public isLoading: boolean = true;
 
@@ -70,6 +74,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   public todayTotalSuspect=0;
   public totalDiscarded = 0;
   public todayDiscarded = 0;
+  public totalInhabitants2020 = 0;
   public cityName: any;
   public state: any;
   public translations : any = {};
@@ -160,6 +165,8 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.totalActive = getAllData["totalActive"];
       this.totalHospitalized = getAllData["totalHospitalized"];
 
+      this.totalInhabitants2020 = getAllData["estimatedPopulation2020"];
+
 
       this.todayConfirmed = getAllData["todayTotalConfirmed"];
       this.todayDeaths = getAllData["todayTotalDeath"];
@@ -182,11 +189,14 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.loadPieChart();
       this.loadLineChart(false);
       this.loadLineChartToday(false);
-      this.loadRadar();
+
+      // this.loadRadar();
     }, (e) => {console.warn(e)});
 
     // this.combined$.unsubscribe();
   }
+
+
 
   loadLineChart(chartType) {
     let caseData = this.timeLine;
@@ -262,36 +272,36 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     chart.cursor = new am4charts.XYCursor();
 
 
-    var update06_05 = dateAxis.axisRanges.create();
-    update06_05.date = new Date("2020-05-06 12:00");
-    update06_05.grid.stroke = am4core.color("#fd7e14");
-    update06_05.grid.strokeWidth = 3;
-    update06_05.grid.strokeOpacity = 0.5;
-    // update06_05.grid.strokeDasharray = "8,4";
-    update06_05.grid.tooltip = new am4core.Tooltip();
-    update06_05.grid.tooltipText = "clique para informações";
-    update06_05.grid.tooltipPosition = "pointer";
-
-    update06_05.grid.events.on("hit", function(ev) {
-      chart.modal.close();
-      chart.openModal("A partir de 06/05/2020, a Prefeitura passou a divulgar o número de casos suspeitos e descartados como a soma de leves + graves, antes desta data era divulgado somente os casos graves.", "Informação");
-    });
-
-
-    var update07_05 = dateAxis.axisRanges.create();
-    update07_05.date = new Date("2020-05-07 12:00");
-    update07_05.grid.stroke = am4core.color("#f9c851");
-    update07_05.grid.strokeWidth = 3;
-    update07_05.grid.strokeOpacity = 0.5;
-    // update07_05.grid.strokeDasharray = "8,4";
-    update07_05.grid.tooltip = new am4core.Tooltip();
-    update07_05.grid.tooltipText = "clique para informações";
-    update07_05.grid.tooltipPosition = "pointer";
-
-    update07_05.grid.events.on("hit", function(ev) {
-      chart.modal.close();
-      chart.openModal("A partir de 07/05/2020, as notificações de casos leves - sem coleta para exame - deixaram de ser contados como descartados e passaram a contar como suspeitos durante 14 dias.", "Informação");
-    });
+    // var update06_05 = dateAxis.axisRanges.create();
+    // update06_05.date = new Date("2020-05-06 12:00");
+    // update06_05.grid.stroke = am4core.color("#fd7e14");
+    // update06_05.grid.strokeWidth = 3;
+    // update06_05.grid.strokeOpacity = 0.5;
+    // // update06_05.grid.strokeDasharray = "8,4";
+    // update06_05.grid.tooltip = new am4core.Tooltip();
+    // update06_05.grid.tooltipText = "clique para informações";
+    // update06_05.grid.tooltipPosition = "pointer";
+    //
+    // update06_05.grid.events.on("hit", function(ev) {
+    //   chart.modal.close();
+    //   chart.openModal("A partir de 06/05/2020, a Prefeitura passou a divulgar o número de casos suspeitos e descartados como a soma de leves + graves, antes desta data era divulgado somente os casos graves.", "Informação");
+    // });
+    //
+    //
+    // var update07_05 = dateAxis.axisRanges.create();
+    // update07_05.date = new Date("2020-05-07 12:00");
+    // update07_05.grid.stroke = am4core.color("#f9c851");
+    // update07_05.grid.strokeWidth = 3;
+    // update07_05.grid.strokeOpacity = 0.5;
+    // // update07_05.grid.strokeDasharray = "8,4";
+    // update07_05.grid.tooltip = new am4core.Tooltip();
+    // update07_05.grid.tooltipText = "clique para informações";
+    // update07_05.grid.tooltipPosition = "pointer";
+    //
+    // update07_05.grid.events.on("hit", function(ev) {
+    //   chart.modal.close();
+    //   chart.openModal("A partir de 07/05/2020, as notificações de casos leves - sem coleta para exame - deixaram de ser contados como descartados e passaram a contar como suspeitos durante 14 dias.", "Informação");
+    // });
 
 
 
@@ -345,13 +355,13 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     valueAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
     dateAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
 
-    chart = this.createSeriesLine(chart, "#21AFDD", "cases");
-    chart = this.createSeriesLine(chart, "#ff5b5b", "deaths");
-    chart = this.createSeriesLine(chart, "#f9c851", "suspect");
-    chart = this.createSeriesLine(chart, "#fd7e14", "discarded");
-    chart = this.createSeriesLine(chart, "#9c27b0", "active");
-    chart = this.createSeriesLine(chart, "#fcfcfc", "cured");
-    chart = this.createSeriesLine(chart, "#a36f40", "hospitalized");
+    chart = this.createSeriesColumn(chart, "#21AFDD", "cases");
+    chart = this.createSeriesColumn(chart, "#ff5b5b", "deaths");
+    chart = this.createSeriesColumn(chart, "#f9c851", "suspect");
+    chart = this.createSeriesColumn(chart, "#fd7e14", "discarded");
+    // chart = this.createSeriesColumn(chart, "#9c27b0", "active");
+    chart = this.createSeriesColumn(chart, "#fcfcfc", "cured");
+    chart = this.createSeriesColumn(chart, "#a36f40", "hospitalized");
 
     chart.data = plotData;
 
@@ -508,6 +518,68 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     this.radarChart = chart;
   }
+
+
+  createSeriesColumn(chart, color, type) {
+    let name = null;
+
+    if(type=="cases"){
+      name = this.translations.cases;
+
+    } else if(type=="recoveries"){
+
+      name = this.translations.recovered;
+
+    } else if(type=="deaths"){
+      name = this.translations.deaths;
+
+    }
+    else if(type=="notified"){
+      name = this.translations.notified;
+    }
+
+    else if(type=="suspect"){
+      name = this.translations.suspect;
+    }
+
+    else if(type=="discarded"){
+      name = this.translations.discarded;
+    }
+
+    else if(type=="active"){
+      name = this.translations.active;
+    }
+
+    else if(type=="cured"){
+      name = this.translations.cured;
+    }
+
+    else if(type=="hospitalized"){
+      name = this.translations.hospitalized;
+    }
+
+    if(!name){
+      name = type.charAt(0).toUpperCase() + type.slice(1);
+    }
+    let series = chart.series.push(new am4charts.ColumnSeries());
+    series.dataFields.valueY = type;
+    series.fill = am4core.color(color);
+    series.dataFields.dateX = "date";
+    series.strokeWidth = 2;
+    series.minBulletDistance = 10;
+    series.tooltipText = "{valueY} " + name;
+    series.tooltip.pointerOrientation = "vertical";
+
+    series.tooltip.background.cornerRadius = 20;
+    series.tooltip.background.fillOpacity = 0.5;
+
+    series.stroke = am4core.color(color);
+    series.legendSettings.labelText = name;
+    series.tooltip.autoTextColor = false;
+    series.tooltip.label.fill = am4core.color("#282e38");
+    return chart
+  }
+
 
   createSeriesLine(chart, color, type) {
     let name = null;
