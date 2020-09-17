@@ -25,8 +25,8 @@
         Too bad the menu has to be inside of the button
         but hey, it's pure CSS magic.
         -->
-        <ul id="menu">
-          <a routerLink="{{ page.url }}" (click)="closeMenu()" *ngFor="let page of appPages"><li>{{ page.title }}</li></a>
+        <ul id="menu" (clickOutside)="closeMenu()">
+          <a (click)="goToPage(page.url)" *ngFor="let page of appPages"><li>{{ page.title }}</li></a>
         </ul>
       </div>
     </nav>

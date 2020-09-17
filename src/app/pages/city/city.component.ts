@@ -3,19 +3,32 @@ import {
   OnInit,
   NgZone,
   OnDestroy,
-  DoCheck, HostListener, SimpleChanges, OnChanges
+  DoCheck
 } from '@angular/core';
-import COUNTRY_CODES from "../../shared/utils/countries"
+// import COUNTRY_CODES from "../../shared/utils/countries"
 
 import {
   ActivatedRoute, Router
 } from '@angular/router';
-
+//
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-
+// import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4lang_pt_BR from "@amcharts/amcharts4/lang/pt_BR";
+
+// Promise.all([
+//   import("@amcharts/amcharts4/core"),
+//   import("@amcharts/amcharts4/charts"),
+//   // import("@amcharts/amcharts4/themes/animated")
+// ]).then((modules) => {
+//   const am4core = modules[0];
+//   const am4charts = modules[1];
+//   // const am4themes_animated = modules[2].default;
+//
+//   // Chart code goes here
+// }).catch((e) => {
+//   console.error("Error when creating chart", e);
+// })
 
 import {
   GetdataService
@@ -24,10 +37,15 @@ import {
   combineLatest, Subscription
 } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import {Title} from '@angular/platform-browser';
 
 
 // TEMA ANIMADO (ON/OFF)
 // am4core.useTheme(am4themes_animated);
+// am4core.options.onlyShowOnViewport = true;
+// am4core.options.deferredDelay = 500;
+// am4core.options.queue = true;
+// am4core.options.minPolylineStep = 5;
 
 @Component({
   selector: 'app-city',
@@ -44,6 +62,8 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   private lineChart: am4charts.XYChart;
   private lineChartToday: am4charts.XYChart;
   private radarChart: am4charts.RadarChart;
+
+
 
 
   public isLoading: boolean = true;
@@ -85,6 +105,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       private zone: NgZone,
       public translate : TranslateService,
       public router: Router,
+      private titleService: Title
   )
   {
     this.reload();
@@ -135,6 +156,8 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     })
 
+
+
     // this.zone.runOutsideAngular(() => {
 
       // this.reload();
@@ -144,7 +167,14 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     
   }
 
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
+  }
+
   reload(){
+
+
+
     this.combined$ =  combineLatest(
         this._getDataService.getCity(this.state, this.cityName),
         this._getDataService.getTimelineCity(this.state, this.cityName)
@@ -184,19 +214,45 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.timeLine = getTimelineData;
 
       this.isLoading = false;
+      //
+      // if (this.pieChart){
+      //   this.pieChart.hiddenState.properties.opacity = 0;
+      // }
+      //
+      // if (this.lineChart){
+      //
+      //   this.lineChart.hiddenState.properties.opacity = 0;
+      //
+      // }
+      //
+      // if (this.lineChartToday){
+      //
+      //   this.lineChartToday.hiddenState.properties.opacity = 0;
+      //
+      // }
+      //
+      // if (this.radarChart){
+      //   this.radarChart.hiddenState.properties.opacity = 0;
+      // }
 
 
       this.loadPieChart();
       this.loadLineChart(false);
       this.loadLineChartToday(false);
 
+
+
       // this.loadRadar();
     }, (e) => {console.warn(e)});
 
+    if (this.cityName){
+
+      this.setTitle(`PI-COVID - Painel de ${this.cityName.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' ')}/${this.state.toUpperCase()}`)
+
+    }
+
     // this.combined$.unsubscribe();
   }
-
-
 
   loadLineChart(chartType) {
     let caseData = this.timeLine;
@@ -355,13 +411,14 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     valueAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
     dateAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
 
+    chart = this.createStepLineSeries(chart, "#21AFDD", "cases");
     chart = this.createSeriesColumn(chart, "#21AFDD", "cases");
-    chart = this.createSeriesColumn(chart, "#ff5b5b", "deaths");
-    chart = this.createSeriesColumn(chart, "#f9c851", "suspect");
-    chart = this.createSeriesColumn(chart, "#fd7e14", "discarded");
-    // chart = this.createSeriesColumn(chart, "#9c27b0", "active");
-    chart = this.createSeriesColumn(chart, "#fcfcfc", "cured");
-    chart = this.createSeriesColumn(chart, "#a36f40", "hospitalized");
+    chart = this.createStepLineSeries(chart, "#ff5b5b", "deaths");
+    chart = this.createStepLineSeries(chart, "#f9c851", "suspect");
+    chart = this.createStepLineSeries(chart, "#fd7e14", "discarded");
+    chart = this.createStepLineSeries(chart, "#9c27b0", "active");
+    chart = this.createStepLineSeries(chart, "#fcfcfc", "cured");
+    chart = this.createStepLineSeries(chart, "#a36f40", "hospitalized");
 
     chart.data = plotData;
 
@@ -519,7 +576,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.radarChart = chart;
   }
 
-
   createSeriesColumn(chart, color, type) {
     let name = null;
 
@@ -572,6 +628,70 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     series.tooltip.background.cornerRadius = 20;
     series.tooltip.background.fillOpacity = 0.5;
+
+    series.stroke = am4core.color(color);
+    series.legendSettings.labelText = name;
+    series.tooltip.autoTextColor = false;
+    series.tooltip.label.fill = am4core.color("#282e38");
+    return chart
+  }
+
+  createStepLineSeries(chart, color, type) {
+    let name = null;
+
+    if(type=="cases"){
+      name = this.translations.cases;
+
+    } else if(type=="recoveries"){
+
+      name = this.translations.recovered;
+
+    } else if(type=="deaths"){
+      name = this.translations.deaths;
+
+    }
+    else if(type=="notified"){
+      name = this.translations.notified;
+    }
+
+    else if(type=="suspect"){
+      name = this.translations.suspect;
+    }
+
+    else if(type=="discarded"){
+      name = this.translations.discarded;
+    }
+
+    else if(type=="active"){
+      name = this.translations.active;
+    }
+
+    else if(type=="cured"){
+      name = this.translations.cured;
+    }
+
+    else if(type=="hospitalized"){
+      name = this.translations.hospitalized;
+    }
+
+    if(!name){
+      name = type.charAt(0).toUpperCase() + type.slice(1);
+    }
+    let series = chart.series.push(new am4charts.StepLineSeries());
+    series.dataFields.valueY = type;
+    series.fill = am4core.color(color);
+    series.fillOpacity = 0.5;
+    series.connect = false;
+    series.noRisers = true;
+
+    series.dataFields.dateX = "date";
+    series.strokeWidth = 3;
+    // series.minBulletDistance = 10;
+    series.tooltipText = "{valueY} " + name;
+    series.tooltip.pointerOrientation = "vertical";
+
+    // series.tooltip.background.cornerRadius = 20;
+    series.tooltip.background.fillOpacity = 1;
 
     series.stroke = am4core.color(color);
     series.legendSettings.labelText = name;

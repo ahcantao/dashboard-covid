@@ -1,15 +1,8 @@
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 
-// import { DashboardComponent } from './pages/dashboard/dashboard.component';
-// import { CountryComponent } from './pages/country/country.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import {CityComponent} from "./pages/city/city.component";
-import {AnalisesComponent} from './pages/analises/analises.component';
 import {SobreComponent} from './pages/sobre/sobre.component';
 import {MidiaComponent} from './pages/midia/midia.component';
-import {MapaComponent} from './pages/mapa/mapa.component';
-import {InformacoesTecnicasComponent} from './pages/informacoes-tecnicas/informacoes-tecnicas.component';
 import {CravinhosComponent} from './pages/cravinhos/cravinhos.component';
 import {LiveComponent} from './pages/cravinhos/live/live.component';
 import {InicioComponent} from './pages/inicio/inicio.component';
@@ -17,19 +10,17 @@ import {InicioComponent} from './pages/inicio/inicio.component';
 
 const routes: Routes = [
   { path: '',  component: InicioComponent},
-  { path: ':state/:cityName', component: CityComponent},
-  // { path: 'catanduva',  component: CityComponent},
+
+  { path: 'painel', loadChildren: () => import('./pages/city/city.module').then(m => m.CityModule)},
   { path: 'cravinhos',  component: CravinhosComponent},
   { path: 'live',  component: LiveComponent},
-  // { path: 'analises',  component: AnalisesComponent},
+
   { path: 'sobre',  component: SobreComponent},
   { path: 'na-midia',  component: MidiaComponent},
-  // { path: 'mapa-calor',  component: MapaComponent},
-  // { path: 'mapa',  component: MapaComponent},
-  { path: 'informacoes-tecnicas',  component: InformacoesTecnicasComponent},
-  // { path: 'analises',  component: AnalysisComponent},
-  // { path: 'country/:name', component : CountryComponent},
-  // { path: 'city/:name', component : CityComponent},
+
+
+  { path: 'informacoes-tecnicas', loadChildren: () => import('./pages/informacoes-tecnicas/informacoes-tecnicas.module').then(m => m.InformacoesTecnicasModule)},
+
   { path: '**', redirectTo: '/'}
 ];
 

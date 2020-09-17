@@ -22,6 +22,15 @@
 
 ## Changelog
 
+### V3.2.0 (2020-09-17)
+#### Novas funcionalidades e alterações:
+- Adição de título nas páginas
+- Implementação de Lazy Loading nos painéis e informações técnicas
+- Atualização de pacotes
+- Mudança de picovid.com.br/ESTADO/CIDADE para picovid.com.br/painel/ESTADO/CIDADE
+- Mudança da página inicial
+- Gráfico diário modificado para StepLineSerie
+
 ### V3.1.0 (2020-09-12)
 #### Novas funcionalidades e alterações:
 - Gráfico de variações diárias passou a ser de colunas

@@ -2,7 +2,7 @@
 
   <h2 class="text-center mt-3 mb-3" *ngIf="cityName">
     <img
-    width="100px" src="assets/flags/{{state.toLowerCase()}}-{{cityName.toLowerCase()}}.jpg" alt="{{country}}">
+    width="100px" src="assets/flags/{{state.toLowerCase()}}-{{cityName.toLowerCase()}}.jpg" alt="{{country}}" loading="lazy">
     <br/><br/>
 <!--    {{ 'Shared.Other.18' | translate }}-->
 
@@ -50,7 +50,7 @@
             <i class="fas fa-circle-notch fa-spin m-2"></i>
           </div>
           <div class="topBoxesDetails text-md-right text-center" [class.d-none]="isLoading">
-  
+
               <span class="badge badge-blue badge-pill float-md-left m-md-3 mt-2"><i class="mdi mdi-trending-up"></i>
               </span>
             <h2 class="font-weight-normal"> {{totalConfirmed | number}} </h2>
@@ -289,7 +289,7 @@
         </div>
         <div class="inbox-widget" [class.d-none]="isLoading">
 
-          <h1>{{((this.totalConfirmed * 100000)/this.totalInhabitants2020).toFixed(0) }}</h1>
+          <h1>{{(this.totalConfirmed * 100000)/this.totalInhabitants2020 | number:'1.0-0' }}</h1>
 
         </div>
       </div>
@@ -301,7 +301,7 @@
         </div>
         <div class="inbox-widget" [class.d-none]="isLoading">
 
-          <h1>{{((this.totalDeaths * 100000)/this.totalInhabitants2020).toFixed(0)}}</h1>
+          <h1>{{((this.totalDeaths * 100000)/this.totalInhabitants2020) | number:'1.0-0' }}</h1>
 
         </div>
       </div>
@@ -353,14 +353,17 @@
 
             <h5>Governo do Estado de SP</h5>
             <a href="https://wa.me/5511952202923" target="_blank">
-              <img src="https://i.ibb.co/4fLMdnr/chatbot-sp.png" class="img-fluid rounded"/>
+              <img src="https://i.ibb.co/4fLMdnr/chatbot-sp.png" class="img-fluid rounded" loading="lazy"/>
             </a>
             <br/><br/>
 
+            <div *ngIf="cityName.toLowerCase()=='catanduva'">
             <h5>Prefeitura de Catanduva</h5>
             <a href="https://wa.me/5541987746489" target="_blank">
-              <img src="https://i.ibb.co/v4fmZvg/chatbot-laura.png" class="img-fluid rounded"/>
+              <img src="https://i.ibb.co/v4fmZvg/chatbot-laura.png" class="img-fluid rounded" loading="lazy"/>
             </a>
+          </div>
+
           </div>
         </div>
       </div>

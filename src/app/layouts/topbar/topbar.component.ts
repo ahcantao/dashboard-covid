@@ -1,12 +1,34 @@
-import { Component, HostListener } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {HammerGestureConfig} from '@angular/platform-browser';
+import {fromEvent} from 'rxjs';
+import {takeWhile} from 'rxjs/operators';
+import {Router} from '@angular/router';
+const hammerConfig = new HammerGestureConfig();
+
+
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss']
 })
-export class TopbarComponent {
+export class TopbarComponent implements OnInit{
+
+  ngOnInit() {
+    const hammer=hammerConfig.buildHammer(document.documentElement);
+    fromEvent(hammer, "swipe").pipe(
+        takeWhile(()=>this.alive))
+        .subscribe((res: any) => {
+
+          if (res.deltaX<0){
+            this.menuActive = false;
+          } else {
+            this.menuActive = true;
+          }
+        });
+  }
 
   menuActive: boolean = false;
+  alive:boolean=true;
   appPages: any = [
     {
       title: 'Início',
@@ -23,11 +45,11 @@ export class TopbarComponent {
 
     {
       title: 'Catanduva/SP',
-      url: '/SP/Catanduva'
+      url: 'painel/SP/Catanduva'
     },
     {
       title: 'Cravinhos/SP',
-      url: '/SP/Cravinhos'
+      url: 'painel/SP/Cravinhos'
     },
     {
       title: 'Informações técnicas',
@@ -43,10 +65,17 @@ export class TopbarComponent {
     }
   ];
 
-  constructor() { }
+  constructor(
+      private router: Router
+  ) { }
 
   deferredPrompt: any;
   showButton = false;
+
+  goToPage(url: string){
+    this.closeMenu();
+    this.router.navigateByUrl(url);
+  }
 
   closeMenu(){
 

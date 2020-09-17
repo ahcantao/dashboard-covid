@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-informacoes-tecnicas',
@@ -9,9 +10,14 @@ export class InformacoesTecnicasComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit(): void {
+    this.setTitle("PI-COVID - Informações técnicas")
+  }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
 }
