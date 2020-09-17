@@ -8,6 +8,8 @@ import {Title} from '@angular/platform-browser';
 })
 export class SobreComponent implements OnInit {
 
+  todayDate  = new Date();
+
   constructor(private titleService: Title) { }
 
   ngOnInit(): void {
@@ -16,6 +18,13 @@ export class SobreComponent implements OnInit {
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
+  }
+
+  copyToClip(textArea: HTMLInputElement){
+    textArea.select();
+    document.execCommand('copy');
+    textArea.setSelectionRange(0, 0);
+    // document.execCommand('copy');
   }
 
 }

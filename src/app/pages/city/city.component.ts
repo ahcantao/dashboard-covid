@@ -41,11 +41,13 @@ import {Title} from '@angular/platform-browser';
 
 
 // TEMA ANIMADO (ON/OFF)
-am4core.useTheme(am4themes_animated);
+
 am4core.options.onlyShowOnViewport = true;
 am4core.options.deferredDelay = 500;
 am4core.options.queue = true;
 am4core.options.minPolylineStep = 5;
+
+am4core.useTheme(am4themes_animated);
 
 @Component({
   selector: 'app-city',
@@ -414,10 +416,10 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     chart = this.createStepLineSeries(chart, "#21AFDD", "cases");
     chart = this.createStepLineSeries(chart, "#ff5b5b", "deaths");
     chart = this.createStepLineSeries(chart, "#f9c851", "suspect");
-    chart = this.createStepLineSeries(chart, "#fd7e14", "discarded");
-    chart = this.createStepLineSeries(chart, "#9c27b0", "active");
+    // chart = this.createStepLineSeries(chart, "#fd7e14", "discarded");
+    // chart = this.createStepLineSeries(chart, "#9c27b0", "active");
     chart = this.createStepLineSeries(chart, "#fcfcfc", "cured");
-    chart = this.createStepLineSeries(chart, "#a36f40", "hospitalized");
+    // chart = this.createStepLineSeries(chart, "#a36f40", "hospitalized");
 
     chart.data = plotData;
 

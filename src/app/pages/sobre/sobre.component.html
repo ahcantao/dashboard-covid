@@ -1,37 +1,80 @@
 <div class="container-fluid">
 
     <div class="row mt-4">
-        <div class="col-12">
+        <div class="col-12 card-body">
+
+            <h4>
+                Sobre
+            </h4>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h5>O que é PI-COVID?</h5>
+
+                    <p class="font-18">
+                    O Painel Interativo sobre a COVID-19 (PI-COVID) é um observatório de dados, coletamos os números relacionados a COVID, estruturamos de uma maneira organizada e então criamos gráficos e análises.
+                    </p>
+
+                    <p class="font-18">
+                    No PI-COVID é possível acompanhar o histórico de casos (confirmados, óbitos, curados, suspeitos, descartados, e internados) do início até o dia atual.
+                    </p>
+
+                    <p class="font-18">
+                    Nossas fontes de dados são os boletins epidemiológicos do coronavírus emitidos pelas Secretarias de Saúde Municipais e base de dados epidemiológicos de Síndrome Gripal do Ministério da Saúde.
+                    </p>
 
 
-            <h2 class="display-4">O que é PI-COVID?</h2>
+                    <h5>Objetivo</h5>
+                    <p class="font-18">
+                        Produzir uma base de conhecimento ampla e de fácil entendimento sobre a COVID-19 que pode ser usado tanto pela população local para melhor entendimento da situação quanto por gestores e autoridades como auxílio na tomada de decisões.
+                    </p>
 
-            <p class="lead">ESTATÍSTICAS SOBRE A COVID-19 EM CATANDUVA-SP</p>
+                </div>
+            </div>
 
-            <hr/>
 
-            <p class="font-20">
-            Já está no ar o Painel Interativo sobre a COVID-19 (PI-COVID), agora você pode acompanhar em tempo real as estatísticas do Coronavírus no município de Catanduva-SP.
-            </p>
-            <p class="font-20">
-            No PI-COVID, é possível ter acesso ao histórico de casos notificados, suspeitos, descartados, confirmados e óbitos. Todos os dados estão demonstrados por dia, começando em 20/03/2020.
-            </p>
-            <p class="font-20">
-            As informações disponíveis no PI-COVID são extraídas diariamente dos boletins oficiais emitidos pela Prefeitura (<a href="https://catanduva.sp.gov.br/coronavirus" target="_blank">https://catanduva.sp.gov.br/coronavirus</a> ).
-            </p>
-            <p class="font-20">
-                A base de dados utilizada pelo PI-COVID está publicamente disponível em <a href="https://github.com/rafaeldefazio/csv-covid" target="_blank">github.com/rafaeldefazio/csv-covid</a>. Qualquer pessoa que tenha interesse pode baixá-la em formato CSV (Comma-Separated Values) e abrir em formato de planilha, ou pode também utilizar nossa API.
-            </p>
-            <p class="font-20">
-            PI-COVID, bem como servidor API, é um projeto de código aberto e está disponível no GitHub, em: <a href="https://github.com/rafaeldefazio/dashboard-covid" target="_blank">github.com/rafaeldefazio/dashboard-covid</a>
-            </p>
-            <p class="font-20">
-            Em breve estarão disponíveis outros tipos de análises e notícias, bem como outras informações, como números de curados. E lembrando, o PI-COVID é interativo. Você pode escolher quais tipos de casos quer utilizar para comparação, pode dar zoom no gráfico, entre outras opções.
-            </p>
+            <div class="card">
+                <div class="card-body">
 
-            <p class="font-20 font-weight-bold">
-                O PI-COVID é um projeto independente.
-            </p>
+                    <h5>Quem faz</h5>
+                    <ul class="font-18">
+                        <li>Adriano Henrique Cantão (Mestrando em Computação Aplicada a Sistemas Complexos, DCM, FFCLRP/USP)</li>
+                        <li>Gabriel Martins da Costa Manso (Graduando em Ciências Biomédicas, FMRP/USP)</li>
+                        <li>Gabrielle Adriani Melo Marcelino (Graduanda em Ciências Biomédicas, FMRP/USP)</li>
+                        <li>Maria Carolina Borsato Belo (Graduanda em Medicina, Universidade Federal do Triângulo Mineiro)</li>
+                        <li>Marcus Vinicius Pomini  (Graduando do curso de Ciências Farmacêuticas, Universidade Federal de São João del-Rei)</li>
+                        <li>Rafael Biagioni de Fazio (Graduando em Informática Biomédica, FMRP/USP)</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h5>Cite-nos</h5>
+                    <textarea #CiteNos  (click)="$event.target.select()">PI-COVID (Painel Interativo do Coronavírus). Disponível em <https://www.picovid.com.br/>. Acessado em {{todayDate | date: 'dd MMM yyyy'}}.</textarea>
+                    <button id="copyButton" class="btn btn-dark" popover="A referência foi copiada para área de transferência" placement="auto" triggers="click:mouseleave" (click)="copyToClip(CiteNos)"><i class="fa fa-clipboard" aria-hidden="true"></i> Copiar</button>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h5>Colabore</h5>
+
+                    <p class="font-18">
+                        Se tiver sugestões, críticas, dúvidas ou elogios, não hesite em nos escrever pelo e-mail <a href="mailto:contato.picovid@gmail.com"><i class="fa fa-paper-plane" aria-hidden="true"></i> contato.picovid@gmail.com</a>.
+                    </p>
+
+                    <p class="font-18">
+                        <strong><i class="fa fa-handshake" aria-hidden="true"></i> Quer fazer parte do PI-COVID</strong> e levar informação sobre o coronavírus para a população de sua cidade? Estamos aguardando seu contato.
+                    </p>
+
+                </div>
+            </div>
 
 
 

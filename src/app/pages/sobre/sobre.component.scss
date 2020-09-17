@@ -1,0 +1,25 @@
+textarea {
+  background: transparent;
+  padding: 5px;
+  outline:none;
+  border:none;
+  width:70%;
+  float: left;
+
+  resize: none;
+  overflow: hidden;
+  height: auto;
+  min-height: 40px;
+  max-height: 200px;
+
+  //font-size:20px;
+  font-style: italic;
+  color:#fff;
+  font-weight: lighter;
+
+}
+
+button#copyButton{
+  float:right;
+  margin-right: 1em;
+}

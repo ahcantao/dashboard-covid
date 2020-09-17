@@ -36,8 +36,15 @@ import { DataStudioComponent } from './pages/data-studio/data-studio.component';
 import { LiveComponent } from './pages/cravinhos/live/live.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt);
+
 import * as Hammer from 'hammerjs';
 import {ClickOutsideDirective} from './layouts/topbar/click-outside';
+import {PopoverModule} from 'ngx-bootstrap/popover';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -85,6 +92,7 @@ export function HttpLoaderFactory(http: HttpClient){
     AppRoutingModule,
     CommonModule,
       HammerModule,
+      PopoverModule.forRoot(),
       // AccordionModule.forRoot(),
     RouterModule,
     PerfectScrollbarModule,
@@ -112,7 +120,8 @@ export function HttpLoaderFactory(http: HttpClient){
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: HammerGestureConfig
-    }
+    },
+    { provide: LOCALE_ID, useValue: "pt-BR" }
   ],
   bootstrap: [AppComponent]
 })
