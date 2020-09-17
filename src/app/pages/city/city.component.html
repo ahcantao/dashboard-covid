@@ -289,7 +289,7 @@
         </div>
         <div class="inbox-widget" [class.d-none]="isLoading">
 
-          <h1>{{(this.totalConfirmed * 100000)/this.totalInhabitants2020 | number:'1.0-0' }}</h1>
+          <h1 *ngIf="totalConfirmed">{{(this.totalConfirmed * 100000)/this.totalInhabitants2020 | number:'1.0-0' }}</h1>
 
         </div>
       </div>
@@ -301,7 +301,7 @@
         </div>
         <div class="inbox-widget" [class.d-none]="isLoading">
 
-          <h1>{{((this.totalDeaths * 100000)/this.totalInhabitants2020) | number:'1.0-0' }}</h1>
+          <h1 *ngIf="totalDeaths">{{((this.totalDeaths * 100000)/this.totalInhabitants2020) | number:'1.0-0' }}</h1>
 
         </div>
       </div>
@@ -313,7 +313,7 @@
         </div>
         <div class="inbox-widget" [class.d-none]="isLoading">
 
-          <h1>{{(this.totalDeaths / this.totalConfirmed * 100).toFixed(2) | number : '1.2-2'}}%</h1>
+          <h1 *ngIf="totalDeaths">{{(this.totalDeaths / this.totalConfirmed * 100).toFixed(2) | number : '1.2-2'}}%</h1>
 
         </div>
       </div>

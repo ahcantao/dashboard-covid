@@ -1,4 +1,4 @@
-import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig} from '@angular/platform-browser';
+import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -41,7 +41,11 @@ import {ClickOutsideDirective} from './layouts/topbar/click-outside';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
-    swipe: { direction: Hammer.DIRECTION_ALL }
+    pinch: { enable: false },
+    rotate: { enable: false },
+    pan: { enable: false },
+    swipe: { direction: Hammer.DIRECTION_HORIZONTAL },
+
   };
 }
 
@@ -80,6 +84,7 @@ export function HttpLoaderFactory(http: HttpClient){
     HttpClientModule,
     AppRoutingModule,
     CommonModule,
+      HammerModule,
       // AccordionModule.forRoot(),
     RouterModule,
     PerfectScrollbarModule,
