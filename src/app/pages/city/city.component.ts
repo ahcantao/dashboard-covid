@@ -41,11 +41,11 @@ import {Title} from '@angular/platform-browser';
 
 
 // TEMA ANIMADO (ON/OFF)
-// am4core.useTheme(am4themes_animated);
-// am4core.options.onlyShowOnViewport = true;
-// am4core.options.deferredDelay = 500;
-// am4core.options.queue = true;
-// am4core.options.minPolylineStep = 5;
+am4core.useTheme(am4themes_animated);
+am4core.options.onlyShowOnViewport = true;
+am4core.options.deferredDelay = 500;
+am4core.options.queue = true;
+am4core.options.minPolylineStep = 5;
 
 @Component({
   selector: 'app-city',
