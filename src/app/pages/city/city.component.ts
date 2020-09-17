@@ -412,7 +412,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     dateAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
 
     chart = this.createStepLineSeries(chart, "#21AFDD", "cases");
-    chart = this.createSeriesColumn(chart, "#21AFDD", "cases");
     chart = this.createStepLineSeries(chart, "#ff5b5b", "deaths");
     chart = this.createStepLineSeries(chart, "#f9c851", "suspect");
     chart = this.createStepLineSeries(chart, "#fd7e14", "discarded");
