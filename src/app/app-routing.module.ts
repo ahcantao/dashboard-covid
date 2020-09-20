@@ -11,7 +11,7 @@ import {InicioComponent} from './pages/inicio/inicio.component';
 const routes: Routes = [
   { path: '',  component: InicioComponent},
 
-  { path: 'painel', loadChildren: () => import('./pages/city/city.module').then(m => m.CityModule)},
+
   { path: 'cravinhos',  component: CravinhosComponent},
   { path: 'live',  component: LiveComponent},
 
@@ -21,6 +21,10 @@ const routes: Routes = [
 
   { path: 'informacoes-tecnicas', loadChildren: () => import('./pages/informacoes-tecnicas/informacoes-tecnicas.module').then(m => m.InformacoesTecnicasModule)},
 
+
+
+  { path: ':state/:cityName',  redirectTo: 'painel/:state/:cityName'},
+  { path: 'painel', loadChildren: () => import('./pages/city/city.module').then(m => m.CityModule)},
   { path: '**', redirectTo: '/'}
 ];
 
