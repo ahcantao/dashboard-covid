@@ -77,6 +77,10 @@ export class TopbarComponent  {
       url: 'painel/SP/Cravinhos'
     },
     {
+      title: 'Sertãozinho/SP',
+      url: 'painel/SP/Sertãozinho'
+    },
+    {
       title: 'Informações técnicas',
       url: '/informacoes-tecnicas'
     },
