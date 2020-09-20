@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '',  component: InicioComponent},
 
 
-  { path: 'cravinhos',  component: CravinhosComponent},
+  // { path: 'cravinhos',  component: CravinhosComponent},
   { path: 'live',  component: LiveComponent},
 
   { path: 'sobre',  component: SobreComponent},
@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'informacoes-tecnicas', loadChildren: () => import('./pages/informacoes-tecnicas/informacoes-tecnicas.module').then(m => m.InformacoesTecnicasModule)},
 
 
-
+  { path: ':cityName',  redirectTo: 'painel/SP/:cityName'},
   { path: ':state/:cityName',  redirectTo: 'painel/:state/:cityName'},
   { path: 'painel', loadChildren: () => import('./pages/city/city.module').then(m => m.CityModule)},
   { path: '**', redirectTo: '/'}

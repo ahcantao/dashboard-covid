@@ -54,7 +54,7 @@
                 <div class="card-body">
 
                     <h5>Cite-nos</h5>
-                    <textarea #CiteNos disabled (click)="$event.target.select()">PI-COVID (Painel Interativo do Coronavírus). Disponível em <https://www.picovid.com.br/>. Acessado em {{todayDate | date: 'dd MMM yyyy'}}.</textarea>
+                    <textarea #CiteNos readonly (click)="$event.target.select()">PI-COVID (Painel Interativo do Coronavírus). Disponível em <https://www.picovid.com.br/>. Acessado em {{todayDate | date: 'dd MMM yyyy'}}.</textarea>
                     <button id="copyButton" class="btn btn-dark" popover="A referência foi copiada para área de transferência" placement="auto" triggers="click:mouseleave" (click)="copyToClip(CiteNos)"><i class="fa fa-clipboard" aria-hidden="true"></i> Copiar</button>
 
                 </div>
