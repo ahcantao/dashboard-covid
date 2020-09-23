@@ -99,7 +99,7 @@ export class TopbarComponent  {
   ) { }
 
   deferredPrompt: any;
-  showButton = false;
+  showButton =  ! JSON.parse(window.localStorage.getItem("installed"));
 
   goToPage(url: string){
     this.closeMenu();
@@ -120,6 +120,7 @@ export class TopbarComponent  {
     // Stash the event so it can be triggered later.
     this.deferredPrompt = e;
     this.showButton = true;
+    window.localStorage.setItem("installed", 'true');
   }
 
   addToHomeScreen() {

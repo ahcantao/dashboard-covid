@@ -39,6 +39,8 @@ export class BoletimComponent implements OnInit {
   lastUpdate;
 
   isLoading = true;
+  isSmallScreen;
+
 
   route$: Subscription;
 
@@ -46,6 +48,10 @@ export class BoletimComponent implements OnInit {
   constructor(private _getDataService: GetdataService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    if (window.innerWidth < 991.98){
+      this.isSmallScreen = true;
+    }
 
     this.route$ = this.route.params.subscribe(routeParams => {
 

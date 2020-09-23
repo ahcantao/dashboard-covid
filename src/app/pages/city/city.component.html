@@ -337,6 +337,12 @@
         </div>
       </div>
 
+      <div class="card-box text-center">
+        <h5>Boletim diário</h5>
+        Para visualizar o boletim diário de {{cityName.toUpperCase()}}/{{state.toUpperCase()}} em {{lastUpdate | date : 'dd/MM/yyyy'}}, clique <a [routerLink]="['/boletim', state, cityName]">aqui</a>.
+      </div>
+
+
       <div class="card-box text-center" *ngIf="false">
         <h5>Baixar dados</h5>
         Para baixar os dados em csv, clique <a href="https://github.com/rafaeldefazio/csv-covid/blob/master/dados.csv" target="_blank">aqui</a>.

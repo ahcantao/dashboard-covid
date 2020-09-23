@@ -1,4 +1,8 @@
-<div class="page">
+<div class="alert alert-info" role="info" *ngIf="isSmallScreen" style="margin-top: 2em">
+    O boletim é melhor visualizado em dispositivos com telas maiores, como tablets, notebooks e desktops.
+</div>
+
+<div [class.page]="!isSmallScreen" [class.small-page]="isSmallScreen">
 
     <div class="fa-3x text-center" [class.d-none]="!isLoading" style="margin-top: 400px">
         <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -10,7 +14,6 @@
 
         <div id="logo">
 
-
             <div><img src="assets/images/logo-white.svg" /></div>
             <div>{{lastUpdate | date : 'dd/MM/yyyy'}}</div>
 <!--             <div style="background: #181b21;border-radius: 5px;">{{lastUpdate | date : 'dd/MM/yyyy'}}</div>-->
@@ -20,28 +23,28 @@
         </div>
 
 
-        <h1><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/chart-with-upwards-trend_1f4c8.png" height="32" /> Boletim do Coronavírus de {{cityNameBoletim}}/{{stateBoletim}}</h1>
+        <h1><span class="emoji bg-chart_with_upwards_trend" width="32px"></span> Boletim do Coronavírus de {{cityNameBoletim}}/{{stateBoletim}}</h1>
 
     </header>
 
     <div id="content">
 
         <div class="card">
-            <h1 style="border-color: #9C27B0">Ativos <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/whatsapp/238/face-with-medical-mask_1f637.png" height="32" />
+            <h1 style="border-color: #9C27B0">Ativos <span class="emoji bg-face_with_medical_mask" width="32px"></span>
             </h1>
             <span style="background: #9C27B0">{{totalActive}}</span>
             <span id="today">{{todayTotalActive}} hoje</span>
         </div>
 
         <div class="card" style="width: 36%">
-            <h1 style="border-color: #21afdd">Confirmados <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/facebook/230/heavy-check-mark_2714.png" height="32" />
+            <h1 style="border-color: #21afdd">Confirmados <span class="emoji bg-heavy_check_mark" width="32px"></span>
             </h1>
             <span style="background: #21afdd">{{totalConfirmed}}</span>
             <span id="today">{{todayTotalConfirmed}} hoje</span>
         </div>
 
         <div class="card">
-            <h1 style="border-color: #333">Curados <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/whatsapp/238/person-raising-both-hands-in-celebration_1f64c.png" height="32" />
+            <h1 style="border-color: #333">Curados <span class="emoji bg-person_raising_both_hands_in_celebration" width="32px"></span>
             </h1>
             <span style="background: #fcfcfc;color: #000">{{totalCured}}</span>
             <span id="today">{{todayTotalCured}} hoje</span>
@@ -49,20 +52,20 @@
 
 
         <div class="card" style="width: 40%">
-            <h1 style="border-color: #10c469">Notificados <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/clipboard_1f4cb.png" height="32" />
+            <h1 style="border-color: #10c469">Notificados <span class="emoji bg-clipboard" width="32px"></span>
             </h1>
             <span style="background-color: #10c469">{{totalNotified}}</span>
             <span id="today">{{todayTotalNotified}} hoje</span>
         </div>
         <div class="card" style="width: 40%">
-            <h1 style="border-color: #f9c851">Suspeitos <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/right-pointing-magnifying-glass_1f50e.png" height="32" />
+            <h1 style="border-color: #f9c851">Suspeitos <span class="emoji bg-right_pointing_magnifying_glass" width="32px"></span>
             </h1>
             <span style="background-color: #f9c851; color: #000">{{totalSuspect}}</span>
             <span id="today">{{todayTotalSuspect}} hoje</span>
         </div>
 
         <div class="card" style="width: 25%">
-            <h1 style="border-color: #fd7e14">Descartados<img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/cross-mark_274c.png" height="32" />
+            <h1 style="border-color: #fd7e14;font-size: 1.8em">Descartados <span class="emoji bg-cross" width="32px"></span>
             </h1>
             <span style="background-color: #fd7e14">{{totalDiscarded}}</span>
             <span id="today">{{todayTotalDiscarded}} hoje</span>
@@ -70,7 +73,7 @@
 
 
         <div class="card" style="width: 25%">
-            <h1 style="border-color: #5D4037">Internados <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/hospital_1f3e5.png" height="32" /></h1>
+            <h1 style="border-color: #5D4037">Internados <span class="emoji bg-hospital" width="32px"></span></h1>
             <span style="background-color: #5D4037">{{totalHospitalized}}</span>
             <span id="today">{{todayTotalHospitalized}} hoje</span>
         </div>
@@ -78,7 +81,7 @@
 
 
         <div class="card" style="width: 25%">
-            <h1 style="border-color: #c0392b">Óbitos <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/crying-face_1f622.png" height="32" /></h1>
+            <h1 style="border-color: #c0392b">Óbitos <span class="emoji bg-crying_face" width="32px"></span></h1>
             <span style="background-color: #c0392b">{{totalDeath}}</span>
             <span id="today">{{todayTotalDeath}} hoje</span>
         </div>
@@ -89,8 +92,11 @@
     <footer>
 
 <!--        <span style="font-weight: 300; font-size: 0.8em">Atualizado às {{last_datetime}}</span>-->
+
+
         <span style="font-weight: bold; font-size: 1.5em;">Acesse picovid.com.br</span>
         <span style="font-weight: 500; font-size: 1em">O PI-COVID é um projeto independente.</span>
+        <span style="font-weight: 300; font-size: 0.8em">&nbsp;</span>
 
 
 
@@ -98,5 +104,12 @@
 
 
     </div>
+
+</div>
+
+<div style="text-align: center; margin: 30px auto 30px 0">
+    <button type="button" class="btn btn-info" [routerLink]="['/painel', state, cityName]">
+        <i class="fas fa-arrow-left"></i> Voltar para painel
+    </button>
 
 </div>
