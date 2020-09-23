@@ -22,6 +22,17 @@
 
 ## Changelog
 
+
+### V3.2.0 (2020-09-23)
+
+#### Novas funcionalidades e alterações:
+- Adição de boletim diário online
+
+#### Correções e atualizações:
+- Correção: botão de instalação de PWA não deve aparecer em dispositivos que já o instalaram
+
+
+
 ### V3.2.0 (2020-09-17)
 #### Novas funcionalidades e alterações:
 - Adição de título nas páginas
