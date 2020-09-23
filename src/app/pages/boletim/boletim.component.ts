@@ -168,7 +168,7 @@ export class BoletimComponent implements OnInit {
 
     postagem += `⠀\n`;
 
-    postagem += `#AgradeçoAosProfissionaisDaSaúde #UseMáscara #LaveAsMãos #SeCuide #VaiPassar #FiqueEmCasa #usemascara😷 #${this.cityName} #atencao #coronavirus #obitoeminvestigacao #obitoconfirmado #fiqueemcasa🏠 #espalheconscientizacao #usemascara #saude #saúde #covid19`
+    postagem += `#AgradeçoAosProfissionaisDaSaúde #UseMáscara #LaveAsMãos #SeCuide #VaiPassar #FiqueEmCasa #usemascara😷 #${this.cityName} #atencao #coronavirus #obitoeminvestigacao #obitoconfirmado #fiqueemcasa🏠 #espalheconscientizacao #usemascara #saude #saúde #covid19 #picovid #picovid${this.cityName}`
 
     return postagem
   }
