@@ -21,6 +21,7 @@ const routes: Routes = [
 
   { path: 'informacoes-tecnicas', loadChildren: () => import('./pages/informacoes-tecnicas/informacoes-tecnicas.module').then(m => m.InformacoesTecnicasModule)},
 
+  { path: 'boletim', loadChildren: () => import('./pages/boletim/boletim.module').then(m => m.BoletimModule)},
 
   { path: ':cityName',  redirectTo: 'painel/SP/:cityName'},
   { path: ':state/:cityName',  redirectTo: 'painel/:state/:cityName'},
