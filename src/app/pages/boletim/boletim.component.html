@@ -2,7 +2,9 @@
     O boletim é melhor visualizado em dispositivos com telas maiores, como tablets, notebooks e desktops.
 </div>
 
-<div [class.page]="!isSmallScreen" [class.small-page]="isSmallScreen">
+<!--<div class="center-boletim">-->
+
+<div [class.page]="!isSmallScreen" [class.small-page]="isSmallScreen" #boletim>
 
     <div class="fa-3x text-center" [class.d-none]="!isLoading" style="margin-top: 400px">
         <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -14,7 +16,7 @@
 
         <div id="logo">
 
-            <div><img src="assets/images/logo-white.svg" /></div>
+            <div><img src="assets/images/logo-white.png" height="60"/></div>
             <div>{{lastUpdate | date : 'dd/MM/yyyy'}}</div>
 <!--             <div style="background: #181b21;border-radius: 5px;">{{lastUpdate | date : 'dd/MM/yyyy'}}</div>-->
 
@@ -91,16 +93,18 @@
 
     <footer>
 
-<!--        <span style="font-weight: 300; font-size: 0.8em">Atualizado às {{last_datetime}}</span>-->
+        <span style="font-weight: 300; font-size: 0.8em">Atualizado em {{lastGenerated | date : "dd/MM/yyyy, 'às' HH:mm"}}</span>
 
 
         <span style="font-weight: bold; font-size: 1.5em;">Acesse picovid.com.br</span>
         <span style="font-weight: 500; font-size: 1em">O PI-COVID é um projeto independente.</span>
-        <span style="font-weight: 300; font-size: 0.8em">&nbsp;</span>
+<!--        <span style="font-weight: 300; font-size: 0.8em">&nbsp;</span>-->
 
 
 
     </footer>
+
+<!--    </div>-->
 
 
     </div>
@@ -110,6 +114,19 @@
 <div style="text-align: center; margin: 30px auto 30px 0">
     <button type="button" class="btn btn-info" [routerLink]="['/painel', state, cityName]">
         <i class="fas fa-arrow-left"></i> Voltar para painel
+    </button>
+
+
+
+    <img #canvas style="display: none;" />
+    <button class="btn btn-success" (click)="downloadImage()" style="margin-left:1em">
+        <i class="fas fa-download"></i> Baixar boletim
+    </button>
+    <a #downloadLinkBoletim></a>
+
+
+    <button class="btn btn-success" (click)="downloadText()" style="margin-left:1em">
+        <i class="fas fa-download"></i> Baixar legenda
     </button>
 
 </div>

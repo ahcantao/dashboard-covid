@@ -27,6 +27,7 @@
 
 #### Novas funcionalidades e alterações:
 - Adição de boletim diário online
+- Download de boletim (png) e legenda (txt)
 
 #### Correções e atualizações:
 - Correção: botão de instalação de PWA não deve aparecer em dispositivos que já o instalaram
