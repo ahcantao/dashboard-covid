@@ -67,7 +67,6 @@
 - mudança de .webmanifest
 - mudança de URL canônico
 
-## Changelog
 ### V2.3.0 (2020-08-18)
 🎉 Agora PI-COVID está presente em Cravinhos/SP
  

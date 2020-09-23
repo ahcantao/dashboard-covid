@@ -164,7 +164,7 @@ export class BoletimComponent implements OnInit {
 
     postagem += `⠀\n`;
 
-    postagem += `📆 Atualizado às ${datePipe.transform(this.lastGenerated, "dd/MM/yyyy, 'às' HH:mm")}\n`;
+    postagem += `📆 Atualizado em ${datePipe.transform(this.lastGenerated, "dd/MM/yyyy, 'às' HH:mm")}\n`;
 
     postagem += `⠀\n`;
 

@@ -119,13 +119,13 @@
 
 
     <img #canvas style="display: none;" />
-    <button class="btn btn-success" (click)="downloadImage()" style="margin-left:1em">
+    <button class="btn btn-success" (click)="downloadImage()" style="margin-left:1em" *ngIf="this.lastUpdate && !this.isSmallScreen">
         <i class="fas fa-download"></i> Baixar boletim
     </button>
     <a #downloadLinkBoletim></a>
 
 
-    <button class="btn btn-success" (click)="downloadText()" style="margin-left:1em">
+    <button class="btn btn-success" (click)="downloadText()" style="margin-left:1em" *ngIf="this.lastUpdate && !this.isSmallScreen">
         <i class="fas fa-download"></i> Baixar legenda
     </button>
 
