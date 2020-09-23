@@ -11,7 +11,7 @@
 
 ### 🏠 [Repositório](https://github.com/rafaeldefazio/dashboard-covid/)
 
-### ✨ [Página](https://covid.catanduva.org)
+### ✨ [Página](https://picovid.com.br)
 
 
 # API Endpoints
@@ -23,7 +23,7 @@
 ## Changelog
 
 
-### V3.2.0 (2020-09-23)
+### V3.3.0 (2020-09-23)
 
 #### Novas funcionalidades e alterações:
 - Adição de boletim diário online
