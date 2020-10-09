@@ -45,6 +45,7 @@ registerLocaleData(localePt);
 import * as Hammer from 'hammerjs';
 import {ClickOutsideDirective} from './layouts/topbar/click-outside';
 import {PopoverModule} from 'ngx-bootstrap/popover';
+import {ChartsModule} from 'ng2-charts';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -97,6 +98,7 @@ export function HttpLoaderFactory(http: HttpClient){
     RouterModule,
     PerfectScrollbarModule,
       FormsModule,
+    ChartsModule,
     ModalModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js'),
     TranslateModule.forRoot({

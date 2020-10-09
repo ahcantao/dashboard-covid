@@ -9,19 +9,24 @@ import { TranslateModule } from '@ngx-translate/core';
 import {CravinhosConfirmadosModal} from '../../modals/cravinhos-confirmados.modal';
 import {CravinhosSuspeitosModal} from '../../modals/cravinhos-suspeitos.modal';
 import {CravinhosIframeModal} from '../../modals/cravinhos-iframe.modal';
+import { PlotHistoricoComponent } from './plot-historico/plot-historico.component';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
       CityComponent,
 
-      CravinhosIframeModal
+      CravinhosIframeModal,
+
+      PlotHistoricoComponent
 
 
   ],
   imports: [
     CommonModule,
     CityRoutingModule,
-      TranslateModule
+      TranslateModule,
+      ChartsModule
   ]
 })
 export class CityModule { }

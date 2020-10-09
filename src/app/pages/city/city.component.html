@@ -1,9 +1,16 @@
 <div class="container-fluid">
 
   <h2 class="text-center mt-3 mb-3" *ngIf="cityName">
-    <img
-    width="100px" src="assets/flags/{{state.toLowerCase()}}-{{cityName.toLowerCase()}}.jpg" alt="{{country}}" loading="lazy">
-    <br/><br/>
+
+    <a href="http://transparencia.cravinhos.sp.gov.br:3000/?cod=164" target="_blank" *ngIf="cityName.toLowerCase()=='cravinhos'" style="margin-bottom: 50px; display: block">
+    <button type="button" class="btn btn-primary">
+      <i class="fas fa-info-circle"></i> Transparência
+    </button>
+    </a>
+
+    <img width="100px" src="assets/flags/{{state.toLowerCase()}}-{{cityName.toLowerCase()}}.jpg" alt="{{country}}" loading="lazy"/>
+    <br/>
+    <br/>
 <!--    {{ 'Shared.Other.18' | translate }}-->
 
     <div class="fa-3x text-center" [class.d-none]="!isLoading">
@@ -24,9 +31,10 @@
             <i class="fas fa-circle-notch fa-spin m-2"></i>
           </div>
           <div class="topBoxesDetails text-md-right text-center" [class.d-none]="isLoading">
-              <span
-                      class="badge badge-warning badge-pill float-md-left m-md-3 mt-2" style="background-color: #9c27b0 !important;">{{(totalCritical / activeCases * 100) | number:'.1-2'}}
-                <i class="mdi mdi-trending-up"></i> </span>
+<!--              <span-->
+<!--                      class="badge badge-warning badge-pill float-md-left m-md-3 mt-2" style="background-color: #9c27b0 !important;">-->
+<!--&lt;!&ndash;                {{(totalCritical / activeCases * 100) | number:'.1-2'}}&ndash;&gt;-->
+<!--                <i class="mdi mdi-trending-up"></i> </span>-->
             <h2 class="font-weight-normal"> {{totalActive | number}} </h2>
             <p class="text-muted">{{todayActive}} {{ 'Shared.TopCards.6' | translate }}</p>
           </div>
@@ -79,9 +87,10 @@
             <i class="fas fa-circle-notch fa-spin m-2"></i>
           </div>
           <div class="topBoxesDetails text-md-right text-center" [class.d-none]="isLoading">
-              <span
-                      class="badge badge-warning badge-pill float-md-left m-md-3 mt-2" style="background-color: #fcfcfc !important;">{{(totalCritical / activeCases * 100) | number:'.1-2'}}
-                <i class="mdi mdi-trending-up"></i> </span>
+<!--              <span-->
+<!--                      class="badge badge-warning badge-pill float-md-left m-md-3 mt-2" style="background-color: #fcfcfc !important;">-->
+<!--&lt;!&ndash;                {{(totalCritical / activeCases * 100) | number:'.1-2'}}&ndash;&gt;-->
+<!--                <i class="mdi mdi-trending-up"></i> </span>-->
             <h2 class="font-weight-normal"> {{totalCured | number}} </h2>
             <p class="text-muted">{{todayCured}} {{ 'Shared.TopCards.6' | translate }}</p>
           </div>
@@ -105,9 +114,10 @@
             <i class="fas fa-circle-notch fa-spin m-2"></i>
           </div>
           <div class="topBoxesDetails text-md-right text-center" [class.d-none]="isLoading">
-              <span
-                      class="badge badge-success badge-pill float-md-left m-md-3 mt-2">{{(totalRecoveries / finishedCases * 100) | number:'.1-2'}}
-                <i class="mdi mdi-trending-up"></i> </span>
+<!--              <span-->
+<!--                      class="badge badge-success badge-pill float-md-left m-md-3 mt-2">-->
+<!--&lt;!&ndash;                {{(totalRecoveries / finishedCases * 100) | number:'.1-2'}}&ndash;&gt;-->
+<!--                <i class="mdi mdi-trending-up"></i> </span>-->
             <h2 class="font-weight-normal"> {{totalNotified | number}} </h2>
             <p class="text-muted">{{todayNotified}} {{ 'Shared.TopCards.6' | translate }}</p>
           </div>
@@ -164,9 +174,10 @@
             <i class="fas fa-circle-notch fa-spin m-2"></i>
           </div>
           <div class="topBoxesDetails text-md-right text-center" [class.d-none]="isLoading">
-              <span
-                      class="badge badge-warning badge-pill float-md-left m-md-3 mt-2" style="background-color: #fd7e14 !important;">{{(totalCritical / activeCases * 100) | number:'.1-2'}}
-                <i class="mdi mdi-trending-up"></i> </span>
+<!--              <span-->
+<!--                      class="badge badge-warning badge-pill float-md-left m-md-3 mt-2" style="background-color: #fd7e14 !important;">-->
+<!--&lt;!&ndash;                {{(totalCritical / activeCases * 100) | number:'.1-2'}}&ndash;&gt;-->
+<!--                <i class="mdi mdi-trending-up"></i> </span>-->
             <h2 class="font-weight-normal"> {{totalDiscarded | number}} </h2>
             <p class="text-muted">{{todayDiscarded}} {{ 'Shared.TopCards.6' | translate }}</p>
           </div>
@@ -190,9 +201,10 @@
             <i class="fas fa-circle-notch fa-spin m-2"></i>
           </div>
           <div class="topBoxesDetails text-md-right text-center" [class.d-none]="isLoading">
-              <span
-                      class="badge badge-warning badge-pill float-md-left m-md-3 mt-2" style="background-color: #5d4037 !important;">{{(totalCritical / activeCases * 100) | number:'.1-2'}}
-                <i class="mdi mdi-trending-up"></i> </span>
+<!--              <span-->
+<!--                      class="badge badge-warning badge-pill float-md-left m-md-3 mt-2" style="background-color: #5d4037 !important;">-->
+<!--&lt;!&ndash;                {{(totalCritical / activeCases * 100) | number:'.1-2'}}&ndash;&gt;-->
+<!--                <i class="mdi mdi-trending-up"></i> </span>-->
             <h2 class="font-weight-normal"> {{totalHospitalized | number}} </h2>
             <p class="text-muted">{{todayHospitalized}} {{ 'Shared.TopCards.6' | translate }}</p>
           </div>
@@ -215,9 +227,10 @@
             <i class="fas fa-circle-notch fa-spin m-2"></i>
           </div>
           <div class="topBoxesDetails text-md-right text-center" [class.d-none]="isLoading">
-              <span
-                      class="badge badge-danger badge-pill float-md-left m-md-3 mt-2">{{(totalDeaths / finishedCases * 100) | number:'.1-2'}}
-                <i class="mdi mdi-trending-up"></i> </span>
+<!--              <span-->
+<!--                      class="badge badge-danger badge-pill float-md-left m-md-3 mt-2">-->
+<!--&lt;!&ndash;                {{(totalDeaths / finishedCases * 100) | number:'.1-2'}}&ndash;&gt;-->
+<!--                <i class="mdi mdi-trending-up"></i> </span>-->
             <h2 class="font-weight-normal"> {{totalDeaths | number}} </h2>
             <p class="text-muted">{{todayDeaths}} {{ 'Shared.TopCards.6' | translate }}</p>
           </div>
@@ -273,66 +286,330 @@
   </div>
 
   <div class="row">
-
-
-    <div class="col-xl-8">
-      <div class="card-box">
-
-
-        <h4 class="header-title mt-0 mb-3 mt-md-0">{{ 'Shared.InfectionsHistory.3' | translate }}</h4>
-        <div class="fa-3x text-center" [class.d-none]="!isLoading">
-          <i class="fas fa-circle-notch fa-spin m-2"></i>
-        </div>
-        <div class="table-responsive" [class.d-none]="isLoading">
-          <div id="lineChartToday" style="Chawidth: 100%; height: 400px; overflow: hidden"></div>
-        </div>
-      </div>
-    </div><!-- end col -->
-
-
     <div class="col-xl-4">
+            <div class="card-box">
+              <h4 class="header-title mb-3">Confirmados/100 mil habitantes </h4>
+              <div class="fa-3x text-center" [class.d-none]="!isLoading">
+                <i class="fas fa-circle-notch fa-spin m-2"></i>
+              </div>
+              <div class="inbox-widget" [class.d-none]="isLoading">
+
+                <h1 *ngIf="totalConfirmed">{{(this.totalConfirmed * 100000)/this.totalInhabitants2020 | number:'1.0-0' }}</h1>
+
+              </div>
+            </div>
+    </div>
+    <div class="col-xl-4">
+            <div class="card-box">
+              <h4 class="header-title mb-3">Óbitos/100 mil habitantes </h4>
+              <div class="fa-3x text-center" [class.d-none]="!isLoading">
+                <i class="fas fa-circle-notch fa-spin m-2"></i>
+              </div>
+              <div class="inbox-widget" [class.d-none]="isLoading">
+
+                <h1 *ngIf="totalDeaths">{{((this.totalDeaths * 100000)/this.totalInhabitants2020) | number:'1.0-0' }}</h1>
+
+              </div>
+            </div>
+    </div>
+    <div class="col-xl-4">
+            <div class="card-box">
+              <h4 class="header-title mb-3">{{ 'Shared.RateDistribution.1' | translate }} </h4>
+              <div class="fa-3x text-center" [class.d-none]="!isLoading">
+                <i class="fas fa-circle-notch fa-spin m-2"></i>
+              </div>
+              <div class="inbox-widget" [class.d-none]="isLoading">
+
+                <h1 *ngIf="totalDeaths">{{(this.totalDeaths / this.totalConfirmed * 100).toFixed(2) | number : '1.2-2'}}%</h1>
+
+              </div>
+            </div>
+    </div>
+  </div>
+
+<!--  Gráficos novos-->
+
+<!--  Confirmados-->
+  <div class="row">
 
 
-
+    <div class="col-xl-6">
       <div class="card-box">
-        <h4 class="header-title mb-3">Confirmados/100 mil habitantes </h4>
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos confirmados acumulados de COVID-19 por data de notificação</h4>
+
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
         </div>
-        <div class="inbox-widget" [class.d-none]="isLoading">
 
-          <h1 *ngIf="totalConfirmed">{{(this.totalConfirmed * 100000)/this.totalInhabitants2020 | number:'1.0-0' }}</h1>
-
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="days"
+                  label="Casos confirmados"
+                  [data]="confirmedData"
+                  borderColor="#21afdd"
+                  backgroundColor="rgba(33, 175, 221, 0.1)"
+                  type="line"
+          >
+          </app-plot-historico>
         </div>
       </div>
-
-      <div class="card-box">
-        <h4 class="header-title mb-3">Óbitos/100 mil habitantes </h4>
-        <div class="fa-3x text-center" [class.d-none]="!isLoading">
-          <i class="fas fa-circle-notch fa-spin m-2"></i>
-        </div>
-        <div class="inbox-widget" [class.d-none]="isLoading">
-
-          <h1 *ngIf="totalDeaths">{{((this.totalDeaths * 100000)/this.totalInhabitants2020) | number:'1.0-0' }}</h1>
-
-        </div>
-      </div>
-
-      <div class="card-box">
-        <h4 class="header-title mb-3">{{ 'Shared.RateDistribution.1' | translate }} </h4>
-        <div class="fa-3x text-center" [class.d-none]="!isLoading">
-          <i class="fas fa-circle-notch fa-spin m-2"></i>
-        </div>
-        <div class="inbox-widget" [class.d-none]="isLoading">
-
-          <h1 *ngIf="totalDeaths">{{(this.totalDeaths / this.totalConfirmed * 100).toFixed(2) | number : '1.2-2'}}%</h1>
-
-        </div>
-      </div>
-
     </div><!-- end col -->
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos confirmados de COVID-19 por data de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="days"
+                  label="Casos confirmados"
+                  [data]="todayConfirmedData"
+                  borderColor="#21afdd"
+                  backgroundColor="rgba(33, 175, 221, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div>
 
   </div>
+
+<!--  Óbitos-->
+  <div class="row">
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Óbitos acumulados de COVID-19 por data de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="days"
+                  label="Óbitos"
+                  [data]="deathData"
+                  borderColor="#EF3340"
+                  backgroundColor="rgba(239, 51, 64, .1)"
+                  type="line"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div><!-- end col -->
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0"> de COVID-19 por data de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="days"
+                  label="Óbitos"
+                  [data]="todayDeathData"
+                  borderColor="#EF3340"
+                  backgroundColor="rgba(239, 51, 64, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos suspeitos acumulados de COVID-19 por data de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="days"
+                  label="Casos suspeitos"
+                  [data]="suspectData"
+                  borderColor="#f9c851"
+                  backgroundColor="rgba(249, 200, 81, .1)"
+                  type="line"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div><!-- end col -->
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos suspeitos de COVID-19 por data de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="days"
+                  label="Casos suspeitos"
+                  [data]="todaySuspectData"
+                  borderColor="#f9c851"
+                  backgroundColor="rgba(249, 200, 81, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos ativos acumulados de COVID-19 por data de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="days"
+                  label="Casos ativos"
+                  [data]="activeData"
+                  borderColor="#9c27b0"
+                  backgroundColor="rgba(156, 39, 176, .1)"
+                  type="line"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div><!-- end col -->
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos ativos de COVID-19 por data de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="days"
+                  label="Casos ativos"
+                  [data]="todayActiveData"
+                  borderColor="#9c27b0"
+                  backgroundColor="rgba(156, 39, 176, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<!--  <div class="row">-->
+
+
+<!--    <div class="col-xl-8">-->
+<!--      <div class="card-box">-->
+
+
+<!--        <h4 class="header-title mt-0 mb-3 mt-md-0">{{ 'Shared.InfectionsHistory.3' | translate }}</h4>-->
+<!--        <div class="fa-3x text-center" [class.d-none]="!isLoading">-->
+<!--          <i class="fas fa-circle-notch fa-spin m-2"></i>-->
+<!--        </div>-->
+<!--        <div class="table-responsive" [class.d-none]="isLoading">-->
+<!--          <div id="lineChartToday" style="Chawidth: 100%; height: 400px; overflow: hidden"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>&lt;!&ndash; end col &ndash;&gt;-->
+
+
+<!--    <div class="col-xl-4">-->
+
+
+
+<!--      <div class="card-box">-->
+<!--        <h4 class="header-title mb-3">Confirmados/100 mil habitantes </h4>-->
+<!--        <div class="fa-3x text-center" [class.d-none]="!isLoading">-->
+<!--          <i class="fas fa-circle-notch fa-spin m-2"></i>-->
+<!--        </div>-->
+<!--        <div class="inbox-widget" [class.d-none]="isLoading">-->
+
+<!--          <h1 *ngIf="totalConfirmed">{{(this.totalConfirmed * 100000)/this.totalInhabitants2020 | number:'1.0-0' }}</h1>-->
+
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="card-box">-->
+<!--        <h4 class="header-title mb-3">Óbitos/100 mil habitantes </h4>-->
+<!--        <div class="fa-3x text-center" [class.d-none]="!isLoading">-->
+<!--          <i class="fas fa-circle-notch fa-spin m-2"></i>-->
+<!--        </div>-->
+<!--        <div class="inbox-widget" [class.d-none]="isLoading">-->
+
+<!--          <h1 *ngIf="totalDeaths">{{((this.totalDeaths * 100000)/this.totalInhabitants2020) | number:'1.0-0' }}</h1>-->
+
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="card-box">-->
+<!--        <h4 class="header-title mb-3">{{ 'Shared.RateDistribution.1' | translate }} </h4>-->
+<!--        <div class="fa-3x text-center" [class.d-none]="!isLoading">-->
+<!--          <i class="fas fa-circle-notch fa-spin m-2"></i>-->
+<!--        </div>-->
+<!--        <div class="inbox-widget" [class.d-none]="isLoading">-->
+
+<!--          <h1 *ngIf="totalDeaths">{{(this.totalDeaths / this.totalConfirmed * 100).toFixed(2) | number : '1.2-2'}}%</h1>-->
+
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </div>&lt;!&ndash; end col &ndash;&gt;-->
+
+<!--  </div>-->
 
 
   <div class="row">

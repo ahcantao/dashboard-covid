@@ -47,10 +47,10 @@ import {CravinhosIframeModal} from '../../modals/cravinhos-iframe.modal';
 
 // TEMA ANIMADO (ON/OFF)
 
-am4core.options.onlyShowOnViewport = true;
-am4core.options.deferredDelay = 500;
-am4core.options.queue = true;
-am4core.options.minPolylineStep = 5;
+// am4core.options.onlyShowOnViewport = true;
+// am4core.options.deferredDelay = 500;
+// am4core.options.queue = true;
+am4core.options.minPolylineStep = 15;
 
 am4core.useTheme(am4themes_animated);
 
@@ -164,9 +164,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.reload();
 
 
-    })
-
-
+    });
 
     // this.zone.runOutsideAngular(() => {
 
@@ -181,79 +179,55 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.titleService.setTitle( newTitle );
   }
 
+  updateBoletim(boletim: any){
+
+    this.lastUpdate = boletim['isoDate'];
+    this.cityName = boletim["cityName"];
+    this.state = boletim["state"];
+
+    this.totalConfirmed = boletim["totalConfirmed"];
+    this.totalDeaths = boletim["totalDeath"];
+    this.totalNotified = boletim["totalNotified"];
+    this.totalSuspect = boletim["totalSuspect"];
+    this.totalDiscarded = boletim["totalDiscarded"];
+    this.totalCured = boletim["totalCured"];
+    this.totalActive = boletim["totalActive"];
+    this.totalHospitalized = boletim["totalHospitalized"];
+
+    this.totalInhabitants2020 = boletim["estimatedPopulation2020"];
+
+
+    this.todayConfirmed = boletim["todayTotalConfirmed"];
+    this.todayDeaths = boletim["todayTotalDeath"];
+    this.todayNotified = boletim["todayTotalNotified"];
+    this.todaySuspect = boletim["todayTotalSuspect"];
+    this.todayDiscarded = boletim["todayTotalDiscarded"];
+    this.todayCured = boletim["todayTotalCured"];
+    this.todayActive = boletim["todayTotalActive"];
+    this.todayHospitalized = boletim["todayTotalHospitalized"];
+
+  }
+
   reload(){
 
+    this.combined$ = this._getDataService.getTimelineCity(this.state, this.cityName).subscribe((res) => {
 
+      const boletim = res[res.length-1];
 
-    this.combined$ =  combineLatest(
-        this._getDataService.getCity(this.state, this.cityName),
-        this._getDataService.getTimelineCity(this.state, this.cityName)
-    ).subscribe(([getAllData, getTimelineData]) => {
+      this.generatePlotsData(res);
 
-      getAllData = getAllData[0];
+      this.updateBoletim(boletim);
 
-      this.lastUpdate = getAllData['isoDate'];
-      this.cityName = getAllData["cityName"];
-      this.state = getAllData["state"];
-
-      this.totalConfirmed = getAllData["totalConfirmed"];
-      this.totalDeaths = getAllData["totalDeath"];
-      this.totalNotified = getAllData["totalNotified"];
-      this.totalSuspect = getAllData["totalSuspect"];
-      this.totalDiscarded = getAllData["totalDiscarded"];
-      this.totalCured = getAllData["totalCured"];
-      this.totalActive = getAllData["totalActive"];
-      this.totalHospitalized = getAllData["totalHospitalized"];
-
-      this.totalInhabitants2020 = getAllData["estimatedPopulation2020"];
-
-
-      this.todayConfirmed = getAllData["todayTotalConfirmed"];
-      this.todayDeaths = getAllData["todayTotalDeath"];
-      this.todayNotified = getAllData["todayTotalNotified"];
-      this.todaySuspect = getAllData["todayTotalSuspect"];
-      this.todayDiscarded = getAllData["todayTotalDiscarded"];
-      this.todayCured = getAllData["todayTotalCured"];
-      this.todayActive = getAllData["todayTotalActive"];
-      this.todayHospitalized = getAllData["todayTotalHospitalized"];
-
-
-      // this.activeCases = getAllData["active"];
-      // this.casesPer1M = getAllData["casesPerOneMillion"];
-      this.finishedCases = this.totalDeaths + this.totalRecoveries;
-      this.timeLine = getTimelineData;
-
-      this.isLoading = false;
-      //
-      // if (this.pieChart){
-      //   this.pieChart.hiddenState.properties.opacity = 0;
-      // }
-      //
-      // if (this.lineChart){
-      //
-      //   this.lineChart.hiddenState.properties.opacity = 0;
-      //
-      // }
-      //
-      // if (this.lineChartToday){
-      //
-      //   this.lineChartToday.hiddenState.properties.opacity = 0;
-      //
-      // }
-      //
-      // if (this.radarChart){
-      //   this.radarChart.hiddenState.properties.opacity = 0;
-      // }
-
+      this.timeLine = res;
 
       this.loadPieChart();
       this.loadLineChart(false);
-      this.loadLineChartToday(false);
 
+      this.isLoading = false;
 
-
-      // this.loadRadar();
     }, (e) => {console.warn(e)});
+
+
 
     if (this.cityName){
 
@@ -785,6 +759,11 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.translations.active = translations['Shared.Other.26'];
   }
 
+
+
+
+
+
   openIframeModal(iframeUrl: string, title){
 
     const initialState = {
@@ -795,6 +774,35 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.bsModalRef.content.closeBtnName = 'Fechar';
 
   }
+
+
+  days = [];
+  confirmedData = [];
+  deathData = [];
+  suspectData = [];
+  activeData = [];
+
+  todayConfirmedData = [];
+  todayDeathData = [];
+  todaySuspectData = [];
+  todayActiveData = [];
+
+  generatePlotsData(dataArray){
+    dataArray.forEach((dia) => {
+      this.days.push(dia.date);
+
+      this.confirmedData.push(dia.totalConfirmed);
+      this.deathData.push(dia.totalDeath);
+      this.suspectData.push(dia.totalSuspect);
+      this.activeData.push(dia.totalActive);
+
+      this.todayConfirmedData.push(dia.todayTotalConfirmed);
+      this.todayDeathData.push(dia.todayTotalDeath);
+      this.todaySuspectData.push(dia.todayTotalSuspect);
+      this.todayActiveData.push(dia.todayTotalActive);
+    })
+  }
+
 
 
 }
