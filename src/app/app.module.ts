@@ -82,7 +82,7 @@ export function HttpLoaderFactory(http: HttpClient){
     CravinhosComponent,
     DataStudioComponent,
     LiveComponent,
-    InicioComponent
+    InicioComponent,
   ],
   imports: [
     BrowserModule,

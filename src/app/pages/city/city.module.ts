@@ -6,10 +6,17 @@ import {CityComponent} from './city.component';
 
 
 import { TranslateModule } from '@ngx-translate/core';
+import {CravinhosConfirmadosModal} from '../../modals/cravinhos-confirmados.modal';
+import {CravinhosSuspeitosModal} from '../../modals/cravinhos-suspeitos.modal';
+import {CravinhosIframeModal} from '../../modals/cravinhos-iframe.modal';
 
 @NgModule({
   declarations: [
-      CityComponent
+      CityComponent,
+
+      CravinhosIframeModal
+
+
   ],
   imports: [
     CommonModule,

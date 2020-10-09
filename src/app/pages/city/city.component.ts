@@ -7,6 +7,10 @@ import {
 } from '@angular/core';
 // import COUNTRY_CODES from "../../shared/utils/countries"
 
+
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+
+
 import {
   ActivatedRoute, Router
 } from '@angular/router';
@@ -38,6 +42,7 @@ import {
 } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import {Title} from '@angular/platform-browser';
+import {CravinhosIframeModal} from '../../modals/cravinhos-iframe.modal';
 
 
 // TEMA ANIMADO (ON/OFF)
@@ -101,13 +106,16 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   public state: any;
   public translations : any = {};
 
+  bsModalRef: BsModalRef;
+
   constructor(
       private route: ActivatedRoute,
       private _getDataService: GetdataService,
       private zone: NgZone,
       public translate : TranslateService,
       public router: Router,
-      private titleService: Title
+      private titleService: Title,
+      private modalService: BsModalService
   )
   {
     this.reload();
@@ -775,6 +783,17 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.translations.cured = translations['Shared.Other.24'];
     this.translations.hospitalized = translations['Shared.Other.25'];
     this.translations.active = translations['Shared.Other.26'];
+  }
+
+  openIframeModal(iframeUrl: string, title){
+
+    const initialState = {
+      myUrl: iframeUrl,
+      title: title
+    };
+    this.bsModalRef = this.modalService.show(CravinhosIframeModal, {initialState});
+    this.bsModalRef.content.closeBtnName = 'Fechar';
+
   }
 
 

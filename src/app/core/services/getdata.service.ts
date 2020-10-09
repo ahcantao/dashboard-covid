@@ -37,7 +37,7 @@ export class GetdataService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    window.alert("Please check your internet connection!.");
+    window.alert("Por favor, cheque sua conexão à internet!");
     return throwError(errorMessage);
  }
 }
