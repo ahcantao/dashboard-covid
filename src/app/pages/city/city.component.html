@@ -337,7 +337,7 @@
       <div class="card-box">
 
 
-        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos confirmados acumulados de COVID-19 por data de notificação</h4>
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos confirmados acumulados por data de notificação</h4>
 
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -362,7 +362,7 @@
       <div class="card-box">
 
 
-        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos confirmados de COVID-19 por data de notificação</h4>
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos confirmados por data de notificação</h4>
 
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -392,7 +392,7 @@
       <div class="card-box">
 
 
-        <h4 class="header-title mt-0 mb-3 mt-md-0">Óbitos acumulados de COVID-19 por data de notificação</h4>
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Óbitos acumulados por data de notificação</h4>
 
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -417,7 +417,7 @@
       <div class="card-box">
 
 
-        <h4 class="header-title mt-0 mb-3 mt-md-0"> de COVID-19 por data de notificação</h4>
+        <h4 class="header-title mt-0 mb-3 mt-md-0"> por data de notificação</h4>
 
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -439,7 +439,7 @@
 
   </div>
 
-
+<!--  Suspeitos-->
   <div class="row">
 
 
@@ -447,7 +447,7 @@
       <div class="card-box">
 
 
-        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos suspeitos acumulados de COVID-19 por data de notificação</h4>
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos suspeitos acumulados por data de notificação</h4>
 
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -472,7 +472,7 @@
       <div class="card-box">
 
 
-        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos suspeitos de COVID-19 por data de notificação</h4>
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos suspeitos por data de notificação</h4>
 
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -494,7 +494,7 @@
 
   </div>
 
-
+<!--  Ativos-->
   <div class="row">
 
 
@@ -502,7 +502,7 @@
       <div class="card-box">
 
 
-        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos ativos acumulados de COVID-19 por data de notificação</h4>
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos ativos acumulados por data de notificação</h4>
 
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -527,7 +527,7 @@
       <div class="card-box">
 
 
-        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos ativos de COVID-19 por data de notificação</h4>
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos ativos por data de notificação</h4>
 
         <div class="fa-3x text-center" [class.d-none]="!isLoading">
           <i class="fas fa-circle-notch fa-spin m-2"></i>
@@ -610,6 +610,121 @@
 <!--    </div>&lt;!&ndash; end col &ndash;&gt;-->
 
 <!--  </div>-->
+
+
+  <!--  Gráficos semanais -->
+
+  <!--  Confirmados e óbitos -->
+  <div class="row">
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos confirmados acumulados por Semana Epidemiológica de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="weeks"
+                  label="Casos confirmados"
+                  [data]="weekConfirmedData"
+                  borderColor="#21afdd"
+                  backgroundColor="rgba(33, 175, 221, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div><!-- end col -->
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Óbitos acumulados por Semana Epidemiológica de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="weeks"
+                  label="Óbitos"
+                  [data]="weekDeathData"
+                  borderColor="#EF3340"
+                  backgroundColor="rgba(239, 51, 64, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<!--  Suspeitos e ativos-->
+  <div class="row">
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos suspeitos acumulados por Semana Epidemiológica de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="weeks"
+                  label="Casos suspeitos"
+                  [data]="weekSuspectData"
+                  borderColor="#f9c851"
+                  backgroundColor="rgba(249, 200, 81, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div><!-- end col -->
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos ativos acumulados por Semana Epidemiológica de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [days]="weeks"
+                  label="Casos ativos"
+                  [data]="weekActiveData"
+                  borderColor="#9c27b0"
+                  backgroundColor="rgba(156, 39, 176, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
 
 
   <div class="row">

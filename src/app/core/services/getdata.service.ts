@@ -35,7 +35,7 @@ export class GetdataService {
       errorMessage = error.error.message;
     } else {
       // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `Erro código: ${error.status}\nMensagem: ${error.message}`;
     }
     window.alert("Por favor, cheque sua conexão à internet!");
     return throwError(errorMessage);

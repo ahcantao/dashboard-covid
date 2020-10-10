@@ -43,6 +43,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {Title} from '@angular/platform-browser';
 import {CravinhosIframeModal} from '../../modals/cravinhos-iframe.modal';
+import {flatMap, groupBy, map, mergeMap, reduce, tap, toArray} from 'rxjs/operators';
 
 
 // TEMA ANIMADO (ON/OFF)
@@ -63,6 +64,7 @@ am4core.useTheme(am4themes_animated);
 export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
   combined$: Subscription;
+  week$: Subscription;
   route$: Subscription;
 
   private pieChart: am4charts.PieChart;
@@ -210,7 +212,144 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
   reload(){
 
-    this.combined$ = this._getDataService.getTimelineCity(this.state, this.cityName).subscribe((res) => {
+    const cityData = this._getDataService.getTimelineCity(this.state, this.cityName);
+
+    //
+    // const epidemiologicalWeek = cityData.pipe(
+    //     mergeMap(array => array),
+    //     groupBy((day:any) => day?.epidemiologicalWeek),
+    //     // flatMap(group => group.pipe(map(item => ({item, key:group.key}))))
+    //     mergeMap(timeline => timeline.pipe(toArray())),
+    //
+    //
+    //     map((val) => {
+    //       let weekTotalActive = 0;
+    //       let weekTotalConfirmed = 0;
+    //       let weekTotalCured = 0;
+    //       let weekTotalSuspect = 0;
+    //       let weekTotalDiscarded = 0;
+    //       let weekTotalHospitalized = 0;
+    //       let weekTotalDeath = 0;
+    //
+    //       val.map((v:any) => {
+    //         weekTotalActive = weekTotalActive + v.todayTotalActive;
+    //         weekTotalConfirmed = weekTotalConfirmed + v.todayTotalConfirmed;
+    //         weekTotalCured = weekTotalCured + v.todayTotalCured;
+    //         weekTotalSuspect = weekTotalSuspect + v.todayTotalSuspect;
+    //         weekTotalDiscarded = weekTotalDiscarded + v.todayTotalDiscarded;
+    //         weekTotalHospitalized = weekTotalHospitalized + v.todayTotalHospitalized;
+    //         weekTotalDeath = weekTotalDeath + v.todayTotalDeath;
+    //
+    //
+    //       });
+    //       return {
+    //         epidemiologicalWeek: val[0]?.epidemiologicalWeek,
+    //
+    //         weekTotalActive: weekTotalActive,
+    //         weekTotalConfirmed: weekTotalConfirmed,
+    //         weekTotalCured: weekTotalCured,
+    //         weekTotalSuspect: weekTotalSuspect,
+    //         weekTotalDiscarded: weekTotalDiscarded,
+    //         weekTotalHospitalized: weekTotalHospitalized,
+    //         weekTotalDeath: weekTotalDeath
+    //
+    //       };
+    //     }),
+    //
+    //     toArray()
+    // );
+    //
+    // this.week$ = epidemiologicalWeek.subscribe(res => {
+    //
+    //   this.generateWeekPlotsData(res);
+    //
+    // });
+
+
+    const epidemiologicalWeek = cityData.pipe(
+        mergeMap(array => array),
+        groupBy((day:any) => day?.epidemiologicalWeek),
+        // flatMap(group => group.pipe(map(item => ({item, key:group.key}))))
+        mergeMap(timeline => timeline.pipe(toArray())),
+        // tap(r => console.log(r)),
+
+
+        map((val) => {
+
+
+          let weekTotalActive = 0;
+          let weekTotalConfirmed = 0;
+          let weekTotalCured = 0;
+          let weekTotalSuspect = 0;
+          let weekTotalDiscarded = 0;
+          let weekTotalHospitalized = 0;
+          let weekTotalDeath = 0;
+
+
+          return val.reduce((total, day) => {
+
+            total.weekTotalActive += day.todayTotalActive;
+            total.weekTotalConfirmed += day.todayTotalConfirmed;
+            total.weekTotalCured += day.todayTotalCured;
+            total.weekTotalSuspect += day.todayTotalSuspect;
+            total.weekTotalDiscarded += day.todayTotalDiscarded;
+            total.weekTotalHospitalized += day.todayTotalHospitalized;
+            total.weekTotalDeath += day.todayTotalDeath;
+
+            return total
+
+          }, {
+              epidemiologicalWeek: val[0]?.epidemiologicalWeek,
+              weekTotalActive: 0,
+              weekTotalConfirmed: 0,
+              weekTotalCured: 0,
+              weekTotalSuspect: 0,
+              weekTotalDiscarded: 0,
+              weekTotalHospitalized: 0,
+              weekTotalDeath: 0
+          });
+
+          //
+          // val.map((v:any) => {
+          //   weekTotalActive = weekTotalActive + v.todayTotalActive;
+          //   weekTotalConfirmed = weekTotalConfirmed + v.todayTotalConfirmed;
+          //   weekTotalCured = weekTotalCured + v.todayTotalCured;
+          //   weekTotalSuspect = weekTotalSuspect + v.todayTotalSuspect;
+          //   weekTotalDiscarded = weekTotalDiscarded + v.todayTotalDiscarded;
+          //   weekTotalHospitalized = weekTotalHospitalized + v.todayTotalHospitalized;
+          //   weekTotalDeath = weekTotalDeath + v.todayTotalDeath;
+          //
+          //
+          // });
+          //
+          // return {
+          //   epidemiologicalWeek: val[0]?.epidemiologicalWeek,
+          //
+          //   weekTotalActive: weekTotalActive,
+          //   weekTotalConfirmed: weekTotalConfirmed,
+          //   weekTotalCured: weekTotalCured,
+          //   weekTotalSuspect: weekTotalSuspect,
+          //   weekTotalDiscarded: weekTotalDiscarded,
+          //   weekTotalHospitalized: weekTotalHospitalized,
+          //   weekTotalDeath: weekTotalDeath
+          //
+          // };
+        }),
+
+        // map(t => t.total),
+        toArray(),
+        // tap(r => console.log(r))
+    );
+
+    this.week$ = epidemiologicalWeek.subscribe(res => {
+
+      this.generateWeekPlotsData(res);
+
+    });
+
+
+
+    this.combined$ = cityData.subscribe((res) => {
 
       const boletim = res[res.length-1];
 
@@ -800,6 +939,33 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.todayDeathData.push(dia.todayTotalDeath);
       this.todaySuspectData.push(dia.todayTotalSuspect);
       this.todayActiveData.push(dia.todayTotalActive);
+    })
+  }
+
+
+
+  weeks = [];
+  weekActiveData = [];
+  weekConfirmedData = [];
+  weekCuredData = [];
+  weekSuspectData = [];
+  weekDiscardedData = [];
+  weekHospitalizedData = [];
+  weekDeathData = [];
+
+
+  generateWeekPlotsData(dataArray){
+    dataArray.forEach((dia) => {
+      // console.log(dia);return;
+      this.weeks.push(dia.epidemiologicalWeek);
+      this.weekActiveData.push(dia.weekTotalActive);
+      this.weekConfirmedData.push(dia.weekTotalConfirmed);
+      this.weekCuredData.push(dia.weekTotalCured);
+      this.weekSuspectData.push(dia.weekTotalSuspect);
+      this.weekDiscardedData.push(dia.weekTotalDiscarded);
+      this.weekHospitalizedData.push(dia.weekTotalHospitalized);
+      this.weekDeathData.push(dia.weekTotalDeath);
+
     })
   }
 
