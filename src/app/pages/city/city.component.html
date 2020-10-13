@@ -345,6 +345,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="days"
                   label="Casos confirmados"
                   [data]="confirmedData"
@@ -370,6 +371,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="days"
                   label="Casos confirmados"
                   [data]="todayConfirmedData"
@@ -400,6 +402,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="days"
                   label="Óbitos"
                   [data]="deathData"
@@ -425,6 +428,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="days"
                   label="Óbitos"
                   [data]="todayDeathData"
@@ -455,6 +459,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="days"
                   label="Casos suspeitos"
                   [data]="suspectData"
@@ -480,6 +485,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="days"
                   label="Casos suspeitos"
                   [data]="todaySuspectData"
@@ -510,6 +516,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="days"
                   label="Casos ativos"
                   [data]="activeData"
@@ -535,6 +542,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="days"
                   label="Casos ativos"
                   [data]="todayActiveData"
@@ -630,6 +638,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="weeks"
                   label="Casos confirmados"
                   [data]="weekConfirmedData"
@@ -655,6 +664,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="weeks"
                   label="Óbitos"
                   [data]="weekDeathData"
@@ -685,6 +695,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="weeks"
                   label="Casos suspeitos"
                   [data]="weekSuspectData"
@@ -710,6 +721,7 @@
 
         <div class="table-responsive" [class.d-none]="isLoading">
           <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
                   [days]="weeks"
                   label="Casos ativos"
                   [data]="weekActiveData"

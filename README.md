@@ -23,6 +23,11 @@
 ## Changelog
 
 
+### V3.4.0 (2020-10-13)
+- Correção de bugs
+- novos gráficos
+- Adição bandeira de Pindorama/SP
+
 ### V3.3.0 (2020-09-23)
 
 #### Novas funcionalidades e alterações:

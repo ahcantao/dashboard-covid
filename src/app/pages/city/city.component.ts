@@ -20,30 +20,17 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4lang_pt_BR from "@amcharts/amcharts4/lang/pt_BR";
 
-// Promise.all([
-//   import("@amcharts/amcharts4/core"),
-//   import("@amcharts/amcharts4/charts"),
-//   // import("@amcharts/amcharts4/themes/animated")
-// ]).then((modules) => {
-//   const am4core = modules[0];
-//   const am4charts = modules[1];
-//   // const am4themes_animated = modules[2].default;
-//
-//   // Chart code goes here
-// }).catch((e) => {
-//   console.error("Error when creating chart", e);
-// })
 
 import {
   GetdataService
 } from "./../../core/services/getdata.service";
 import {
-  combineLatest, Subscription
+  Subscription
 } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import {Title} from '@angular/platform-browser';
 import {CravinhosIframeModal} from '../../modals/cravinhos-iframe.modal';
-import {flatMap, groupBy, map, mergeMap, reduce, tap, toArray} from 'rxjs/operators';
+import { groupBy, map, mergeMap, reduce, tap, toArray} from 'rxjs/operators';
 
 
 // TEMA ANIMADO (ON/OFF)
@@ -73,6 +60,27 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   private radarChart: am4charts.RadarChart;
 
 
+  isDataAvailable:boolean = false;
+  days = [];
+  confirmedData = [];
+  deathData = [];
+  suspectData = [];
+  activeData = [];
+
+  todayConfirmedData = [];
+  todayDeathData = [];
+  todaySuspectData = [];
+  todayActiveData = [];
+
+
+  weeks = [];
+  weekActiveData = [];
+  weekConfirmedData = [];
+  weekCuredData = [];
+  weekSuspectData = [];
+  weekDiscardedData = [];
+  weekHospitalizedData = [];
+  weekDeathData = [];
 
 
   public isLoading: boolean = true;
@@ -83,7 +91,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   public totalConfirmed=0;
   public totalDeaths=0;
   public totalRecoveries;
-  public totalCritical=0;
   totalCured = 0;
   totalActive = 0;
   totalHospitalized = 0;
@@ -93,8 +100,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   public todayConfirmed=0;
   public todayDeaths=0;
   public activeCases=0;
-  public casesPer1M=0;
-  public finishedCases=0;
+
   public totalNotified=0;
   public totalSuspect=0;
   public todayNotified=0;
@@ -120,9 +126,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       private modalService: BsModalService
   )
   {
-    this.reload();
   }
-
 
   ngOnDestroy() {
     // this.zone.runOutsideAngular(() => {
@@ -143,6 +147,16 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.combined$.unsubscribe();
     }
 
+    if (this.week$){
+      this.week$.unsubscribe();
+    }
+
+    if (this.route$){
+      this.route$.unsubscribe();
+    }
+
+    this.reload();
+
   }
 
   async ngDoCheck() {
@@ -157,8 +171,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     this.route$ = this.route.params.subscribe(routeParams => {
 
-      this.ngOnDestroy();
-
+      // this.ngOnDestroy();
       this.isLoading = true;
       this.state = this.route.snapshot.params['state'].toLowerCase();
       this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
@@ -168,13 +181,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     });
 
-    // this.zone.runOutsideAngular(() => {
 
-      // this.reload();
-
-    // }
-
-    
   }
 
   public setTitle( newTitle: string) {
@@ -211,6 +218,26 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   reload(){
+
+    this.days = [];
+    this.confirmedData = [];
+    this.deathData = [];
+    this.suspectData = [];
+    this.activeData = [];
+
+    this.todayConfirmedData = [];
+    this.todayDeathData = [];
+    this.todaySuspectData = [];
+    this.todayActiveData = [];
+
+    this.weeks = [];
+    this.weekActiveData = [];
+    this.weekConfirmedData = [];
+    this.weekCuredData = [];
+    this.weekSuspectData = [];
+    this.weekDiscardedData = [];
+    this.weekHospitalizedData = [];
+    this.weekDeathData = [];
 
     const cityData = this._getDataService.getTimelineCity(this.state, this.cityName);
 
@@ -363,6 +390,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.loadLineChart(false);
 
       this.isLoading = false;
+      this.isDataAvailable = true;
 
     }, (e) => {console.warn(e)});
 
@@ -899,10 +927,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   }
 
 
-
-
-
-
   openIframeModal(iframeUrl: string, title){
 
     const initialState = {
@@ -914,17 +938,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
   }
 
-
-  days = [];
-  confirmedData = [];
-  deathData = [];
-  suspectData = [];
-  activeData = [];
-
-  todayConfirmedData = [];
-  todayDeathData = [];
-  todaySuspectData = [];
-  todayActiveData = [];
 
   generatePlotsData(dataArray){
     dataArray.forEach((dia) => {
@@ -943,17 +956,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   }
 
 
-
-  weeks = [];
-  weekActiveData = [];
-  weekConfirmedData = [];
-  weekCuredData = [];
-  weekSuspectData = [];
-  weekDiscardedData = [];
-  weekHospitalizedData = [];
-  weekDeathData = [];
-
-
   generateWeekPlotsData(dataArray){
     dataArray.forEach((dia) => {
       // console.log(dia);return;
@@ -968,7 +970,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     })
   }
-
 
 
 }

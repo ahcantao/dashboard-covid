@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
@@ -8,8 +8,9 @@ import { Color, Label } from 'ng2-charts';
   templateUrl: './plot-historico.component.html',
   styleUrls: ['./plot-historico.component.scss'],
 })
-export class PlotHistoricoComponent implements OnInit{
+export class PlotHistoricoComponent implements OnInit, OnChanges{
 
+  @Input() isDataAvailable; boolean;
   @Input() days : Label[];
   @Input() label : string;
   @Input() data: string[];
@@ -116,6 +117,10 @@ export class PlotHistoricoComponent implements OnInit{
 
   lineChartLegend = true;
   lineChartPlugins = [];
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.ngOnInit()
+  }
 
 
 }
