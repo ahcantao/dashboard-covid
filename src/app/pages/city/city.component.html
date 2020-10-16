@@ -327,7 +327,36 @@
     </div>
   </div>
 
-<!--  Gráficos novos-->
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center card-box">
+
+      <div class="form-inline">
+
+        <h4>Filtrar dados</h4>
+
+        <input type="text"
+               placeholder="Período"
+               class="form-control"
+               bsDaterangepicker
+               [bsConfig]="{  adaptivePosition: true, isAnimated: false , dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue', useUtc: true}"
+               [(ngModel)]="dateRangeFilter"
+               style="margin-left: 30px"
+        >
+
+        <button type="button" class="btn btn-primary" (click)="filterByDateButtonClicked()" style="margin-left: 30px">
+          <i class="fa fa-filter"></i> Filtrar
+        </button>
+
+        <button type="button" class="btn btn-primary" (click)="reloadTimelineData()" style="margin-left: 10px">
+          <i class="fas fa-redo"></i> Recarregar padrão
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!--  Gráficos novos-->
 
 <!--  Confirmados-->
   <div class="row">

@@ -46,6 +46,7 @@ import * as Hammer from 'hammerjs';
 import {ClickOutsideDirective} from './layouts/topbar/click-outside';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import {ChartsModule} from 'ng2-charts';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -100,6 +101,7 @@ export function HttpLoaderFactory(http: HttpClient){
       FormsModule,
     ChartsModule,
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js'),
     TranslateModule.forRoot({
       loader: {

@@ -9,6 +9,8 @@ import {
 
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsLocaleService} from 'ngx-bootstrap/datepicker';
+import { listLocales } from 'ngx-bootstrap/chronos';
 
 
 import {
@@ -25,20 +27,22 @@ import {
   GetdataService
 } from "./../../core/services/getdata.service";
 import {
+  Observable, of,
   Subscription
 } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import {Title} from '@angular/platform-browser';
 import {CravinhosIframeModal} from '../../modals/cravinhos-iframe.modal';
-import { groupBy, map, mergeMap, reduce, tap, toArray} from 'rxjs/operators';
+import { groupBy, map, mergeMap, toArray} from 'rxjs/operators';
 
 
 // TEMA ANIMADO (ON/OFF)
 
 // am4core.options.onlyShowOnViewport = true;
 // am4core.options.deferredDelay = 500;
-// am4core.options.queue = true;
+am4core.options.queue = true;
 am4core.options.minPolylineStep = 15;
+am4core.options.autoDispose = true;
 
 am4core.useTheme(am4themes_animated);
 
@@ -56,8 +60,12 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
   private pieChart: am4charts.PieChart;
   private lineChart: am4charts.XYChart;
-  private lineChartToday: am4charts.XYChart;
-  private radarChart: am4charts.RadarChart;
+  // private lineChartToday: am4charts.XYChart;
+  // private radarChart: am4charts.RadarChart;
+
+  locale = 'pt-br';
+
+  dateRangeFilter: Date[];
 
 
   isDataAvailable:boolean = false;
@@ -123,25 +131,29 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       public translate : TranslateService,
       public router: Router,
       private titleService: Title,
-      private modalService: BsModalService
+      private modalService: BsModalService,
+      private localeService: BsLocaleService
   )
   {
   }
 
   ngOnDestroy() {
     // this.zone.runOutsideAngular(() => {
-      if (this.pieChart) {
-        this.pieChart.dispose();
-      }
-      if (this.lineChart) {
-        this.lineChart.dispose();
-      }
-      if (this.radarChart) {
-        this.radarChart.dispose();
-      } if(this.lineChartToday){
-        this.lineChartToday.dispose();
-      }
-    // });
+
+      am4core.disposeAllCharts();
+
+      // if (this.pieChart) {
+      //   this.pieChart.dispose();
+      // }
+      // if (this.lineChart) {
+      //   this.lineChart.dispose();
+      // }
+      // if (this.radarChart) {
+      //   this.radarChart.dispose();
+      // } if(this.lineChartToday){
+      //   this.lineChartToday.dispose();
+      // }
+
 
     if (this.combined$){
       this.combined$.unsubscribe();
@@ -155,7 +167,9 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.route$.unsubscribe();
     }
 
-    this.reload();
+    // this.reload();
+
+    // });
 
   }
 
@@ -169,14 +183,22 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
   ngOnInit() {
 
+    this.localeService.use(this.locale);
+
+
     this.route$ = this.route.params.subscribe(routeParams => {
 
-      // this.ngOnDestroy();
       this.isLoading = true;
+      this.isDataAvailable = false;
+
+      // this.ngOnDestroy();
+
       this.state = this.route.snapshot.params['state'].toLowerCase();
       this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
 
       this.reload();
+
+      // this.isLoading = false;
 
 
     });
@@ -218,6 +240,8 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   reload(){
+
+    am4core.disposeAllCharts();
 
     this.days = [];
     this.confirmedData = [];
@@ -384,13 +408,14 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
       this.updateBoletim(boletim);
 
+      this.isLoading = false;
+      this.isDataAvailable = true;
+
       this.timeLine = res;
 
       this.loadPieChart();
       this.loadLineChart(false);
 
-      this.isLoading = false;
-      this.isDataAvailable = true;
 
     }, (e) => {console.warn(e)});
 
@@ -402,7 +427,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     }
 
-    // this.combined$.unsubscribe();
   }
 
   loadLineChart(chartType) {
@@ -516,69 +540,69 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.lineChart = chart;
   }
 
-  loadLineChartToday(chartType) {
-    let caseData = this.timeLine;
-    let plotData = []
-
-    caseData.forEach(async element => {
-
-
-      plotData.push({
-        date: element['isoDate'],
-        cases: element['todayTotalConfirmed'],
-        deaths: element['todayTotalDeath'],
-        suspect: element['todayTotalSuspect'],
-        discarded: element['todayTotalDiscarded'],
-        active: element['todayTotalActive'],
-        cured: element['todayTotalCured'],
-        hospitalized: element['todayTotalHospitalized']
-      });
-
-    });
-
-    let chart = am4core.create("lineChartToday", am4charts.XYChart);
-    chart.numberFormatter.numberFormat = "#a";
-    chart.numberFormatter.bigNumberPrefixes = [
-      { "number": 1e+3, "suffix": "K" },
-      { "number": 1e+6, "suffix": "M" },
-      { "number": 1e+9, "suffix": "B" }
-    ];
-
-
-    chart.language.locale = am4lang_pt_BR;
-    chart.numberFormatter.language = new am4core.Language();
-    chart.numberFormatter.language.locale = am4lang_pt_BR;
-    chart.dateFormatter.language = new am4core.Language();
-    chart.dateFormatter.language.locale = am4lang_pt_BR;
-
-    // Create axes
-    let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.renderer.minGridDistance = 50;
-
-
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    // valueAxis.logarithmic = chartType;
-
-    valueAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
-    dateAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
-
-    chart = this.createStepLineSeries(chart, "#21AFDD", "cases");
-    chart = this.createStepLineSeries(chart, "#ff5b5b", "deaths");
-    chart = this.createStepLineSeries(chart, "#f9c851", "suspect");
-    // chart = this.createStepLineSeries(chart, "#fd7e14", "discarded");
-    // chart = this.createStepLineSeries(chart, "#9c27b0", "active");
-    chart = this.createStepLineSeries(chart, "#fcfcfc", "cured");
-    // chart = this.createStepLineSeries(chart, "#a36f40", "hospitalized");
-
-    chart.data = plotData;
-
-    chart.legend = new am4charts.Legend();
-    chart.legend.labels.template.fill = am4core.color("#adb5bd");
-
-    chart.cursor = new am4charts.XYCursor();
-
-    this.lineChartToday = chart;
-  }
+  // loadLineChartToday(chartType) {
+  //   let caseData = this.timeLine;
+  //   let plotData = []
+  //
+  //   caseData.forEach(async element => {
+  //
+  //
+  //     plotData.push({
+  //       date: element['isoDate'],
+  //       cases: element['todayTotalConfirmed'],
+  //       deaths: element['todayTotalDeath'],
+  //       suspect: element['todayTotalSuspect'],
+  //       discarded: element['todayTotalDiscarded'],
+  //       active: element['todayTotalActive'],
+  //       cured: element['todayTotalCured'],
+  //       hospitalized: element['todayTotalHospitalized']
+  //     });
+  //
+  //   });
+  //
+  //   let chart = am4core.create("lineChartToday", am4charts.XYChart);
+  //   chart.numberFormatter.numberFormat = "#a";
+  //   chart.numberFormatter.bigNumberPrefixes = [
+  //     { "number": 1e+3, "suffix": "K" },
+  //     { "number": 1e+6, "suffix": "M" },
+  //     { "number": 1e+9, "suffix": "B" }
+  //   ];
+  //
+  //
+  //   chart.language.locale = am4lang_pt_BR;
+  //   chart.numberFormatter.language = new am4core.Language();
+  //   chart.numberFormatter.language.locale = am4lang_pt_BR;
+  //   chart.dateFormatter.language = new am4core.Language();
+  //   chart.dateFormatter.language.locale = am4lang_pt_BR;
+  //
+  //   // Create axes
+  //   let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+  //   dateAxis.renderer.minGridDistance = 50;
+  //
+  //
+  //   let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  //   // valueAxis.logarithmic = chartType;
+  //
+  //   valueAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
+  //   dateAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
+  //
+  //   chart = this.createStepLineSeries(chart, "#21AFDD", "cases");
+  //   chart = this.createStepLineSeries(chart, "#ff5b5b", "deaths");
+  //   chart = this.createStepLineSeries(chart, "#f9c851", "suspect");
+  //   // chart = this.createStepLineSeries(chart, "#fd7e14", "discarded");
+  //   // chart = this.createStepLineSeries(chart, "#9c27b0", "active");
+  //   chart = this.createStepLineSeries(chart, "#fcfcfc", "cured");
+  //   // chart = this.createStepLineSeries(chart, "#a36f40", "hospitalized");
+  //
+  //   chart.data = plotData;
+  //
+  //   chart.legend = new am4charts.Legend();
+  //   chart.legend.labels.template.fill = am4core.color("#adb5bd");
+  //
+  //   chart.cursor = new am4charts.XYCursor();
+  //
+  //   this.lineChartToday = chart;
+  // }
 
   loadPieChart() {
     let chart = am4core.create("pieChart", am4charts.PieChart);
@@ -625,106 +649,106 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.pieChart = chart;
   }
 
-  loadRadar() {
-    let chart = am4core.create("radarChart", am4charts.RadarChart);
-
-    // Add data
-    chart.data = [{
-      "category": this.translations.deaths,
-      "value": this.totalDeaths / this.totalConfirmed * 100,
-      "full": 100
-    },
-    //   {
-    //   "category": this.translations.deaths,
-    //   "value": this.totalDeaths / this.finishedCases * 100,
-    //   "full": 100
-    // }, {
-    //   "category": this.translations.recovered,
-    //   "value": this.totalRecoveries / this.finishedCases * 100,
-    //   "full": 100
-    // }, {
-    //   "category": this.translations.active,
-    //   "value": 100 - (this.totalCritical / this.activeCases * 100),
-    //   "full": 100
-    // }
-    ];
-
-    // Make chart not full circle
-    chart.startAngle = -90;
-    chart.endAngle = 180;
-    chart.innerRadius = am4core.percent(20);
-
-    // Set number format
-    chart.numberFormatter.numberFormat = "#.#'%'";
-
-    // Create axes
-    let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis < am4charts.AxisRendererRadial > ());
-    categoryAxis.dataFields.category = "category";
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.renderer.grid.template.strokeOpacity = 0;
-    categoryAxis.renderer.labels.template.horizontalCenter = "right";
-    categoryAxis.renderer.labels.template.adapter.add("fill", function (fill, target) {
-      if (target.dataItem.index == 0) {
-        return am4core.color("#ff5b5b");
-      }
-      if (target.dataItem.index == 1) {
-        return am4core.color("#f9c851");
-      }
-      if (target.dataItem.index == 2) {
-        return am4core.color("#10c469");
-      }
-      return am4core.color("#21AFDD");
-    });
-    categoryAxis.renderer.minGridDistance = 10;
-
-    let valueAxis = chart.xAxes.push(new am4charts.ValueAxis < am4charts.AxisRendererCircular > ());
-    valueAxis.renderer.grid.template.strokeOpacity = 0;
-    valueAxis.min = 0;
-    valueAxis.max = 100;
-    valueAxis.strictMinMax = true;
-
-    valueAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
-
-    // Create series
-    let series1 = chart.series.push(new am4charts.RadarColumnSeries());
-    series1.dataFields.valueX = "full";
-    series1.dataFields.categoryY = "category";
-    series1.clustered = false;
-    series1.columns.template.fill = new am4core.InterfaceColorSet().getFor("alternativeBackground");
-    series1.columns.template.fillOpacity = 0.08;
-    series1.columns.template["cornerRadiusTopLeft"] = 20;
-    series1.columns.template.strokeWidth = 0;
-    series1.columns.template.radarColumn.cornerRadius = 20;
-
-    let series2 = chart.series.push(new am4charts.RadarColumnSeries());
-    series2.dataFields.valueX = "value";
-    series2.dataFields.categoryY = "category";
-    series2.clustered = false;
-    series2.columns.template.strokeWidth = 0;
-    series2.columns.template.tooltipText = "{category}: [bold]{value}[/]";
-    series2.columns.template.radarColumn.cornerRadius = 20;
-
-    series2.columns.template.adapter.add("fill", function (fill, target) {
-      //return chart.colors.getIndex(target.dataItem.index);
-      if (target.dataItem.index == 0) {
-        return am4core.color("#f9c851");
-      }
-      if (target.dataItem.index == 1) {
-        return am4core.color("#ff5b5b");
-      }
-      if (target.dataItem.index == 2) {
-        return am4core.color("#10c469");
-      }
-      return am4core.color("#21AFDD");
-    });
-
-    // Add cursor
-    chart.cursor = new am4charts.RadarCursor();
-    chart.cursor.fill = am4core.color("#282e38");
-    chart.tooltip.label.fill = am4core.color("#282e38");
-
-    this.radarChart = chart;
-  }
+  // loadRadar() {
+  //   let chart = am4core.create("radarChart", am4charts.RadarChart);
+  //
+  //   // Add data
+  //   chart.data = [{
+  //     "category": this.translations.deaths,
+  //     "value": this.totalDeaths / this.totalConfirmed * 100,
+  //     "full": 100
+  //   },
+  //   //   {
+  //   //   "category": this.translations.deaths,
+  //   //   "value": this.totalDeaths / this.finishedCases * 100,
+  //   //   "full": 100
+  //   // }, {
+  //   //   "category": this.translations.recovered,
+  //   //   "value": this.totalRecoveries / this.finishedCases * 100,
+  //   //   "full": 100
+  //   // }, {
+  //   //   "category": this.translations.active,
+  //   //   "value": 100 - (this.totalCritical / this.activeCases * 100),
+  //   //   "full": 100
+  //   // }
+  //   ];
+  //
+  //   // Make chart not full circle
+  //   chart.startAngle = -90;
+  //   chart.endAngle = 180;
+  //   chart.innerRadius = am4core.percent(20);
+  //
+  //   // Set number format
+  //   chart.numberFormatter.numberFormat = "#.#'%'";
+  //
+  //   // Create axes
+  //   let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis < am4charts.AxisRendererRadial > ());
+  //   categoryAxis.dataFields.category = "category";
+  //   categoryAxis.renderer.grid.template.location = 0;
+  //   categoryAxis.renderer.grid.template.strokeOpacity = 0;
+  //   categoryAxis.renderer.labels.template.horizontalCenter = "right";
+  //   categoryAxis.renderer.labels.template.adapter.add("fill", function (fill, target) {
+  //     if (target.dataItem.index == 0) {
+  //       return am4core.color("#ff5b5b");
+  //     }
+  //     if (target.dataItem.index == 1) {
+  //       return am4core.color("#f9c851");
+  //     }
+  //     if (target.dataItem.index == 2) {
+  //       return am4core.color("#10c469");
+  //     }
+  //     return am4core.color("#21AFDD");
+  //   });
+  //   categoryAxis.renderer.minGridDistance = 10;
+  //
+  //   let valueAxis = chart.xAxes.push(new am4charts.ValueAxis < am4charts.AxisRendererCircular > ());
+  //   valueAxis.renderer.grid.template.strokeOpacity = 0;
+  //   valueAxis.min = 0;
+  //   valueAxis.max = 100;
+  //   valueAxis.strictMinMax = true;
+  //
+  //   valueAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
+  //
+  //   // Create series
+  //   let series1 = chart.series.push(new am4charts.RadarColumnSeries());
+  //   series1.dataFields.valueX = "full";
+  //   series1.dataFields.categoryY = "category";
+  //   series1.clustered = false;
+  //   series1.columns.template.fill = new am4core.InterfaceColorSet().getFor("alternativeBackground");
+  //   series1.columns.template.fillOpacity = 0.08;
+  //   series1.columns.template["cornerRadiusTopLeft"] = 20;
+  //   series1.columns.template.strokeWidth = 0;
+  //   series1.columns.template.radarColumn.cornerRadius = 20;
+  //
+  //   let series2 = chart.series.push(new am4charts.RadarColumnSeries());
+  //   series2.dataFields.valueX = "value";
+  //   series2.dataFields.categoryY = "category";
+  //   series2.clustered = false;
+  //   series2.columns.template.strokeWidth = 0;
+  //   series2.columns.template.tooltipText = "{category}: [bold]{value}[/]";
+  //   series2.columns.template.radarColumn.cornerRadius = 20;
+  //
+  //   series2.columns.template.adapter.add("fill", function (fill, target) {
+  //     //return chart.colors.getIndex(target.dataItem.index);
+  //     if (target.dataItem.index == 0) {
+  //       return am4core.color("#f9c851");
+  //     }
+  //     if (target.dataItem.index == 1) {
+  //       return am4core.color("#ff5b5b");
+  //     }
+  //     if (target.dataItem.index == 2) {
+  //       return am4core.color("#10c469");
+  //     }
+  //     return am4core.color("#21AFDD");
+  //   });
+  //
+  //   // Add cursor
+  //   chart.cursor = new am4charts.RadarCursor();
+  //   chart.cursor.fill = am4core.color("#282e38");
+  //   chart.tooltip.label.fill = am4core.color("#282e38");
+  //
+  //   this.radarChart = chart;
+  // }
 
   createSeriesColumn(chart, color, type) {
     let name = null;
@@ -911,7 +935,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     return chart
   }
 
-
   async setTranslations(translations){
     this.translations.active = translations['Shared.Other.14'];
     this.translations.recovered = translations['Shared.Other.15'];
@@ -926,7 +949,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.translations.active = translations['Shared.Other.26'];
   }
 
-
   openIframeModal(iframeUrl: string, title){
 
     const initialState = {
@@ -937,7 +959,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.bsModalRef.content.closeBtnName = 'Fechar';
 
   }
-
 
   generatePlotsData(dataArray){
     dataArray.forEach((dia) => {
@@ -955,7 +976,6 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     })
   }
 
-
   generateWeekPlotsData(dataArray){
     dataArray.forEach((dia) => {
       // console.log(dia);return;
@@ -969,6 +989,167 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.weekDeathData.push(dia.weekTotalDeath);
 
     })
+  }
+
+
+  // Filtrar dados
+
+  filterByDateButtonClicked(){
+    if (this.dateRangeFilter.length > 0){
+      let start = this.dateRangeFilter[0];
+      start.setHours(0,0,0);
+
+      let end = this.dateRangeFilter[1];
+      end.setHours(0,0,0);
+
+
+      this.reloadFilterData(
+          of(this.filterByDate(start, end))
+      );
+    }
+  }
+
+  filterByDate(start:Date, end:Date) {
+
+    if (this.timeLine) {
+      return this.timeLine.filter(item => {
+        let date = new Date(item.isoDate);
+        date.setHours(0,0,0);
+
+        return date >= start && date <= end;
+      })
+    }
+  }
+
+  reloadTimelineData(){
+    this.reloadFilterData(of(this.timeLine));
+  }
+
+  reloadFilterData(cityData:Observable<any>){
+
+    this.isLoading = true;
+    this.isDataAvailable = false;
+
+
+    this.pieChart.dispose();
+
+    this.days = [];
+    this.confirmedData = [];
+    this.deathData = [];
+    this.suspectData = [];
+    this.activeData = [];
+
+    this.todayConfirmedData = [];
+    this.todayDeathData = [];
+    this.todaySuspectData = [];
+    this.todayActiveData = [];
+
+    this.weeks = [];
+    this.weekActiveData = [];
+    this.weekConfirmedData = [];
+    this.weekCuredData = [];
+    this.weekSuspectData = [];
+    this.weekDiscardedData = [];
+    this.weekHospitalizedData = [];
+    this.weekDeathData = [];
+
+    const epidemiologicalWeek = cityData.pipe(
+        mergeMap(array => array),
+        groupBy((day:any) => day?.epidemiologicalWeek),
+        // flatMap(group => group.pipe(map(item => ({item, key:group.key}))))
+        mergeMap(timeline => timeline.pipe(toArray())),
+        // tap(r => console.log(r)),
+
+
+        map((val) => {
+
+
+          let weekTotalActive = 0;
+          let weekTotalConfirmed = 0;
+          let weekTotalCured = 0;
+          let weekTotalSuspect = 0;
+          let weekTotalDiscarded = 0;
+          let weekTotalHospitalized = 0;
+          let weekTotalDeath = 0;
+
+
+          return val.reduce((total, day) => {
+
+            total.weekTotalActive += day.todayTotalActive;
+            total.weekTotalConfirmed += day.todayTotalConfirmed;
+            total.weekTotalCured += day.todayTotalCured;
+            total.weekTotalSuspect += day.todayTotalSuspect;
+            total.weekTotalDiscarded += day.todayTotalDiscarded;
+            total.weekTotalHospitalized += day.todayTotalHospitalized;
+            total.weekTotalDeath += day.todayTotalDeath;
+
+            return total
+
+          }, {
+            epidemiologicalWeek: val[0]?.epidemiologicalWeek,
+            weekTotalActive: 0,
+            weekTotalConfirmed: 0,
+            weekTotalCured: 0,
+            weekTotalSuspect: 0,
+            weekTotalDiscarded: 0,
+            weekTotalHospitalized: 0,
+            weekTotalDeath: 0
+          });
+
+          //
+          // val.map((v:any) => {
+          //   weekTotalActive = weekTotalActive + v.todayTotalActive;
+          //   weekTotalConfirmed = weekTotalConfirmed + v.todayTotalConfirmed;
+          //   weekTotalCured = weekTotalCured + v.todayTotalCured;
+          //   weekTotalSuspect = weekTotalSuspect + v.todayTotalSuspect;
+          //   weekTotalDiscarded = weekTotalDiscarded + v.todayTotalDiscarded;
+          //   weekTotalHospitalized = weekTotalHospitalized + v.todayTotalHospitalized;
+          //   weekTotalDeath = weekTotalDeath + v.todayTotalDeath;
+          //
+          //
+          // });
+          //
+          // return {
+          //   epidemiologicalWeek: val[0]?.epidemiologicalWeek,
+          //
+          //   weekTotalActive: weekTotalActive,
+          //   weekTotalConfirmed: weekTotalConfirmed,
+          //   weekTotalCured: weekTotalCured,
+          //   weekTotalSuspect: weekTotalSuspect,
+          //   weekTotalDiscarded: weekTotalDiscarded,
+          //   weekTotalHospitalized: weekTotalHospitalized,
+          //   weekTotalDeath: weekTotalDeath
+          //
+          // };
+        }),
+
+        // map(t => t.total),
+        toArray(),
+        // tap(r => console.log(r))
+    );
+
+    this.week$ = epidemiologicalWeek.subscribe(res => {
+
+      this.generateWeekPlotsData(res);
+
+    });
+
+
+
+    this.combined$ = cityData.subscribe((res) => {
+
+      this.generatePlotsData(res);
+
+
+      this.loadPieChart();
+
+      this.isLoading = false;
+      this.isDataAvailable = true;
+
+
+    }, (e) => {console.warn(e)});
+
+
   }
 
 
