@@ -75,6 +75,9 @@ export class TopbarComponent  {
     {
       title: 'Cravinhos/SP',
       url: 'painel/SP/Cravinhos'
+    },   {
+      title: 'Pindorama/SP',
+      url: 'painel/SP/Pindorama'
     },
     {
       title: 'Sertãozinho/SP',

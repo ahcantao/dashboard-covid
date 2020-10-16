@@ -22,6 +22,9 @@
 
 ## Changelog
 
+### V3.5.0 (2020-10-16)
+- Adição de filtros
+- Correção de bugs
 
 ### V3.4.0 (2020-10-13)
 - Correção de bugs
