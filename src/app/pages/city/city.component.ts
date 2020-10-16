@@ -1031,7 +1031,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
     this.isDataAvailable = false;
 
 
-    this.pieChart.dispose();
+    // this.pieChart.dispose();
 
     this.days = [];
     this.confirmedData = [];
@@ -1141,7 +1141,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.generatePlotsData(res);
 
 
-      this.loadPieChart();
+      // this.loadPieChart();
 
       this.isLoading = false;
       this.isDataAvailable = true;
