@@ -1,4 +1,6 @@
 <h1 align="center">PI-COVID</h1>
+<h3 align="center">Painel Interativo sobre a COVID-19 (PI-COVID)</h3>
+
 <p>
 
   <a href="#" target="_blank">
@@ -7,7 +9,7 @@
 
 </p>
 
-<img alt="Página inicial" src="https://i.imgur.com/c4yhHu6.png" />
+<img alt="Página inicial" src="https://i.imgur.com/Gk76YJZ.png" />
 
 ### 🏠 [Repositório](https://github.com/rafaeldefazio/dashboard-covid/)
 
