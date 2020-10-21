@@ -24,6 +24,9 @@
 
 ## Changelog
 
+### V3.6.0 (2020-10-21)
+- Adicionado arquivo para identificação de nome de cidades, a fim de viabilizar links personalizados
+
 ### V3.5.0 (2020-10-16)
 - Adição de filtros
 - Correção de bugs

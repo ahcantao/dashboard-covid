@@ -5,7 +5,7 @@ import {
   OnDestroy,
   DoCheck
 } from '@angular/core';
-// import COUNTRY_CODES from "../../shared/utils/countries"
+import CITY_CODES from "../../shared/utils/cities"
 
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -53,6 +53,8 @@ am4core.useTheme(am4themes_animated);
 })
 
 export class CityComponent implements OnInit, OnDestroy, DoCheck {
+
+  public cityCodes = CITY_CODES;
 
   combined$: Subscription;
   week$: Subscription;
@@ -195,6 +197,11 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
       this.state = this.route.snapshot.params['state'].toLowerCase();
       this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
+
+      if (this.cityName in this.cityCodes){
+        this.cityName = this.cityCodes[this.cityName].toLowerCase();
+      }
+
 
       this.reload();
 

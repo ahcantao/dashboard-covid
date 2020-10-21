@@ -68,21 +68,22 @@ export class TopbarComponent  {
     //   url: '/mapa-calor'
     // },
 
-    {
-      title: 'Catanduva/SP',
-      url: 'painel/SP/Catanduva'
-    },
-    {
-      title: 'Cravinhos/SP',
-      url: 'painel/SP/Cravinhos'
-    },   {
-      title: 'Pindorama/SP',
-      url: 'painel/SP/Pindorama'
-    },
-    {
-      title: 'Sertãozinho/SP',
-      url: 'painel/SP/Sertãozinho'
-    },
+    // {
+    //   title: 'Catanduva/SP',
+    //   url: 'painel/SP/Catanduva'
+    // },
+    // {
+    //   title: 'Cravinhos/SP',
+    //   url: 'painel/SP/Cravinhos'
+    // },
+    // {
+    //   title: 'Pindorama/SP',
+    //   url: 'painel/SP/Pindorama'
+    // },
+    // {
+    //   title: 'Sertãozinho/SP',
+    //   url: 'painel/SP/Sertãozinho'
+    // },
     {
       title: 'Informações técnicas',
       url: '/informacoes-tecnicas'

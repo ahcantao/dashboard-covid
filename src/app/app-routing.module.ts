@@ -23,7 +23,9 @@ const routes: Routes = [
 
   { path: 'boletim', loadChildren: () => import('./pages/boletim/boletim.module').then(m => m.BoletimModule)},
 
-  { path: 'sertaozinho',  redirectTo: 'painel/sp/sertãozinho'},
+  // { path: 'sertaozinho',  redirectTo: 'painel/sp/sertãozinho'},
+  // { path: 'olimpia',  redirectTo: 'painel/sp/olímpia'},
+
   { path: ':cityName',  redirectTo: 'painel/SP/:cityName'},
   { path: ':state/:cityName',  redirectTo: 'painel/:state/:cityName'},
   { path: 'painel', loadChildren: () => import('./pages/city/city.module').then(m => m.CityModule)},
