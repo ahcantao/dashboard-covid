@@ -10,5 +10,5 @@ export default {
     'palmarespaulista': 'Palmares Paulista',
     'paraiso': 'Paraíso',
     'tabapua': 'Tabapuã',
-    'sereverinia': 'Severínia',
+    'severinia': 'Severínia',
 }
