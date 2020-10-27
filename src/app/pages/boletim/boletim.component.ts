@@ -4,6 +4,8 @@ import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import html2canvas from 'html2canvas';
 import {DatePipe} from '@angular/common';
+import CITY_CODES from "../../shared/utils/cities"
+
 
 @Component({
   selector: 'app-boletim',
@@ -53,6 +55,9 @@ export class BoletimComponent implements OnInit {
 
   route$: Subscription;
 
+  public cityCodes = CITY_CODES;
+
+
 
   constructor(private _getDataService: GetdataService, private route: ActivatedRoute) { }
 
@@ -71,6 +76,11 @@ export class BoletimComponent implements OnInit {
       this.isLoading = true;
       this.state = this.route.snapshot.params['state'].toLowerCase();
       this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
+
+      if (this.cityName in this.cityCodes){
+        this.state = this.cityCodes[this.cityName].estado.toLowerCase();
+        this.cityName = this.cityCodes[this.cityName].cidade.toLowerCase();
+      }
 
       this.reload();
 

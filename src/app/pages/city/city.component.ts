@@ -199,7 +199,8 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
 
       if (this.cityName in this.cityCodes){
-        this.cityName = this.cityCodes[this.cityName].toLowerCase();
+        this.state = this.cityCodes[this.cityName].estado.toLowerCase();
+        this.cityName = this.cityCodes[this.cityName].cidade.toLowerCase();
       }
 
 

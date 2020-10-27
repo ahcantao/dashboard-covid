@@ -23,6 +23,8 @@ import { environment } from '../environments/environment';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CountupComponent } from './shared/countup/countup.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap/alert';
+
 
 import { NewsComponent } from './shared/news/news.component';
 import {FormsModule} from '@angular/forms';
@@ -102,6 +104,7 @@ export function HttpLoaderFactory(http: HttpClient){
     ChartsModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    AlertModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js'),
     TranslateModule.forRoot({
       loader: {

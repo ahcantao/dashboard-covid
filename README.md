@@ -24,6 +24,11 @@
 
 ## Changelog
 
+### V4.0.0 (2020-10-27)
+- Adicionado AuthGuard para mapear cidades e respectivos estados em URLS amigáveis
+- Alteração em "Sobre"
+- Aviso sobre interatividade de gráficos adicionado
+
 ### V3.6.0 (2020-10-21)
 - Adicionado arquivo para identificação de nome de cidades, a fim de viabilizar links personalizados
 
