@@ -120,6 +120,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   public totalDiscarded = 0;
   public todayDiscarded = 0;
   public totalInhabitants2020 = 0;
+  public cityPath: any;
   public cityName: any;
   public state: any;
   public translations : any = {};
@@ -197,6 +198,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
       this.state = this.route.snapshot.params['state'].toLowerCase();
       this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
+      this.cityPath = this.route.snapshot.params['cityName'].toLowerCase();
 
       if (this.cityName in this.cityCodes){
         this.state = this.cityCodes[this.cityName].estado.toLowerCase();

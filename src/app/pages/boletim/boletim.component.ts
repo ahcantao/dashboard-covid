@@ -14,6 +14,7 @@ import CITY_CODES from "../../shared/utils/cities"
 })
 export class BoletimComponent implements OnInit {
 
+  cityPath: string;
   cityName: string;
   state: string;
 
@@ -76,6 +77,7 @@ export class BoletimComponent implements OnInit {
       this.isLoading = true;
       this.state = this.route.snapshot.params['state'].toLowerCase();
       this.cityName = this.route.snapshot.params['cityName'].toLowerCase();
+      this.cityPath = this.cityName;
 
       if (this.cityName in this.cityCodes){
         this.state = this.cityCodes[this.cityName].estado.toLowerCase();

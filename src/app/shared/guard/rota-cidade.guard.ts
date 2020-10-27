@@ -26,7 +26,7 @@ export class RotaCidadeGuard implements CanActivate {
     const splitStateUrl = stateUrl.split('/');
     const goToPage =  splitStateUrl[1];
 
-    this.cityName = next.params.cityName;
+    this.cityName = next.params.cityName.toLowerCase();
 
     if (this.cityName in this.cityCodes){
       this.found = true;
