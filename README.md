@@ -24,9 +24,13 @@
 
 ## Changelog
 
+### V4.1.0 (2020-10-28)
+- Adicionado verificador de atualizaçao por ng-service-worker
+- Correção de bug: preload de fonte
+
 ### V4.0.0 (2020-10-27)
 - Adicionado AuthGuard para mapear cidades e respectivos estados em URLS amigáveis
-- Alteração em "Sobre"
+- Alteração e organização da página "Sobre"
 - Aviso sobre interatividade de gráficos adicionado
 
 ### V3.6.0 (2020-10-21)
