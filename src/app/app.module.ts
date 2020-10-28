@@ -49,6 +49,7 @@ import {ClickOutsideDirective} from './layouts/topbar/click-outside';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import {ChartsModule} from 'ng2-charts';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {UpdateService} from './core/services/updateservice.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -116,6 +117,7 @@ export function HttpLoaderFactory(http: HttpClient){
 
   ],
   providers:[
+      UpdateService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
