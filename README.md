@@ -25,7 +25,7 @@
 ## Changelog
 
 ### V4.1.2 (2020-10-28)
-- Mudança no multiplicador de tempo da função interval() para ficar no padrao de segundos (s) ao invés de milissegundos (ms).
+- Mudança no multiplicador de tempo da função interval() para ficar no padrão de segundos (s) ao invés de milissegundos (ms).
 
 ### V4.1.1 (2020-10-28)
 - Mudança na fonte do boletim de Arial para Karla e Roboto
