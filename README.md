@@ -24,6 +24,10 @@
 
 ## Changelog
 
+### V4.1.1 (2020-10-28)
+- Mudança na fonte do boletim de Arial para Karla e Roboto
+- Aumento da fonte para melhor enquandramento
+
 ### V4.1.0 (2020-10-28)
 - Adicionado verificador de atualizaçao por ng-service-worker
 - Correção de bug: preload de fonte
