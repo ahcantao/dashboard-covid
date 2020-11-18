@@ -180,6 +180,11 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.route$.unsubscribe();
     }
 
+    if (this.month$){
+      this.month$.unsubscribe();
+    }
+
+
     // this.reload();
 
     // });
