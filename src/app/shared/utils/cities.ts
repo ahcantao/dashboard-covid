@@ -62,6 +62,13 @@ export default {
 
 
 
+    'setelagoas':  {
+        cidade:  'Sete Lagoas',
+        estado: 'MG'
+    },
+
+
+
     'concordia':  {
         cidade:  'Concórdia',
         estado: 'SC'

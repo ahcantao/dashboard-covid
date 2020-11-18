@@ -33,7 +33,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {Title} from '@angular/platform-browser';
 import {CravinhosIframeModal} from '../../modals/cravinhos-iframe.modal';
-import { groupBy, map, mergeMap, toArray} from 'rxjs/operators';
+import {groupBy, map, mergeMap, tap, toArray} from 'rxjs/operators';
 
 
 // TEMA ANIMADO (ON/OFF)
@@ -58,6 +58,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
   combined$: Subscription;
   week$: Subscription;
+  month$: Subscription;
   route$: Subscription;
 
   private pieChart: am4charts.PieChart;
@@ -91,6 +92,15 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   weekDiscardedData = [];
   weekHospitalizedData = [];
   weekDeathData = [];
+
+  months = [];
+  monthActiveData = [];
+  monthConfirmedData = [];
+  monthCuredData = [];
+  monthSuspectData = [];
+  monthDiscardedData = [];
+  monthHospitalizedData = [];
+  monthDeathData = [];
 
 
   public isLoading: boolean = true;
@@ -401,6 +411,92 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
         toArray(),
         // tap(r => console.log(r))
     );
+
+
+
+
+    const monthlyAnalysis = cityData.pipe(
+        mergeMap(array => array),
+        groupBy((day:any) => day?.date.substr("-", 7)),
+        // flatMap(group => group.pipe(map(item => ({item, key:group.key}))))
+        mergeMap(timeline => timeline.pipe(toArray())),
+        // tap(r => console.log(r)),
+
+
+        map((val) => {
+
+
+          let monthTotalActive = 0;
+          let monthTotalConfirmed = 0;
+          let monthTotalCured = 0;
+          let monthTotalSuspect = 0;
+          let monthTotalDiscarded = 0;
+          let monthTotalHospitalized = 0;
+          let monthTotalDeath = 0;
+
+
+          return val.reduce((total, day) => {
+
+            total.monthTotalActive += day.todayTotalActive;
+            total.monthTotalConfirmed += day.todayTotalConfirmed;
+            total.monthTotalCured += day.todayTotalCured;
+            total.monthTotalSuspect += day.todayTotalSuspect;
+            total.monthTotalDiscarded += day.todayTotalDiscarded;
+            total.monthTotalHospitalized += day.todayTotalHospitalized;
+            total.monthTotalDeath += day.todayTotalDeath;
+
+            return total
+
+          }, {
+            yearMonth: val[0]?.date.substr("-", 7),
+            monthYear: val[0]?.date.split("-")[1] + "/" + val[0]?.date.split("-")[0],
+            monthTotalActive: 0,
+            monthTotalConfirmed: 0,
+            monthTotalCured: 0,
+            monthTotalSuspect: 0,
+            monthTotalDiscarded: 0,
+            monthTotalHospitalized: 0,
+            monthTotalDeath: 0
+          });
+
+          //
+          // val.map((v:any) => {
+          //   weekTotalActive = weekTotalActive + v.todayTotalActive;
+          //   weekTotalConfirmed = weekTotalConfirmed + v.todayTotalConfirmed;
+          //   weekTotalCured = weekTotalCured + v.todayTotalCured;
+          //   weekTotalSuspect = weekTotalSuspect + v.todayTotalSuspect;
+          //   weekTotalDiscarded = weekTotalDiscarded + v.todayTotalDiscarded;
+          //   weekTotalHospitalized = weekTotalHospitalized + v.todayTotalHospitalized;
+          //   weekTotalDeath = weekTotalDeath + v.todayTotalDeath;
+          //
+          //
+          // });
+          //
+          // return {
+          //   epidemiologicalWeek: val[0]?.epidemiologicalWeek,
+          //
+          //   weekTotalActive: weekTotalActive,
+          //   weekTotalConfirmed: weekTotalConfirmed,
+          //   weekTotalCured: weekTotalCured,
+          //   weekTotalSuspect: weekTotalSuspect,
+          //   weekTotalDiscarded: weekTotalDiscarded,
+          //   weekTotalHospitalized: weekTotalHospitalized,
+          //   weekTotalDeath: weekTotalDeath
+          //
+          // };
+        }),
+
+        // map(t => t.total),
+        toArray(),
+        tap(r => console.log(r))
+    );
+
+
+    this.month$ = monthlyAnalysis.subscribe(res => {
+
+      this.generateMonthPlotsData(res);
+
+    });
 
     this.week$ = epidemiologicalWeek.subscribe(res => {
 
@@ -999,6 +1095,21 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
       this.weekDeathData.push(dia.weekTotalDeath);
 
     })
+  }
+
+  generateMonthPlotsData(dataArray){
+    dataArray.forEach((month) => {
+      // console.log(month);return;
+      this.months.push(month.monthYear);
+      this.monthActiveData.push(month.monthTotalActive);
+      this.monthConfirmedData.push(month.monthTotalConfirmed);
+      this.monthCuredData.push(month.monthTotalCured);
+      this.monthSuspectData.push(month.monthTotalSuspect);
+      this.monthDiscardedData.push(month.monthTotalDiscarded);
+      this.monthHospitalizedData.push(month.monthTotalHospitalized);
+      this.monthDeathData.push(month.monthTotalDeath);
+    });
+
   }
 
 

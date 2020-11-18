@@ -768,6 +768,64 @@
 
   </div>
 
+  <!--  ANÁLISE MENSAL - Confirmados e Óbitos -->
+  <div class="row">
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Casos confirmados por mês de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
+                  [days]="months"
+                  label="Casos confirmados"
+                  [data]="monthConfirmedData"
+                  borderColor="#21afdd"
+                  backgroundColor="rgba(33, 175, 221, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div><!-- end col -->
+
+
+    <div class="col-xl-6">
+      <div class="card-box">
+
+
+        <h4 class="header-title mt-0 mb-3 mt-md-0">Óbitos por mês de notificação</h4>
+
+        <div class="fa-3x text-center" [class.d-none]="!isLoading">
+          <i class="fas fa-circle-notch fa-spin m-2"></i>
+        </div>
+
+        <div class="table-responsive" [class.d-none]="isLoading">
+          <app-plot-historico
+                  [isDataAvailable]="isDataAvailable"
+                  [days]="months"
+                  label="Óbitos"
+                  [data]="monthDeathData"
+                  borderColor="#EF3340"
+                  backgroundColor="rgba(239, 51, 64, 1)"
+                  type="bar"
+          >
+          </app-plot-historico>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
 
 
 
