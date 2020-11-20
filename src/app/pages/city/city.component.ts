@@ -1290,6 +1290,23 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
         // tap(r => console.log(r))
     );
 
+    // this.forkJoin$ = forkJoin(
+    //     [
+    //       epidemiologicalWeek, // week
+    //       cityData // timeline
+    //     ]).subscribe(res => {
+    //
+    //   this.generateWeekPlotsData(res[0]); // week
+    //
+    //   // timeline
+    //   const resBoletim = res[1];
+    //   this.generatePlotsData(resBoletim);
+    //   this.isLoading = false;
+    //   this.isDataAvailable = true;
+    //
+    //
+    // },(e) => {console.warn(e)});
+
     this.week$ = epidemiologicalWeek.subscribe(res => {
 
       this.generateWeekPlotsData(res);
