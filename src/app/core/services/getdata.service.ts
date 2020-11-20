@@ -16,14 +16,14 @@ export class GetdataService {
 
   getCity(stateName, cityName): Observable<any>{
     return this._http.get<Country>(`${this.url_host}/cities/${stateName}/${cityName}`).pipe(
-        retry(1),
+        retry(3),
         catchError(this.handleError)
     );
   }
 
   getTimelineCity(stateName, cityName): Observable<any>{
     return this._http.get(`${this.url_host}/timeline/${stateName}/${cityName}`).pipe(
-        retry(1),
+        retry(3),
         catchError(this.handleError)
     );
   }

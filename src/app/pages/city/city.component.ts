@@ -27,6 +27,7 @@ import {
   GetdataService
 } from "./../../core/services/getdata.service";
 import {
+  forkJoin,
   Observable, of,
   Subscription
 } from 'rxjs';
@@ -60,6 +61,7 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   week$: Subscription;
   month$: Subscription;
   route$: Subscription;
+  forkJoin$: Subscription;
 
   private pieChart: am4charts.PieChart;
   private lineChart: am4charts.XYChart;
@@ -182,6 +184,10 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
     if (this.month$){
       this.month$.unsubscribe();
+    }
+
+    if (this.forkJoin$){
+      this.forkJoin$.unsubscribe();
     }
 
 
@@ -493,42 +499,72 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
         // map(t => t.total),
         toArray(),
-        tap(r => console.log(r))
+        // tap(r => console.log(r))
     );
 
+    this.forkJoin$ = forkJoin(
+        [
+            monthlyAnalysis, // month
+            epidemiologicalWeek, // week
+            cityData // timeline
+        ]).subscribe(res => {
 
-    this.month$ = monthlyAnalysis.subscribe(res => {
-
-      this.generateMonthPlotsData(res);
-
-    });
-
-    this.week$ = epidemiologicalWeek.subscribe(res => {
-
-      this.generateWeekPlotsData(res);
-
-    });
+      this.generateMonthPlotsData(res[0]); //month
+      this.generateWeekPlotsData(res[1]); // week
 
 
+      // timeline
+      const resBoletim = res[2];
+      const boletim = resBoletim[resBoletim.length-1];
 
-    this.combined$ = cityData.subscribe((res) => {
-
-      const boletim = res[res.length-1];
-
-      this.generatePlotsData(res);
+      this.generatePlotsData(resBoletim);
 
       this.updateBoletim(boletim);
 
       this.isLoading = false;
       this.isDataAvailable = true;
 
-      this.timeLine = res;
+      this.timeLine = resBoletim;
 
       this.loadPieChart();
       this.loadLineChart(false);
 
 
-    }, (e) => {console.warn(e)});
+    },(e) => {console.warn(e)});
+
+    //
+    // this.month$ = monthlyAnalysis.subscribe(res => {
+    //
+    //   this.generateMonthPlotsData(res);
+    //
+    // });
+    //
+    // this.week$ = epidemiologicalWeek.subscribe(res => {
+    //
+    //   this.generateWeekPlotsData(res);
+    //
+    // });
+
+
+    //
+    // this.combined$ = cityData.subscribe((res) => {
+    //
+    //   const boletim = res[res.length-1];
+    //
+    //   this.generatePlotsData(res);
+    //
+    //   this.updateBoletim(boletim);
+    //
+    //   this.isLoading = false;
+    //   this.isDataAvailable = true;
+    //
+    //   this.timeLine = res;
+    //
+    //   this.loadPieChart();
+    //   this.loadLineChart(false);
+    //
+    //
+    // }, (e) => {console.warn(e)});
 
 
 
