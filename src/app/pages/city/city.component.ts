@@ -3,7 +3,7 @@ import {
   OnInit,
   NgZone,
   OnDestroy,
-  DoCheck
+  DoCheck, ElementRef, ViewChild
 } from '@angular/core';
 import CITY_CODES from "../../shared/utils/cities"
 
@@ -70,7 +70,8 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
 
   locale = 'pt-br';
 
-  dateRangeFilter: Date[];
+  @ViewChild('periodofiltro') filterInput: ElementRef;
+  dateRangeFilter: Date[] = [];
 
 
   isDataAvailable:boolean = false;
@@ -1157,12 +1158,17 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
   // Filtrar dados
 
   filterByDateButtonClicked(){
+
     if (this.dateRangeFilter.length > 0){
       let start = this.dateRangeFilter[0];
       start.setHours(0,0,0);
 
       let end = this.dateRangeFilter[1];
       end.setHours(0,0,0);
+
+
+      this.filterInput.nativeElement.value = '';
+      this.dateRangeFilter = [];
 
 
       this.reloadFilterData(
@@ -1290,43 +1296,44 @@ export class CityComponent implements OnInit, OnDestroy, DoCheck {
         // tap(r => console.log(r))
     );
 
-    // this.forkJoin$ = forkJoin(
-    //     [
-    //       epidemiologicalWeek, // week
-    //       cityData // timeline
-    //     ]).subscribe(res => {
-    //
-    //   this.generateWeekPlotsData(res[0]); // week
-    //
-    //   // timeline
-    //   const resBoletim = res[1];
-    //   this.generatePlotsData(resBoletim);
-    //   this.isLoading = false;
-    //   this.isDataAvailable = true;
-    //
-    //
-    // },(e) => {console.warn(e)});
+    this.forkJoin$ = forkJoin(
+        [
+          epidemiologicalWeek, // week
+          cityData // timeline
+        ]).subscribe(res => {
 
-    this.week$ = epidemiologicalWeek.subscribe(res => {
+      this.generateWeekPlotsData(res[0]); // week
 
-      this.generateWeekPlotsData(res);
-
-    });
-
-
-
-    this.combined$ = cityData.subscribe((res) => {
-
-      this.generatePlotsData(res);
-
-
-      // this.loadPieChart();
-
+      // timeline
+      const resBoletim = res[1];
+      this.generatePlotsData(resBoletim);
       this.isLoading = false;
       this.isDataAvailable = true;
 
 
-    }, (e) => {console.warn(e)});
+    },(e) => {console.warn(e)});
+
+    //
+    // this.week$ = epidemiologicalWeek.subscribe(res => {
+    //
+    //   this.generateWeekPlotsData(res);
+    //
+    // });
+    //
+    //
+    //
+    // this.combined$ = cityData.subscribe((res) => {
+    //
+    //   this.generatePlotsData(res);
+    //
+    //
+    //   // this.loadPieChart();
+    //
+    //   this.isLoading = false;
+    //   this.isDataAvailable = true;
+    //
+    //
+    // }, (e) => {console.warn(e)});
 
 
   }
