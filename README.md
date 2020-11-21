@@ -24,6 +24,9 @@
 
 ## Changelog
 
+### V4.2.0 (2020-11-20)
+- Adicionado forkJoin: as páginas de cidades iniciam o carregamento dos gráficos após concluir todas as requisições de API, bem como realizar tratamento dos dados.
+
 ### V4.1.2 (2020-10-28)
 - Mudança no multiplicador de tempo da função interval() para ficar no padrão de segundos (s) ao invés de milissegundos (ms).
 
